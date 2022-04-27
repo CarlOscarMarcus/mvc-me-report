@@ -1,0 +1,29 @@
+{% include 'incl/header.twig' %}
+
+
+    <body style="text-align: center;">
+    {% include 'incl/nav_cards.twig' %}
+
+
+        <article>
+            <h1>Välkommen till cards/draw för kmom02</h1>
+
+            <div>
+                <p>
+                    Dra ett kort ifrån kortleken
+                </p>
+                <p>
+                    {% autoescape %}
+                        {{ card_as_string|raw }}
+                    {% endautoescape %}
+                </p>
+                <p>
+                    Card drawed: <br>
+                    {{ draw_card|raw  }}
+                </p>
+            </div>
+            <br>
+        </article>
+        {% include 'incl/footer.twig' %}
+    </body>
+</html>

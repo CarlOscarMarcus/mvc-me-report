@@ -1,0 +1,39 @@
+{% include 'incl/header.twig' %}
+
+
+    <body style="text-align: center;">
+    {% include 'incl/nav.twig' %}
+
+
+        <article>
+            <h1>Välkommen till cards för kmom02</h1>
+
+            <div class="cards">
+                <p>
+                    Här finns länkar för de olika kort funktionerna för kmom02 <br>
+                    <ul>
+                        <li> <a href="{{ asset("card/deck") }}">Soterad kortlek (/card/deck)</a> </li>
+                        <li> <a href="{{ asset("card/shuffle") }}"> Blanda kortleken (/card/shuffle)</a> </li>
+                        <li> <a href="{{ asset("card/draw") }}"> Dra ett kort (/card/draw)</a> </li>
+                        <li> <a href="{{ asset("card/draw/1") }}"> Dra flera kort (/card/draw/:antal)</a> </li>
+                        <li> <a href="{{ asset("card/deck/deal/2/1") }}"> Dra kort med spelare (/card/deck/deal/:players/:cards)</a> </li>
+                        <li> <a href="{{ asset("card/deck2") }}"> Soterad kortlek med Joker (/card/deck2)</a> </li>
+                    </ul>
+                </p>
+                <p>
+                    Här finns länkar för de olika api funktionerna för kmom02 <br>
+                    <ul>
+                        <li> <a href="{{ asset("card/api/deck/") }}">Soterad kortlek (card/api/deck/)</a> </li>
+                        <li> <a href="{{ asset("card/shuffle") }}"> Blanda kortleken (/card/shuffle)</a> </li>
+                        <li> <a href="{{ asset("card/draw") }}"> Dra ett kort (/card/draw)</a> </li>
+                        <li> <a href="{{ asset("card/draw/1") }}"> Dra flera kort (/card/draw/:antal)</a> </li>
+                        <li> <a href="{{ asset("card/deck/deal/2/1") }}"> Dra kort med spelare (/card/deck/deal/:players/:cards)</a> </li>
+                        <li> <a href="{{ asset("card/deck2") }}"> Soterad kortlek med Joker (/card/deck2)</a> </li>
+                    </ul>
+                </p>
+            </div>
+            <br>
+        </article>
+        {% include 'incl/footer.twig' %}
+    </body>
+</html>
