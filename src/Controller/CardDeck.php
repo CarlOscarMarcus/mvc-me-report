@@ -13,7 +13,7 @@ class CardDeck extends AbstractController
     /**
      * @Route("/card/deck", name="dice-deck")
      */
-    public function card_deck(): Response
+    public function deck(): Response
     {
         $card = new \App\Card\Card();
         $data = [
@@ -27,7 +27,7 @@ class CardDeck extends AbstractController
     /**
      * @Route("/card/api/deck/", name="api-deck")
     */
-    public function card_deck_api(): Response
+    public function deckApi(): Response
     {
         $card = new \App\Card\Card();
         $data = [
@@ -41,7 +41,7 @@ class CardDeck extends AbstractController
     /**
      * @Route("/card/deck2", name="dice-deck2")
      */
-    public function card_deck_joker(): Response
+    public function deckJoker(): Response
     {
         $card = new \App\Card\CardJoker();
         $data = [

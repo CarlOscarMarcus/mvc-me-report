@@ -11,7 +11,7 @@ class CardIndex extends AbstractController
     /**
      * @Route("/card", name="card_index")
      */
-    public function card_index(): Response
+    public function index(): Response
     {
         return $this->render('card/index.html.twig', []);
     }

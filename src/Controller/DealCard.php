@@ -10,17 +10,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DealCard extends AbstractController
 {
-
     /**
      * @Route("/card/deck/deal/{players}/{draw_amount}", name="draw-deal")
     */
-    public function deal_cards(
+    public function dealCards(
         int $draw_amount,
         int $players,
         SessionInterface $session
-        ): Response
-        {
-
+    ): Response {
         $data = [
             'title' => 'Card dealer',
             'players_hand' => $session->get('shuffle')->dealcard($players, $draw_amount),
@@ -32,13 +29,11 @@ class DealCard extends AbstractController
     /**
      * @Route("/card/api/deck/deal/{players}/{draw_amount}", name="api-deal")
     */
-    public function deal_cards_api(
+    public function dealCardsApi(
         int $draw_amount,
         int $players,
         SessionInterface $session
-        ): Response
-        {
-
+    ): Response {
         $data = [
             'title' => 'Card dealer',
             'players_hand' => $session->get('shuffle')->dealcard($players, $draw_amount),

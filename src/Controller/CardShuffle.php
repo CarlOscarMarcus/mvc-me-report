@@ -13,10 +13,9 @@ class CardShuffle extends AbstractController
     /**
      * @Route("/card/shuffle", name="dice_shuffle")
      */
-    public function card_shuffle(
+    public function shuffle(
         SessionInterface $session
-    ): Response
-    {
+    ): Response {
         $shuffle = new \App\Card\Shuffle();
         $session->set('shuffle', $shuffle);
         $shuffle->shuffleDeck();
@@ -31,12 +30,11 @@ class CardShuffle extends AbstractController
     }
 
     /**
-     * @Route("/card/api/shuffle", name="api_shuffle")
+     * @Route("/card/api/deck/shuffle", name="api_shuffle")
      */
-    public function card_shuffle_api(
+    public function shuffleApi(
         SessionInterface $session
-    ): Response
-    {
+    ): Response {
         $shuffle = new \App\Card\Shuffle();
         $session->set('shuffle', $shuffle);
         $shuffle->shuffleDeck();

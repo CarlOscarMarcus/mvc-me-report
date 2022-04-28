@@ -10,15 +10,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DrawCard extends AbstractController
 {
-
     /**
      * @Route("/card/draw", name="draw-card")
      */
-    public function card_draw(
+    public function cardDraw(
         SessionInterface $session
-        ): Response
-        {
-
+    ): Response {
         $data = [
             'title' => 'DrawCard',
             'draw_card' => $session->get('shuffle')->getcard(),
@@ -28,13 +25,11 @@ class DrawCard extends AbstractController
     }
 
     /**
-     * @Route("/card/api/draw", name="api-draw")
+     * @Route("/card/api/deck/draw", name="api-draw")
      */
-    public function card_draw_api(
+    public function cardDrawApi(
         SessionInterface $session
-        ): Response
-        {
-
+    ): Response {
         $data = [
             'title' => 'DrawCard',
             'draw_card' => $session->get('shuffle')->getcard(),
@@ -46,12 +41,10 @@ class DrawCard extends AbstractController
     /**
      * @Route("/card/draw/{draw_amount}", name="draw-card-multi")
     */
-    public function card_draw_multi(
+    public function cardDrawMulti(
         int $draw_amount,
         SessionInterface $session
-        ): Response
-        {
-
+    ): Response {
         $data = [
             'title' => 'DrawCard',
             'deck' => 'deck',
@@ -62,14 +55,12 @@ class DrawCard extends AbstractController
     }
 
     /**
-     * @Route("/card/api/draw/{draw_amount}", name="api-draw-multi")
+     * @Route("/card/api/deck/draw/{draw_amount}", name="api-draw-multi")
     */
-    public function card_draw_multi_api(
+    public function cardDrawMultiApi(
         int $draw_amount,
         SessionInterface $session
-        ): Response
-        {
-
+    ): Response {
         $data = [
             'title' => 'DrawCard',
             'deck' => 'deck',
