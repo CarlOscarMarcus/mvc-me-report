@@ -17,8 +17,8 @@ class CardShuffle extends AbstractController
         SessionInterface $session
     ): Response {
         $shuffle = new \App\Card\Shuffle();
-        $session->set('shuffle', $shuffle);
         $shuffle->shuffleDeck();
+        $session->set('shuffle', $shuffle);
 
 
         $data = [

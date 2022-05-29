@@ -1,0 +1,29 @@
+{% include 'incl/header.twig' %}
+
+
+    <body style="text-align: center;">
+    {% include 'incl/nav_cards.twig' %}
+
+
+        <article class="cards">
+            <h1>Landningssida för game kmom03</h1>
+
+            <div>
+                <h3> Regler för blackjack </h3>
+                <p>
+                När inne på spelet kan du som spelare välja att dra ett kort eller stanna.
+                Målet med spelet är att få sitt hand värde så nära 21 som möjligt.
+                Om handen överstiger värdet 21 så förlorar handen direkt.
+                Den som blir närast 21 utan att överstiga 21 vinner.
+                Banken kommer att dra sina kort efter få har fått blackjack 21 eller har stannat utan att överstiga 21.
+                </p>
+                <p>
+                <li> <a href="{{ asset("game/doc")}}"> Till dokumentationen (/game/doc/) </a> </li>
+                    <li> <a href="{{ asset("game/blackjack")}}"> Till spelet (/game/blackjack/) </a> </li>
+                </p>
+            </div>
+            <br>
+        </article>
+        {% include 'incl/footer.twig' %}
+    </body>
+</html>

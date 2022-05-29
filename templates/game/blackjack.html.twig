@@ -1,0 +1,47 @@
+{% include 'incl/header.twig' %}
+
+
+    <body style="text-align: center;">
+    {% include 'incl/nav_cards.twig' %}
+
+
+        <article">
+            <h1>Blackjack för kmom03</h1>
+
+            <div>
+                <p>
+                    Blackjack(21)
+                </p>
+                <span>
+                    <p>
+                        <form method="post">
+                            {% autoescape %}
+                                {{ stay_button|raw }}
+                                {{ hit_button|raw }}
+                                {{ new_game|raw }}
+                            {% endautoescape %}
+                        </form>
+                    </p>
+                    <p>
+                        {% autoescape %}
+                            {{ text|raw }}
+                        {% endautoescape %}
+                    </p>
+                    <p>
+                        Player: {{ player_value }}
+                        <br>
+                        {{ player_hand }}
+                        <br>
+                    </p>
+                    <p>
+                        Bank: {{ bank_value }}
+                        <br>
+                        {{ bank_hand }}
+                    </p>
+                </span>
+            </div>
+            <br>
+        </article>
+        {% include 'incl/footer.twig' %}
+    </body>
+</html>
