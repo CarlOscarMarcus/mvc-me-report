@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f9c8b1526bb6b36dac77ca658fdd4e1df7f1f52e',
+        'reference' => 'd32f927a936df6849786c8b4de4411c405d205e9',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f9c8b1526bb6b36dac77ca658fdd4e1df7f1f52e',
+            'reference' => 'd32f927a936df6849786c8b4de4411c405d205e9',
             'dev_requirement' => false,
         ),
         'phpunit/php-file-iterator' => array(
