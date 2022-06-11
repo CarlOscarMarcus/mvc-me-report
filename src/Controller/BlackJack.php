@@ -46,6 +46,12 @@ class BlackJack extends AbstractController
 
             $text = $session->get('text') ?? "";
 
+            if ($player_value == 0){
+                $shuffle = new \App\Card\Shuffle();
+                $shuffle->shuffleDeck();
+                $session->set('shuffle', $shuffle);
+            }
+
             if ($state){
                 if (isset($_POST['action'])) {
                     // If player stay
@@ -151,9 +157,6 @@ class BlackJack extends AbstractController
                             header("Refresh:0");
                         }
                     }
-                    $shuffle = new \App\Card\Shuffle();
-                    $shuffle->shuffleDeck();
-                    $session->set('shuffle', $shuffle);
             }
             // Seasson sets for post
             $session->set('player_hand', $player);
