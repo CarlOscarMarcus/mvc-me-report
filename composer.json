@@ -1,4 +1,12 @@
 {
+    "name": "osay21/report",
+    "description": "mvc v2 osay21",
+    "authors": [
+        {
+            "name": "Oscar Wystråle (osay21)",
+            "email": "osay21@student.bth.se"
+        }
+    ],
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
