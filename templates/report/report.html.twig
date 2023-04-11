@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid kmomrep">
+        <div class="row" id="kmom01">
+            <h1> Kmom 01 </h1>
+            <p>
+                Min förkunskaper king objektorientering är att jag har jobbat
+                med de 2 kmom förra året på denna kurs.
+                Sedan har jag också jobbat med objektorientering på egna drivna projekt.
+                <br><br>
+                För att kunna komma igång med php behöver man kunna olika deklarationer och metoder
+                för att den ska fungera. Först måste man göra en Klassdeklaration som är själva nämnet
+                på klasses som gör att man kan kalla på den.
+                Sedan behövs det egenskaper som bara kan nås inom klasses som är själva definationen
+                av objektet ska innehålla. 
+                Vid behöv kan man också implementera metoder, konstruktors och arv.
+                Dessa används om man vill göra speciella händersler med objektet och dela data
+                med subklasser.
+                <br><br>
+                Strukturen som användes till denna uppgift var att vi gjorde olika filer som läser varandra
+                för att kunna fungera. 
+                Templatesen körs av kontrollerna som har koll på vilken router.
+                Just base.html.twig är grund templaten för hela hemsidan och den läses in av alla andra
+                templates genom include som sedan lägger in sin egna infomation inom blocken som vi
+                deffinerade inom base filen. Sedan har vi kontroller som håller till på routerna
+                på hemsidan och den håller koll på vilken template som ska köras.
+                <br><br>
+                Jag fastande mycket på delnar Databases och Security i artiklen "PHP: The Right Way"
+                Jag gjorde det för att jag tycker det är kul med databasen och något som jag inte
+                har lärt mig än är särkerhet som är en stor del av utvecklningen på backend.
+                Tycker det är också roligt att testa särkerhet av min gamla projekt för att se
+                hur min vetenskap utvecklas.
+                <br><br>
+                I detta kmom har jag lärt mig mer om särkerhet främst hasing lösenord 
+                genom att läsa igenom den sektionen på artiklen "PHP: The Right Way".
+            </p>
+        </div>
+        <div class="row" id="kmom02">
+            <h1> Kmom 02 </h1>
+            <p> </p>
+        </div>
+        <div class="row" id="kmom03">
+            <h1> Kmom 03 </h1>
+            <p> </p>
+        </div>
+        <div class="row" id="kmom04">
+            <h1> Kmom 04 </h1>
+            <p> </p>
+        </div>
+        <div class="row" id="kmom05">
+            <h1> Kmom 05 </h1>
+            <p> </p>
+        </div>
+        <div class="row" id="kmom06">
+            <h1> Kmom 06 </h1>
+            <p> </p>
+        </div>
+        <div class="row" id="kmom07/10">
+            <h1> Kmom 07/10 </h1>
+            <p> </p>
+        </div>
+    </div>
+{% endblock %}

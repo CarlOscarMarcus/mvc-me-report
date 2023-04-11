@@ -1,0 +1,53 @@
+@import url('navbar.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+.icon{
+    height: 20px;
+}
+
+body {
+    background-color: lightgray;
+}
+
+/* About CSS */
+.mvc{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+}
+
+.row {
+    display: table;
+    width: 100%;
+}
+
+.row [class*="col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+    width: 50%;
+    padding: 10px;
+}
+
+/* Kmom report CSS*/
+.kmomrep div{
+    scroll-behavior: smooth;
+    scroll-margin-top: -250px;
+}
+
+
+/* Footer CSS */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+}

@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <center> <h1>Om mvc kursen</h1> </center>
+                <p> 
+                    Denna kurs handlar om hur vi kan lära oss att programmera på ett annorlunda sätt
+                    jämnfört med andra kurser.
+                    "mvc" är en förkortning till model-view-controller som är ett
+                    arkitkturmönster som tar hand om hur applikationen fungerar.
+                    För att kunna använda mvc behövs det controller, model och view
+                    för att kunna göra en renderning av koden. 
+                    Alla tre olika delarna har stor använing av varandra.
+                </p>
+                <br> <img class="mvc" src="{{ asset('img/mvc_progress.png')}}">
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <center> 
+                    <h1>Github repon</h1>
+                    <p> 
+                        <a href="https://github.com/dbwebb-se/mvc"> Dbwebb repo </a> 
+                        <img class="icon" src="{{ asset('img/github_logga.png')}}">
+                    </p>
+                    <p> 
+                        <a href="https://github.com/CarlOscarMarcus/mvc-me-report"> Oscar Wystråles (osay21) repo </a> 
+                        <img class="icon" src="{{ asset('img/github_logga.png')}}">
+                    </p>
+                </center>
+            </div>
+        </div>
+    </div>
+{% endblock %}
