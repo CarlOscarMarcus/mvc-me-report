@@ -13,12 +13,6 @@ class CardControllerTwig extends AbstractController
     #[Route("/card", name: "card")]
     public function card(): Response
     {
-        $deck = new Deck();
-        $deck->sort();
-        $data = [
-            'deck' => $deck->cardsToString()
-        ];
-
         return $this->render('cards/index.html.twig');
     }
 
