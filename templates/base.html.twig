@@ -15,15 +15,27 @@
     </head>
     <body>
         <header>
+            <?php define('BASE_URL', 'http://localhost:8888/~osay21/dbwebb-kurser/mvc/me/report/') ?>
             <img class="icon" src="{{ asset('img/bth_logga.png')}}">
             <nav>
                 <ul>
-                    <li><a href="./">Index</a></li>
-                    <li><a href="./about">About</a></li>
-                    <li><a href="./report">Report</a></li>
-                    <li><a href="./lucky">Lucky</a></li>
-                    <li><a href="./api/quote">API Quote</a></li>
-                    <li><a href="./card">Cards</a></li>
+                    <li><a href=" {{ path('index') }} ">Index</a></li>
+                    <li><a href="{{ path('about') }}">About</a></li>
+                    <li><a href="{{ path('report') }}">Report</a></li>
+                    <li><a href="{{ path('lucky') }}">Lucky</a></li>
+                    <li><a href="{{ path('apiIndex') }}">API</a></li>
+                    <li><a href="{{ path('cardDrawCostum',{number:5}) }}">Draw</a></li>
+                    <li>
+                        <select onchange="window.location.href=this.value;">
+                            <option disabled selected>Cards</option>
+                            <option value="{{ path('card') }}">/card </option>
+                            <option value="{{ path('cardDeck') }}">/card/deck </option>
+                            <option value="{{ path('cardShuffle') }}">/card/shuffle </option>
+                            <option value="{{ path('cardDraw') }}">/card/draw </option>
+                            <option value="{{ path('cardDraw') }}/4">/card/draw/:number </option>
+                            <option value="{{ path('cardDraw') }}/2/5">/card/draw/:players/:number </option>
+                        </select>
+                    </li>
                 </ul>
             </nav>
         </header>

@@ -1,16 +1,29 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Index{% endblock %}
+{% block title %}API Index{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
-        <h1> Card Index </h1>
+        <h1> Api Index </h1>
         <div class="row">
             <ul>
-                <li> <a href="/card/deck"> Sorted Deck /card/deck </a> </li>
-                <li> <a href="/card/shuffle"> Shuffle Deck /card/shuffle </a> </li>
-                <li> <a href="/card/draw"> Draw Card /card/draw </a> </li>
+                <li> <a href="/api/quote"> Get an random quote /api/quote </a> </li>
+                <li> <a href="/api/deck"> Deck /api/deck </a> </li>
             </ul>
+            <form method="POST", action="">
+                <input type="submit" name="shuffle" value="Shuffle"
+                    onclick="this.form.action='{{ path('api_deck_shuffle') }}';"
+                ><br>
+                <input type="submit" name="draw" value="Draw"
+                    onclick="this.form.action='{{ path('api_deck_draw') }}';"
+                ><br>
+                <input type="submit" name="draw_multi" value="Draw/5"
+                    onclick="this.form.action='{{ path('api_deck_draw_multi', {number:5}) }}';"
+                ><br>
+                <input type="submit" name="draw_players" value="Draw/2/5"
+                    onclick="this.form.action='{{ path('api_deck_draw_player', {players: 2, number: 5}) }}';"
+                >
+            </form>
         </div>
         <div class="row">
             <p>

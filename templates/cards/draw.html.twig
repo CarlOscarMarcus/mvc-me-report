@@ -5,10 +5,10 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            <h1>A new shuffled deck</h1>
+            <h1>Your card(s) you draw</h1>
         </div>
         <div class="row">
-            {{deck|raw}}
+            {{deck|raw}} <br> Amout of cards left in deck: {{deck_left}}
         </div>
     </div>
 {% endblock %}
