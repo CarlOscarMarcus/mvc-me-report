@@ -39,10 +39,11 @@ class CardControllerApi
     }
 
     #[Route("/api/deck", name:"api_deck_get", methods: ['GET'])]
-    public function api_deck(SessionInterface $session): Response
+    public function apiDeck(SessionInterface $session): Response
     {
         $deck = new Deck();
         $deck->sort();
+        $session->set('deck', $deck);
         $data = [
             'Spader' => '♠',
             'Hjarter' => '♥',
@@ -60,7 +61,7 @@ class CardControllerApi
     }
 
     #[Route("/api/deck/shuffle", name:"api_deck_shuffle", methods:['POST'])]
-    public function api_deck_shuffle(SessionInterface $session): Response
+    public function apiDeckShuffle(SessionInterface $session): Response
     {
         $deck = new Deck();
         $deck->shuffle();
@@ -82,7 +83,7 @@ class CardControllerApi
     }
 
     #[Route("/api/deck/draw", name:"api_deck_draw", methods:['POST'])]
-    public function api_deck_draw(SessionInterface $session): Response
+    public function apiDeckDraw(SessionInterface $session): Response
     {
         $deck = $session->get('deck');
         $cards = $deck->deal();
@@ -93,7 +94,7 @@ class CardControllerApi
             'Hjarter' => '♥',
             'Ruter' => '♦',
             'Klover' => '♣',
-            'Card' => $deck->cardsToStringApi($card),
+            'Card' => $deck->cardsToStringApi($cards),
             'deck_left' => $deck->countDeck()
         ];
 
@@ -106,7 +107,7 @@ class CardControllerApi
     }
 
     #[Route("/api/deck/draw/{number<\d+>}", name:"api_deck_draw_multi", methods:['POST'])]
-    public function api_deck_draw_costum(SessionInterface $session, int $number = 1): Response
+    public function apiDeckDrawCostum(SessionInterface $session, int $number = 1): Response
     {
         $deck = $session->get('deck');
         $cards = $deck->deal($number);
@@ -132,20 +133,20 @@ class CardControllerApi
     #[Route("/card/draw/{players<\d+>}/{number<\d+>}", name: "api_deck_draw_player", methods: ["POST"])]
     public function cardDrawPlayers(SessionInterface $session, int $players = 1, int $number = 1): Response
     {
-        $player_hands = [];
+        $playerHands = [];
         $deck = $session->get('deck');
 
         for($x = 0; $x < $players; $x++) {
-            array_push($player_hands, new Player());
+            array_push($playerHands, new Player());
         }
 
-        foreach ($player_hands as $hand) {
+        foreach ($playerHands as $hand) {
             $hand->addCard($deck->deal($number));
         }
 
         $temp = "";
-        foreach ($player_hands as $hand) {
-            $temp .= 'Player' . strval((array_search($hand, $player_hands) + 1) . ": ");
+        foreach ($playerHands as $hand) {
+            $temp .= 'Player' . strval((array_search($hand, $playerHands) + 1) . ": ");
             $temp .= $hand->playerToStringApi();
         }
 

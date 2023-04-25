@@ -3,6 +3,7 @@
 namespace App\DeckHandler;
 
 use App\DeckHandler\Card\Card;
+use Exception;
 
 class Deck
 {
@@ -14,7 +15,8 @@ class Deck
         $cardValues = array("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
 
         // Create the deck
-        for ($i = 0; $i < count($suits); $i++) {
+        $lenght = count($suits);
+        for ($i = 0; $i < $lenght; $i++) {
             for ($j = 0; $j <= 12; $j++) {
                 $card = new Card($suits[$i], $cardValues[$j]);
                 array_push($this->cards, $card);
@@ -30,40 +32,40 @@ class Deck
     public function deal($numCards = 1)
     {
         $temp = array();
+    
+        if (count($this->cards) < $numCards) {
+            throw new Exception("Not enough cards in deck to draw {$numCards} cards. Renew your deck with /card/shuffle");
+        }
+        
         for ($i = 0; $i < $numCards; $i++) {
-            if (count($this->cards) > 0) {
-                array_push($temp, array_shift($this->cards));
-            } else {
-                die("Not enough cards in deck to draw {$numCards} cards. <a href='/card/shuffle'> Renew your deck </a>");
-            }
+            array_push($temp, array_shift($this->cards));
         }
         return $temp;
     }
 
     public function sort()
     {
-        usort($this->cards, function ($a, $b) {
+        usort($this->cards, function ($suits, $rank) {
             $suitOrder = array('♠', '♣', '♥', '♦');
-            $aSuitIndex = array_search($a->getSuit(), $suitOrder);
-            $bSuitIndex = array_search($b->getSuit(), $suitOrder);
+            $aSuitIndex = array_search($suits->getSuit(), $suitOrder);
+            $bSuitIndex = array_search($rank->getSuit(), $suitOrder);
 
             if ($aSuitIndex < $bSuitIndex) {
                 return -1;
             } elseif ($aSuitIndex > $bSuitIndex) {
                 return 1;
-            } else {
-                $valueOrder = array("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
-                $aValueIndex = array_search($a->getRank(), $valueOrder);
-                $bValueIndex = array_search($b->getRank(), $valueOrder);
-
-                if ($aValueIndex < $bValueIndex) {
-                    return -1;
-                } elseif ($aValueIndex > $bValueIndex) {
-                    return 1;
-                } else {
-                    return 0;
-                }
             }
+
+            $valueOrder = array("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
+            $aValueIndex = array_search($suits->getRank(), $valueOrder);
+            $bValueIndex = array_search($rank->getRank(), $valueOrder);
+
+            if ($aValueIndex < $bValueIndex) {
+                return -1;
+            } elseif ($aValueIndex > $bValueIndex) {
+                return 1;
+            }
+            return 0;
         });
     }
 

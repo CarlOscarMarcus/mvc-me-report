@@ -75,20 +75,20 @@ class CardControllerTwig extends AbstractController
     #[Route("/card/draw/{players<\d+>}/{number<\d+>}", name: "cardDrawPlayers")]
     public function cardDrawPlayers(SessionInterface $session, int $players = 1, int $number = 1): Response
     {
-        $player_hands = [];
+        $playerHands = [];
         $deck = $session->get('deck');
 
         for($x = 0; $x < $players; $x++) {
-            array_push($player_hands, new Player());
+            array_push($playerHands, new Player());
         }
 
-        foreach ($player_hands as $hand) {
+        foreach ($playerHands as $hand) {
             $hand->addCard($deck->deal($number));
         }
 
         $temp = "";
-        foreach ($player_hands as $hand) {
-            $temp .= 'Player' . strval((array_search($hand, $player_hands) + 1) . ": ");
+        foreach ($playerHands as $hand) {
+            $temp .= 'Player' . strval((array_search($hand, $playerHands) + 1) . ": ");
             $temp .= $hand->playerToString() . "<br>";
         }
 
@@ -102,7 +102,7 @@ class CardControllerTwig extends AbstractController
     }
 
     #[Route("/api", name: "apiIndex")]
-    public function api_index(): Response
+    public function apiIndex(): Response
     {
         return $this->render('cards/api_index.html.twig');
     }
