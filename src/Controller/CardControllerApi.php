@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\DeckHandler\Deck;
+use App\DeckHandler\Player;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +52,7 @@ class CardControllerApi
         ];
 
         $response = new JsonResponse($data);
-        $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
+        $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         $response->setEncodingOptions(
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
         );
@@ -59,10 +60,11 @@ class CardControllerApi
     }
 
     #[Route("/api/deck/shuffle", name:"api_deck_shuffle", methods:['POST'])]
-    public function api_deck_shuffle(): Response
+    public function api_deck_shuffle(SessionInterface $session): Response
     {
         $deck = new Deck();
         $deck->shuffle();
+        $session->set('deck', $deck);
         $data = [
             'Spader' => '♠',
             'Hjarter' => '♥',
@@ -80,11 +82,12 @@ class CardControllerApi
     }
 
     #[Route("/api/deck/draw", name:"api_deck_draw", methods:['POST'])]
-    public function api_deck_draw(): Response
+    public function api_deck_draw(SessionInterface $session): Response
     {
-        $deck = new Deck();
-        $deck->shuffle();
-        $card = $deck->deal();
+        $deck = $session->get('deck');
+        $cards = $deck->deal();
+        $session->set('deck', $deck);
+
         $data = [
             'Spader' => '♠',
             'Hjarter' => '♥',
@@ -103,17 +106,18 @@ class CardControllerApi
     }
 
     #[Route("/api/deck/draw/{number<\d+>}", name:"api_deck_draw_multi", methods:['POST'])]
-    public function api_deck_draw_costum(int $number = 1): Response
+    public function api_deck_draw_costum(SessionInterface $session, int $number = 1): Response
     {
-        $deck = new Deck();
-        $deck->shuffle();
-        $card = $deck->deal($number);
+        $deck = $session->get('deck');
+        $cards = $deck->deal($number);
+        $session->set('deck', $deck);
+
         $data = [
             'Spader' => '♠',
             'Hjarter' => '♥',
             'Ruter' => '♦',
             'Klover' => '♣',
-            'Cards' => $deck->cardsToStringApi($card),
+            'Cards' => $deck->cardsToStringApi($cards),
             'deck_left' => $deck->countDeck()
         ];
 
@@ -129,29 +133,33 @@ class CardControllerApi
     public function cardDrawPlayers(SessionInterface $session, int $players = 1, int $number = 1): Response
     {
         $player_hands = [];
-        // $deck = $session->get('deck');
-        $deck = new Deck();
-        $deck->shuffle();
+        $deck = $session->get('deck');
 
         for($x = 0; $x < $players; $x++) {
-            array_push($player_hands, $deck->deal($number));
+            array_push($player_hands, new Player());
+        }
+
+        foreach ($player_hands as $hand) {
+            $hand->addCard($deck->deal($number));
+        }
+
+        $temp = "";
+        foreach ($player_hands as $hand) {
+            $temp .= 'Player' . strval((array_search($hand, $player_hands) + 1) . ": ");
+            $temp .= $hand->playerToStringApi();
         }
 
         $session->set('deck', $deck);
         $data = [
-            'Players' => $deck->playersToStringApi($player_hands),
+            'Hands' => $temp,
             'deck_left' => $deck->countDeck()
         ];
+
         $response = new JsonResponse($data);
         $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
         $response->setEncodingOptions(
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
         );
         return $response;
-
     }
-
-
-
-
 }

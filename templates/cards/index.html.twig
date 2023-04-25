@@ -7,26 +7,40 @@
         <h1> Card Index </h1>
         <div class="row">
             <ul>
-                <li> <a href="/card/deck"> Sorted Deck /card/deck </a> </li>
-                <li> <a href="/card/shuffle"> Shuffle Deck /card/shuffle </a> </li>
-                <li> <a href="/card/draw"> Draw Card /card/draw </a> </li>
+                <li> <a href="{{ path('card') }}">/card </a> </li>
+                <li> <a href="{{ path('cardDeck') }}">/card/deck </a> </li>
+                <li> <a href="{{ path('cardShuffle') }}">/card/shuffle </a> </li>
+                <li> <a href="{{ path('cardDraw') }}">/card/draw </a> </li>
+                <li> <a href="{{ path('cardDraw') }}/4">/card/draw/:number </a> </li>
+                <li> <a href="{{ path('cardDraw') }}/2/5">/card/draw/:players/:number </a> </li>
             </ul>
+            <strong> Nuvarrande funktionalitet följde ej detta! Kommer att ändras i kmom03 </strong>
         </div>
         <div class="row">
             <p>
-                Jag har valt att gör en stor klass som tar hand om alla kommandon.
-                För att skapa ett nytt deck används konstruktorn för klasses till.
-                Som gör att det räcker att göra $deck = new Deck(); för att få ett nytt deck.
-                Konstruktorn ger tillbaks en array med två delar "suit" och "rank" för att kunna senare sotera
-                kvarstånde lättare i framtiden.
-                Sen har jag en suffle function som blandar kortleken.
-                Sedan har jag en deal function som delar ut kort baserat på argumentet som standard är 1 om argumentet är null.
-                Har en sort function så jag kan sotera kvarstånde av kortleken på /card/deck delsidan.
-                Sedan har jag tre olika Tostring funktioner beronde på vad ska göra. Ena är för hela kortleken,
-                sedan har jag en för valda kort som fungerar med card/draw/... som gör att den bara visar
-                de kort som skickas med i arguemntet. Till sist har jag en del håller koll på kortutdelningen av
-                när man har flera spelare. Sista funktionen är räknare som räknar ut hur många kort som är kvar i kortleken.
+                Mina klasser fungerar på följande sätt.
+                Card är ett klass som skapar spelkorten som tar emot två variabler $suit och $rank.
+                Dessa två variabler blir sedan en key: value lista som retunerar objectet till konstruktion
+                för deck. funktionerna för card getSuit() och getRank() returnerar icon som ändras betonde på värdet.
+                T.ex. om ranken på ett kort är 1 så omvandlar den till A samma process händer med 11,12,13 och för suits.
+                <br><br>
+                Deck fungerar genom att skapa hela decket vid construction som bli alla kort utan jokrar. 
+                De skapar i ordning med primär sort av suit sedan vädet på kortet.
+                shuffle() ändras ordningen på korten som när man blandar.
+                deal(n) get ut kort till variablen som tar emot värdet. Som i detta fall bli en spelars hand.
+                Under deal tas det kort bort som delas ut och argumentet n är en int som står för hur många kort som ska delas ut.
+                sort() Soterar tillbaka decket för card/deck sidan som gör att den soterar alla kort som är kvar i primär ordning av suit
+                och sekundär ordning värdet. 
+                <br><br>
+                CardHand klasses är en spelares hand som behåller spelarens kort mängd och vilka kort den har.
+                Den tar emot kort genom addCard($cards) funktionen där $cards kan vara flera kort eller bara en.
+                Den ska ta emot en lista. getCards() är en funktion som omvandlar kortens variabler till symboler.
+                Genom att kalla på funktionerna Card->getSuit() och Card->getRank().
+
             </p>
+        </div>
+        <div class="row">
+            <img src="{{ asset('img/flowchart.drawio.svg')}}"
         </div>
     </div>
 {% endblock %}

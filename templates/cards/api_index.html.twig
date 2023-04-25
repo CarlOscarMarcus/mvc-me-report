@@ -7,23 +7,38 @@
         <h1> Api Index </h1>
         <div class="row">
             <ul>
-                <li> <a href="/api/quote"> Get an random quote /api/quote </a> </li>
-                <li> <a href="/api/deck"> Deck /api/deck </a> </li>
+                <li> <a href="{{path('api_qoute')}}"> Get an random quote /api/quote </a> </li>
+
+                <li>
+                    <form method="GET", action="">
+                        <input type="submit" name="deck" value="Get Deck"
+                            onclick="this.form.action='{{ path('api_deck_get') }}';"
+                        ><br>
+                    </form>
+                </li>
+                <form method="POST", action="">
+                    <li>
+                        <input type="submit" name="shuffle" value="Shuffle"
+                            onclick="this.form.action='{{ path('api_deck_shuffle') }}';"
+                        >
+                    </li>
+                    <li>
+                    <input type="submit" name="draw" value="Draw"
+                        onclick="this.form.action='{{ path('api_deck_draw') }}';"
+                    >
+                    </li>
+                    <li>
+                    <input type="submit" name="draw_multi" value="Draw/5"
+                        onclick="this.form.action='{{ path('api_deck_draw_multi', {number:5}) }}';"
+                    >
+                    </li>
+                    <li>
+                    <input type="submit" name="draw_players" value="Draw/2/5"
+                        onclick="this.form.action='{{ path('api_deck_draw_player', {players: 2, number: 5}) }}';"
+                    >
+                    </li>
+                </form>
             </ul>
-            <form method="POST", action="">
-                <input type="submit" name="shuffle" value="Shuffle"
-                    onclick="this.form.action='{{ path('api_deck_shuffle') }}';"
-                ><br>
-                <input type="submit" name="draw" value="Draw"
-                    onclick="this.form.action='{{ path('api_deck_draw') }}';"
-                ><br>
-                <input type="submit" name="draw_multi" value="Draw/5"
-                    onclick="this.form.action='{{ path('api_deck_draw_multi', {number:5}) }}';"
-                ><br>
-                <input type="submit" name="draw_players" value="Draw/2/5"
-                    onclick="this.form.action='{{ path('api_deck_draw_player', {players: 2, number: 5}) }}';"
-                >
-            </form>
         </div>
         <div class="row">
             <p>

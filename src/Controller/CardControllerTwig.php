@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\DeckHandler\Deck;
+use App\DeckHandler\Player;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -78,12 +79,22 @@ class CardControllerTwig extends AbstractController
         $deck = $session->get('deck');
 
         for($x = 0; $x < $players; $x++) {
-            array_push($player_hands, $deck->deal($number));
+            array_push($player_hands, new Player());
+        }
+
+        foreach ($player_hands as $hand) {
+            $hand->addCard($deck->deal($number));
+        }
+
+        $temp = "";
+        foreach ($player_hands as $hand) {
+            $temp .= 'Player' . strval((array_search($hand, $player_hands) + 1) . ": ");
+            $temp .= $hand->playerToString() . "<br>";
         }
 
         $session->set('deck', $deck);
         $data = [
-            'deck' => $deck->playersToString($player_hands),
+            'deck' => $temp,
             'deck_left' => $deck->countDeck()
         ];
 

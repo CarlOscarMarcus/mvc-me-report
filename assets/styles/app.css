@@ -52,7 +52,13 @@ body {
     margin: 5px;
 }
 
+.red {
+    color: red;
+}
 
+.black {
+    color: black;
+}
 
 /* Footer CSS */
 .footer {
