@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Blackjack</h1>
+        </div>
+        <div class="blackjackDealer">
+            <div class="dealer">
+                {{dealer|raw}}
+            </div>
+        </div>
+        <div class="blackjackPlayers">
+            <div class="players">
+                {{playerCard|raw}} <br>
+                {{player|raw}} <br>
+                {% if buttons == true %}
+                <a href='{{path('blackjackHit')}}'> Hit </a> <br>
+                <a href='{{path('blackjackStand')}}'> Strand </a>
+                {% endif %}
+                {% if gameStatus == "gameOver" %}
+                <a href='{{path('blackjackReset')}}'> Start new game </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

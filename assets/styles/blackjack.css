@@ -1,0 +1,22 @@
+
+.blackjackDealer{
+    display: grid;
+    grid-template-columns: auto;
+    justify-items: center;
+}
+
+.blackjackPlayers{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    justify-items: center;
+}
+
+.players,
+.dealer{
+    text-align: center;
+}
+
+.hit,
+.stand{
+    width: 70px;
+}
