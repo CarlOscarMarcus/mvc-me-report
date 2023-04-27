@@ -17,7 +17,7 @@ class Player extends Deck
 
     public function addCard($cards)
     {
-        foreach($cards as $card){
+        foreach($cards as $card) {
             array_push($this->cards, $card);
         }
     }
@@ -30,7 +30,7 @@ class Player extends Deck
     // Take care of if buttons on blackjack displays or not
     public function changeStatus()
     {
-        if($this->active == true){
+        if($this->active == true) {
             $this->active = false;
         } else {
             $this->active = true;
@@ -64,18 +64,15 @@ class Player extends Deck
         foreach ($this->cards as $card) {
             if ($card->getRank() == 'A') {
                 $has_ace = true;
-            }
-            else if (in_array($card->getRank(), ['J', 'Q', 'K'])) {
+            } elseif (in_array($card->getRank(), ['J', 'Q', 'K'])) {
                 $sum += 10;
-            }
-            else {
+            } else {
                 $sum += intval($card->getRank());
             }
         }
         if ($has_ace) {
             return [$sum + 1, $sum + 11];
-        }
-        else {
+        } else {
             return [$sum, $sum];
         }
     }

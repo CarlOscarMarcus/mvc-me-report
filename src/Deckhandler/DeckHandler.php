@@ -32,11 +32,11 @@ class Deck
     public function deal($numCards = 1)
     {
         $temp = array();
-    
+
         if (count($this->cards) < $numCards) {
             throw new Exception("Not enough cards in deck to draw {$numCards} cards. Renew your deck with /card/shuffle");
         }
-        
+
         for ($i = 0; $i < $numCards; $i++) {
             array_push($temp, array_shift($this->cards));
         }

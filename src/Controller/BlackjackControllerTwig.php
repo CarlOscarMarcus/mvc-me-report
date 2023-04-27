@@ -53,49 +53,50 @@ class BlackjackControllerTwig extends AbstractController
             $player = $session->get('player');
             $dealer = $session->get('dealer');
             $deck = $session->get('deck');
-            $result = $session->get('result');;
+            $result = $session->get('result');
+            ;
         }
 
-        if ($session->get('gameStatus') == "stand"){
+        if ($session->get('gameStatus') == "stand") {
             // Dealer draws if player have stand
             // Check if dealer are allowed to draw
             // Needs to be under 17 and under all posiblites of players hand
-            if($dealer->getValueOfHand()[0] == 21){
+            if($dealer->getValueOfHand()[0] == 21) {
                 $session->set('result', 'Dealer Blackjack!');
                 $session->set('gameStatus', 'result');
             }
 
-            if($dealer->getValueOfHand()[0] < 17 && 
+            if($dealer->getValueOfHand()[0] < 17 &&
                 $dealer->getValueOfHand()[0] < $player->getValueOfHand()[1]
-            ){
+            ) {
                 $dealer->addCard($deck->deal(1));
-            }else{
+            } else {
                 $session->set('gameStatus', 'result');
             }
             header("Refresh:0");
-        }elseif ($session->get('gameStatus') == "result"){
+        } elseif ($session->get('gameStatus') == "result") {
             // Check if players value on hand.
             // If player have ace use high number if not over 21
 
-            if($dealer->getValueOfHand()[0] > 21){
+            if($dealer->getValueOfHand()[0] > 21) {
                 $session->set('result', 'Player wins <br> Dealer busts');
-            }elseif($player->getValueOfHand()[0] > 21 ){
+            } elseif($player->getValueOfHand()[0] > 21) {
                 $session->set('result', 'Dealer wins <br> Player busts');
-            }else{
-                if($player->getValueOfHand()[1] < 21){
-                    if($player->getValueOfHand()[1] > $dealer->getValueOfHand()[0]){
+            } else {
+                if($player->getValueOfHand()[1] < 21) {
+                    if($player->getValueOfHand()[1] > $dealer->getValueOfHand()[0]) {
                         $session->set('result', 'Player wins <br>');
-                    }elseif($player->getValueOfHand()[1] == $dealer->getValueOfHand()[0]){
+                    } elseif($player->getValueOfHand()[1] == $dealer->getValueOfHand()[0]) {
                         $session->set('result', 'Tie <br> Push');
-                    }else{
+                    } else {
                         $session->set('result', 'Dealer wins <br>');
                     }
-                }else{
-                    if($player->getValueOfHand()[0] > $dealer->getValueOfHand()[0]){
+                } else {
+                    if($player->getValueOfHand()[0] > $dealer->getValueOfHand()[0]) {
                         $session->set('result', 'Player wins <br>');
-                    }elseif($player->getValueOfHand()[0] == $dealer->getValueOfHand()[0]){
+                    } elseif($player->getValueOfHand()[0] == $dealer->getValueOfHand()[0]) {
                         $session->set('result', 'Tie <br> Push');
-                    }else{
+                    } else {
                         $session->set('result', 'Dealer wins <br>');
                     }
                 }
@@ -105,10 +106,10 @@ class BlackjackControllerTwig extends AbstractController
 
         // Count players hand value
         $playerValue = $player->getValueOfHand();
-        if($playerValue[0] !== $playerValue[1]){
-            if($playerValue[1] > 21){
-                $value = strval($playerValue[0]);    
-            }else{
+        if($playerValue[0] !== $playerValue[1]) {
+            if($playerValue[1] > 21) {
+                $value = strval($playerValue[0]);
+            } else {
                 $value = strval($playerValue[0]) . " | " . strval($playerValue[1]);
             }
         } else {
@@ -124,7 +125,7 @@ class BlackjackControllerTwig extends AbstractController
             // Players
             "player" => $value,
             "playerCard" => $player->playerToString(),
-        
+
             // Dealer
             "dealer" => $dealer->getValueOfHand()[0],
             "dealerCard" => $dealer->playerToString(),
@@ -145,14 +146,14 @@ class BlackjackControllerTwig extends AbstractController
         $deck = $session->get('deck');
         $player = $session->get('player');
 
-        if($session->get('gameStatus') == "active"){
+        if($session->get('gameStatus') == "active") {
             // Player draws
             $player->addCard($deck->deal(1));
             // See if player hits blackjack(21) och busts (>21)
-            if($player->getValueOfHand()[0] > 21){
+            if($player->getValueOfHand()[0] > 21) {
                 $player->changeStatus();
                 $session->set('gameStatus', 'result');
-            }elseif($player->getValueOfHand()[0] == 21 || $player->getValueOfHand()[1] == 21){
+            } elseif($player->getValueOfHand()[0] == 21 || $player->getValueOfHand()[1] == 21) {
                 $player->changeStatus();
                 $session->set('gameStatus', 'gameOver');
                 $session->set('result', 'Player wins <br> Player Blackjack!');

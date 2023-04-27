@@ -41,7 +41,7 @@ class CardControllerApi
     #[Route("/api/deck", name:"api_deck_get", methods: ['GET'])]
     public function apiDeck(SessionInterface $session): Response
     {
-        if($session->get('deck') == null){
+        if($session->get('deck') == null) {
             $deck = new Deck();
             $deck->shuffle();
             $session->set('deck', $deck);
