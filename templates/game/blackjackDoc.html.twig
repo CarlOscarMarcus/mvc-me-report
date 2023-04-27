@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Welcome to blackjack Docs</h1>
+        </div>
+        <div class="row">
+            <p> 
+                <h3> Pseudokod: </h3>
+                1. Game Start with button press. <br>
+                2. Player get 2 card faceup cards. <br>
+                3. Dealer get 2 card faceup cards. <br>
+                4. Player get the choose to hit or stand if stands $this->active = false. <br>
+                5. Then player is done with hit and stand dealers starts to draw one card at a time. <br>
+                6. Dealer hits until hand value reaches above 17 or is above player hand value. <br>
+                7. Display the result and give user a button that restarts game. <br>
+                8. Repeat. <br>
+            </p>
+            <p> 
+                <h3> Flowchart: </h3>
+                <img src="{{asset('img/flowchart1.drawio.svg')}}" >
+            </p>
+            <p>
+                <h3> Classes </h3>
+                The class card is important because its the main object used in the game.
+                It decides what value the card is worth and are responsible for drawing them also.<br>
+                Player is the class that stores the cards for the players hand. This class is
+                reponsible for separating the diffrent player hand from each other to have unique
+                hands. <br>
+                The last class is deck and its jobb its to keep all cards that build up an deck.
+                It needs also to keep track of witch cards that already been drawn. So the same
+                card can't be dealt multiple time im the same round.
+            </p>
+            <p>
+                <a href="{{path('blackjack')}}"> Click to start game </a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

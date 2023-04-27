@@ -35,7 +35,14 @@
                             <option value="{{ path('cardDraw') }}/2/5">/card/draw/:players/:number </option>
                         </select>
                     </li>
-                    <li><a href="{{ path('blackjackIndex') }}">Blackjack</a></li>
+                    <li>
+                        <select onchange="window.location.href=this.value;">
+                            <option disabled selected>Game</option>
+                            <option value="{{ path('blackjackIndex') }}">/game </option>
+                            <option value="{{ path('blackjackDoc') }}">/game/doc </option>
+                            <option value="{{ path('blackjack') }}">/game/blackjack </option>
+                        </select>
+                    </li>
                 </ul>
             </nav>
         </header>

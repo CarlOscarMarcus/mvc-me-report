@@ -11,26 +11,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlackjackControllerTwig extends AbstractController
 {
-    #[Route("/card/blackjackIntro", name: "blackjackIndex")]
+    #[Route("/game", name: "blackjackIndex")]
     public function blackjackIndex(): Response
     {
-        return $this->render('cards/blackjackIndex.html.twig');
+        return $this->render('game/blackjackIndex.html.twig');
     }
 
-    #[Route("/card/blackjack", name: "blackjack", methods: ['GET'])]
+    #[Route("/game/doc", name: "blackjackDoc")]
+    public function blackjackDoc(): Response
+    {
+        return $this->render('game/blackjackDoc.html.twig');
+    }
+
+
+    #[Route("/game/blackjack", name: "blackjack", methods: ['GET'])]
     public function blackjack(SessionInterface $session): Response
     {
-        // Force new game
-        // $session->set("gameStatus", 'new');
-
-
-        /*
-        1. Players get 2 card each with faceup cards
-        2. Deal get 2 card one facedown and one faceup
-        3. Players get the choose to hit or stand if stands $this->active = false
-        4. All player is done with hit and stand show dealers 2:nd card.
-        5. Dealer hits until if reaches above 17
-        */
         if ($session->get('gameStatus') == null || $session->get('gameStatus') == 'new') {
             //Create new game
             $session->set("gameStatus", 'active');
@@ -48,24 +44,26 @@ class BlackjackControllerTwig extends AbstractController
             $session->set('dealer', $dealer);
             $session->set('deck', $deck);
             $session->set('result', $result);
-        } else {
-            // Get last rounds values
-            $player = $session->get('player');
-            $dealer = $session->get('dealer');
-            $deck = $session->get('deck');
-            $result = $session->get('result');
-            ;
+        } 
+
+        $player = $session->get('player');
+        $dealer = $session->get('dealer');
+        $deck = $session->get('deck');
+        $result = $session->get('result');
+
+        if($dealer->getValueOfHand()[0] == 21) {
+            $session->set('result', 'Dealer Blackjack!');
+            $player->changeStatus();
+            $session->set('gameStatus', 'gameOver');
+        }
+        if($player->getValueOfHand()[0] == 21 || $player->getValueOfHand()[1] == 21) {
+            $session->set('result', 'Player Blackjack!');
+            $player->changeStatus();
+            $session->set('gameStatus', 'gameOver');
         }
 
         if ($session->get('gameStatus') == "stand") {
-            // Dealer draws if player have stand
-            // Check if dealer are allowed to draw
-            // Needs to be under 17 and under all posiblites of players hand
-            if($dealer->getValueOfHand()[0] == 21) {
-                $session->set('result', 'Dealer Blackjack!');
-                $session->set('gameStatus', 'result');
-            }
-
+            // Dealer draws if player stands
             if($dealer->getValueOfHand()[0] < 17 &&
                 $dealer->getValueOfHand()[0] < $player->getValueOfHand()[1]
             ) {
@@ -77,7 +75,6 @@ class BlackjackControllerTwig extends AbstractController
         } elseif ($session->get('gameStatus') == "result") {
             // Check if players value on hand.
             // If player have ace use high number if not over 21
-
             if($dealer->getValueOfHand()[0] > 21) {
                 $session->set('result', 'Player wins <br> Dealer busts');
             } elseif($player->getValueOfHand()[0] > 21) {
@@ -136,10 +133,10 @@ class BlackjackControllerTwig extends AbstractController
             'result' => $session->get('result')
         ];
 
-        return $this->render('cards/blackjack.html.twig', $data);
+        return $this->render('game/blackjack.html.twig', $data);
     }
 
-    #[Route("/card/blackjack/hit", name: "blackjackHit")]
+    #[Route("/game/blackjack/hit", name: "blackjackHit")]
     public function blackjackHit(SessionInterface $session): Response
     {
         // Get values and hit player
@@ -153,10 +150,6 @@ class BlackjackControllerTwig extends AbstractController
             if($player->getValueOfHand()[0] > 21) {
                 $player->changeStatus();
                 $session->set('gameStatus', 'result');
-            } elseif($player->getValueOfHand()[0] == 21 || $player->getValueOfHand()[1] == 21) {
-                $player->changeStatus();
-                $session->set('gameStatus', 'gameOver');
-                $session->set('result', 'Player wins <br> Player Blackjack!');
             }
             $session->set('player', $player);
         }
@@ -164,7 +157,7 @@ class BlackjackControllerTwig extends AbstractController
         return $this->redirectToRoute('blackjack');
     }
 
-    #[Route("/card/blackjack/stand", name: "blackjackStand")]
+    #[Route("/game/blackjack/stand", name: "blackjackStand")]
     public function blackjackStand(SessionInterface $session): Response
     {
         $session->set("gameStatus", 'stand');
@@ -173,7 +166,7 @@ class BlackjackControllerTwig extends AbstractController
         return $this->redirectToRoute('blackjack');
     }
 
-    #[Route("/card/blackjack/reset", name: "blackjackReset")]
+    #[Route("/cardgame/blackjack/reset", name: "blackjackReset")]
     public function blackjackReset(SessionInterface $session): Response
     {
         $session->set("gameStatus", 'new');
