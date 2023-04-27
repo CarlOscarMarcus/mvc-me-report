@@ -61,8 +61,8 @@ class BlackjackControllerTwig extends AbstractController
             // Check if dealer are allowed to draw
             // Needs to be under 17 and under all posiblites of players hand
             if($dealer->getValueOfHand()[0] == 21){
-                $session->set('gameStatus', 'gameOver');
                 $session->set('result', 'Dealer Blackjack!');
+                $session->set('gameStatus', 'result');
             }
 
             if($dealer->getValueOfHand()[0] < 17 && 
@@ -72,7 +72,6 @@ class BlackjackControllerTwig extends AbstractController
             }else{
                 $session->set('gameStatus', 'result');
             }
-
             header("Refresh:0");
         }elseif ($session->get('gameStatus') == "result"){
             // Check if players value on hand.

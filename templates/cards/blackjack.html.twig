@@ -25,10 +25,12 @@
                 {{playerCard|raw}} <br>
                 {{player|raw}} <br>
                 {% if buttons == true %}
-                <a href='{{path('blackjackHit')}}'> Hit </a> <br>
+                <br>
+                <a href='{{path('blackjackHit')}}'> Hit </a> <br><br>
                 <a href='{{path('blackjackStand')}}'> Strand </a>
                 {% endif %}
                 {% if gameStatus == "gameOver" %}
+                <br>
                 <a href='{{path('blackjackReset')}}'> Start new game </a>
                 {% endif %}
             </div>
