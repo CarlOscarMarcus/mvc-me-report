@@ -16,6 +16,15 @@
     text-align: center;
 }
 
+.players a{
+    background-color: gray;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
 .hit,
 .stand{
     width: 70px;
