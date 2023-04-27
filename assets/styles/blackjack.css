@@ -1,13 +1,13 @@
 
 .blackjackDealer{
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: 500px auto auto auto auto;
     justify-items: center;
 }
 
 .blackjackPlayers{
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: 500px auto auto auto auto;
     justify-items: center;
 }
 

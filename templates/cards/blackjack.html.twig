@@ -7,13 +7,21 @@
         <div class="row">
             <h1>Blackjack</h1>
         </div>
+        <div class="blackjackResult">
+            <div class="result">
+                <h3> {{result|raw}} </h3>
+            </div>
+        </div>
         <div class="blackjackDealer">
             <div class="dealer">
+                <h3> Dealer </h3>
+                {{dealerCard|raw}}<br>
                 {{dealer|raw}}
             </div>
         </div>
         <div class="blackjackPlayers">
             <div class="players">
+                <h3> Player </h3>
                 {{playerCard|raw}} <br>
                 {{player|raw}} <br>
                 {% if buttons == true %}

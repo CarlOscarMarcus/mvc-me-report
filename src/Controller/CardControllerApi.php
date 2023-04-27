@@ -41,15 +41,21 @@ class CardControllerApi
     #[Route("/api/deck", name:"api_deck_get", methods: ['GET'])]
     public function apiDeck(SessionInterface $session): Response
     {
-        $deck = new Deck();
-        $deck->sort();
-        $session->set('deck', $deck);
+        if($session->get('deck') == null){
+            $deck = new Deck();
+            $deck->shuffle();
+            $session->set('deck', $deck);
+        }
+
+        $deck = $session->get('deck');
+        $sortedDeck = clone $deck;
+        $sortedDeck->sort();
         $data = [
             'Spader' => '♠',
             'Hjarter' => '♥',
             'Ruter' => '♦',
             'Klover' => '♣',
-            'deck' => $deck->deckToStringApi()
+            'deck' => $sortedDeck->deckToStringApi()
         ];
 
         $response = new JsonResponse($data);

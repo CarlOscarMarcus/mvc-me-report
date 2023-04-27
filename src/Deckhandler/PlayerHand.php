@@ -56,7 +56,6 @@ class Player extends Deck
         return parent::cardsToStringApi($temp);
     }
 
-
     // Blackjack
     public function getValueOfHand()
     {
@@ -77,7 +76,7 @@ class Player extends Deck
             return [$sum + 1, $sum + 11];
         }
         else {
-            return [$sum];
+            return [$sum, $sum];
         }
     }
 }
