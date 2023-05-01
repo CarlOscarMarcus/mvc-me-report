@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\DeckHandler\Deck;
 use App\DeckHandler\Player;
+use App\DeckHandler\Game;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BlackjackControllerTwig extends AbstractController
@@ -44,20 +46,16 @@ class BlackjackControllerTwig extends AbstractController
             $session->set('dealer', $dealer);
             $session->set('deck', $deck);
             $session->set('result', $result);
-        } 
+        }
+        $game = new Game();
 
         $player = $session->get('player');
         $dealer = $session->get('dealer');
         $deck = $session->get('deck');
         $result = $session->get('result');
 
-        if($dealer->getValueOfHand()[0] == 21) {
-            $session->set('result', 'Dealer Blackjack!');
-            $player->changeStatus();
-            $session->set('gameStatus', 'gameOver');
-        }
-        if($player->getValueOfHand()[0] == 21 || $player->getValueOfHand()[1] == 21) {
-            $session->set('result', 'Player Blackjack!');
+        if($game->checkValues($player->getValueOfHand(), $dealer->getValueOfHand())) {
+            $session->set('result', $game->checkValues($player->getValueOfHand(), $dealer->getValueOfHand()));
             $player->changeStatus();
             $session->set('gameStatus', 'gameOver');
         }
@@ -65,52 +63,15 @@ class BlackjackControllerTwig extends AbstractController
         if ($session->get('gameStatus') == "stand") {
             // Dealer draws if player stands
             if($dealer->getValueOfHand()[0] < 17 &&
-                $dealer->getValueOfHand()[0] < $player->getValueOfHand()[1]
+                $game->highestBelow21($dealer->getValueOfHand()) < $game->highestBelow21($player->getValueOfHand())
             ) {
                 $dealer->addCard($deck->deal(1));
-            } else {
-                $session->set('gameStatus', 'result');
             }
+            $session->set('gameStatus', 'result');
             header("Refresh:0");
         } elseif ($session->get('gameStatus') == "result") {
-            // Check if players value on hand.
-            // If player have ace use high number if not over 21
-            if($dealer->getValueOfHand()[0] > 21) {
-                $session->set('result', 'Player wins <br> Dealer busts');
-            } elseif($player->getValueOfHand()[0] > 21) {
-                $session->set('result', 'Dealer wins <br> Player busts');
-            } else {
-                if($player->getValueOfHand()[1] < 21) {
-                    if($player->getValueOfHand()[1] > $dealer->getValueOfHand()[0]) {
-                        $session->set('result', 'Player wins <br>');
-                    } elseif($player->getValueOfHand()[1] == $dealer->getValueOfHand()[0]) {
-                        $session->set('result', 'Tie <br> Push');
-                    } else {
-                        $session->set('result', 'Dealer wins <br>');
-                    }
-                } else {
-                    if($player->getValueOfHand()[0] > $dealer->getValueOfHand()[0]) {
-                        $session->set('result', 'Player wins <br>');
-                    } elseif($player->getValueOfHand()[0] == $dealer->getValueOfHand()[0]) {
-                        $session->set('result', 'Tie <br> Push');
-                    } else {
-                        $session->set('result', 'Dealer wins <br>');
-                    }
-                }
-            }
+            $session->set('result', $game->result($player->getValueOfHand(), $dealer->getValueOfHand()));
             $session->set('gameStatus', "gameOver");
-        }
-
-        // Count players hand value
-        $playerValue = $player->getValueOfHand();
-        if($playerValue[0] !== $playerValue[1]) {
-            if($playerValue[1] > 21) {
-                $value = strval($playerValue[0]);
-            } else {
-                $value = strval($playerValue[0]) . " | " . strval($playerValue[1]);
-            }
-        } else {
-            $value = strval($playerValue[0]);
         }
 
         // Set new values
@@ -120,11 +81,11 @@ class BlackjackControllerTwig extends AbstractController
 
         $data = [
             // Players
-            "player" => $value,
+            "player" => $game->valueToString($player->getValueOfHand()),
             "playerCard" => $player->playerToString(),
 
             // Dealer
-            "dealer" => $dealer->getValueOfHand()[0],
+            "dealer" => $game->valueToString($dealer->getValueOfHand()),
             "dealerCard" => $dealer->playerToString(),
 
             // Other
@@ -139,18 +100,12 @@ class BlackjackControllerTwig extends AbstractController
     #[Route("/game/blackjack/hit", name: "blackjackHit")]
     public function blackjackHit(SessionInterface $session): Response
     {
-        // Get values and hit player
         $deck = $session->get('deck');
         $player = $session->get('player');
 
         if($session->get('gameStatus') == "active") {
             // Player draws
             $player->addCard($deck->deal(1));
-            // See if player hits blackjack(21) och busts (>21)
-            if($player->getValueOfHand()[0] > 21) {
-                $player->changeStatus();
-                $session->set('gameStatus', 'result');
-            }
             $session->set('player', $player);
         }
         $session->set('deck', $deck);
@@ -163,15 +118,7 @@ class BlackjackControllerTwig extends AbstractController
         $session->set("gameStatus", 'stand');
         $player = $session->get('player');
         $player->changeStatus();
+        $session->set('player', $player);
         return $this->redirectToRoute('blackjack');
     }
-
-    #[Route("/cardgame/blackjack/reset", name: "blackjackReset")]
-    public function blackjackReset(SessionInterface $session): Response
-    {
-        $session->set("gameStatus", 'new');
-        return $this->redirectToRoute('blackjack');
-    }
-
-
 }

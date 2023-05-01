@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\DeckHandler\Deck;
 use App\DeckHandler\Player;
+use App\DeckHandler\Game;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -160,6 +161,48 @@ class CardControllerApi
         $data = [
             'Hands' => $temp,
             'deck_left' => $deck->countDeck()
+        ];
+
+        $response = new JsonResponse($data);
+        $response->setContent(json_encode($data, JSON_UNESCAPED_UNICODE));
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+        return $response;
+    }
+
+    #[Route("/api/game", name: "apiBlackjack")]
+    public function apiBlackjack(SessionInterface $session): Response
+    {
+        $game = new Game();
+        if ($session->get('player')) {
+            $player = $session->get('player');
+            $dealer = $session->get('dealer');
+            $playerValue = $game->valueToString($player->getValueOfHand());
+            $playerHand = $player->playerToStringApi();
+            $dealerValue = $game->valueToString($dealer->getValueOfHand());
+            $dealerHand = $dealer->playerToStringApi();
+            $result = $session->get('result');
+            $gameStatus = $session->get('gameStatus');
+            $deck = $session->get('deck')->countDeck();
+        } else {
+            $playerValue = "NA";
+            $playerHand = "NA";
+            $dealerValue = "NA";
+            $dealerHand = "NA";
+            $result = "NA";
+            $gameStatus = "NA";
+            $deck = "NA";
+        }
+
+        $data = [
+            'PlayerValue' => $playerValue,
+            'PlayerHand' => $playerHand,
+            'DealerValue' => $dealerValue,
+            'DealerHand' => $dealerHand,
+            'Result' => $result,
+            'gameStatus' => $gameStatus,
+            'deck_left' => $deck
         ];
 
         $response = new JsonResponse($data);

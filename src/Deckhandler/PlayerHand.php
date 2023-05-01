@@ -32,9 +32,9 @@ class Player extends Deck
     {
         if($this->active == true) {
             $this->active = false;
-        } else {
-            $this->active = true;
+            return;
         }
+        $this->active = true;
     }
 
     public function getCards()
@@ -60,20 +60,19 @@ class Player extends Deck
     public function getValueOfHand()
     {
         $sum = 0;
-        $has_ace = false;
+        $hasAce = false;
         foreach ($this->cards as $card) {
             if ($card->getRank() == 'A') {
-                $has_ace = true;
+                $hasAce = true;
             } elseif (in_array($card->getRank(), ['J', 'Q', 'K'])) {
                 $sum += 10;
-            } else {
+            } elseif (!in_array($card->getRank(), ['J', 'Q', 'K'])) {
                 $sum += intval($card->getRank());
             }
         }
-        if ($has_ace) {
+        if ($hasAce) {
             return [$sum + 1, $sum + 11];
-        } else {
-            return [$sum, $sum];
         }
+        return [$sum, $sum];
     }
 }
