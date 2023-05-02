@@ -121,4 +121,11 @@ class BlackjackControllerTwig extends AbstractController
         $session->set('player', $player);
         return $this->redirectToRoute('blackjack');
     }
+
+    #[Route("/game/blackjack/reset", name: "blackjackReset")]
+    public function blackjackReset(SessionInterface $session): Response
+    {
+        $session->set("gameStatus", 'new');
+        return $this->redirectToRoute('blackjack');
+    }
 }
