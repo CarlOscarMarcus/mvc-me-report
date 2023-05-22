@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DeckHandler\Card;
+namespace App\DeckHandler;
 
 class Card
 {

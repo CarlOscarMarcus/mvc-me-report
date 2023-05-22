@@ -2,7 +2,6 @@
 
 namespace App\DeckHandler;
 
-use App\DeckHandler\Card\Card;
 use Exception;
 
 class Deck
@@ -65,7 +64,6 @@ class Deck
             } elseif ($aValueIndex > $bValueIndex) {
                 return 1;
             }
-            return 0;
         });
     }
 

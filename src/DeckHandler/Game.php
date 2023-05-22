@@ -4,16 +4,11 @@ namespace App\DeckHandler;
 
 class Game
 {
-    public function __construct()
-    {
-
-    }
-
     public function highestBelow21($arr)
     {
         $highest = 0;
         foreach ($arr as $num) {
-            if ($num < 21 && $num > $highest) {
+            if ($num <= 21 && $num > $highest) {
                 $highest = $num;
             }
         }
@@ -34,7 +29,6 @@ class Game
             return 'Tie <br> Push';
         }
 
-        return "Error";
     }
 
     public function checkValues($player, $dealer)

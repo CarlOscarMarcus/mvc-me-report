@@ -2,8 +2,6 @@
 
 namespace App\DeckHandler;
 
-use App\DeckHandler\Deck;
-
 class Player extends Deck
 {
     protected $cards = array();

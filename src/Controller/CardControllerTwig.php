@@ -20,7 +20,7 @@ class CardControllerTwig extends AbstractController
     #[Route("/card/deck", name: "cardDeck")]
     public function cardDeck(SessionInterface $session): Response
     {
-        if($session->get('deck') == null) {
+        if(!$session->get('deck') == null) {
             $deck = new Deck();
             $deck->shuffle();
             $session->set('deck', $deck);
