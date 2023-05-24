@@ -122,8 +122,7 @@ class LibraryController extends AbstractController
     public function updateBook(
         LibraryRepository $libraryRepository,
         int $id
-    ): Response
-    {
+    ): Response {
         $library = $libraryRepository
             ->find($id);
 
@@ -162,9 +161,12 @@ class LibraryController extends AbstractController
         ManagerRegistry $doctrine,
     ): Response {
         $entityManager = $doctrine->getManager();
-        $connection = $entityManager->getConnection();
-        $platform = $connection->getDatabasePlatform();
-        $connection->executeUpdate($platform->getTruncateTableSQL('Library', true));
+        $library = $entityManager->getRepository(Library::class)->findAll();
+
+        foreach ($library as $book) {
+            $entityManager->remove($book);
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('library_show_all');
     }

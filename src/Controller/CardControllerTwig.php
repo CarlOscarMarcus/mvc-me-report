@@ -95,7 +95,8 @@ class CardControllerTwig extends AbstractController
         $temp = "";
         foreach ($playerHands as $hand) {
             $temp .= 'Player' . strval((array_search($hand, $playerHands) + 1) . ": ");
-            $temp .= $hand->playerToString() . "<br>";
+            $temp .= $hand->playerToString();
+            $temp .= "<br>";
         }
 
         $session->set('deck', $deck);

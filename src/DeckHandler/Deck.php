@@ -34,7 +34,6 @@ class Deck
 
     /**
      * Shuffle the deck
-     * @return array $cards
      */
     public function shuffle()
     {
@@ -44,7 +43,6 @@ class Deck
     /**
      * Deal a hand amout of cards as argument
      * @param int $numCards
-     * @var array $temp
      * @return array $temp
      */
     public function deal($numCards = 1)
@@ -64,10 +62,6 @@ class Deck
 
     /**
      * Sort the current deck
-     * @var array $suitOrder
-     * @var Card $aSuitIndex
-     * @var Card $bSuitIndex
-     * @var array $valueOrder
      */
     public function sort()
     {
@@ -96,8 +90,7 @@ class Deck
 
     /**
      * Reformat deck cards to readable format
-     * @var array $cardStrings
-     * @return array $cardStrings
+     * @return string $cardStrings
      */
     public function deckToString()
     {
@@ -111,8 +104,6 @@ class Deck
     /**
      * Reformat player hand cards to readable format
      * @param array $cards
-     * @var array $cardStrings
-     * @var Card $cards
      * @return string $cardStrings
      */
     public function cardsToString($cards)

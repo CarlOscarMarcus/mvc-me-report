@@ -33,6 +33,7 @@ class Player extends Deck
         foreach($cards as $card) {
             array_push($this->cards, $card);
         }
+        return $this->cards;
     }
 
     /**
@@ -64,7 +65,7 @@ class Player extends Deck
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function playerToString()
     {
@@ -81,8 +82,6 @@ class Player extends Deck
     }
 
     /**
-     * @var int $sum
-     * @var bool $hasAce
      * @return array
      */
     public function getValueOfHand()

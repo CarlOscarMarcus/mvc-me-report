@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /home/osay21/dbwebb-kurser/mvc/me/report/src/DeckHandler</title>
+  <title>Dashboard for /home/osay21/dbwebb-kurser/mvc/me/report/src/Repository</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../_css/bootstrap.min.css?v=9.2.26" rel="stylesheet" type="text/css">
   <link href="../_css/nv.d3.min.css?v=9.2.26" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
       <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../index.html">/home/osay21/dbwebb-kurser/mvc/me/report/src</a></li>
-         <li class="breadcrumb-item"><a href="index.html">DeckHandler</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Repository</a></li>
          <li class="breadcrumb-item active">(Dashboard)</li>
 
        </ol>
@@ -58,6 +58,7 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="LibraryRepository.php.html#17">App\Repository\LibraryRepository</a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -74,6 +75,7 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="LibraryRepository.php.html#17">App\Repository\LibraryRepository</a></td><td class="text-right">30</td></tr>
 
        </tbody>
       </table>
@@ -111,6 +113,9 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="LibraryRepository.php.html#19"><abbr title="App\Repository\LibraryRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LibraryRepository.php.html#24"><abbr title="App\Repository\LibraryRepository::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LibraryRepository.php.html#33"><abbr title="App\Repository\LibraryRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -127,6 +132,8 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="LibraryRepository.php.html#24"><abbr title="App\Repository\LibraryRepository::save">save</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="LibraryRepository.php.html#33"><abbr title="App\Repository\LibraryRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
 
        </tbody>
       </table>
@@ -155,7 +162,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,1,3], "Class Coverage"))
+      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -173,7 +180,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,1,0,25], "Method Coverage"))
+      .datum(getCoverageDistributionData([3,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -223,7 +230,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,7,"<a href=\"Card.php.html#9\">App\\DeckHandler\\Card<\/a>"],[97.95918367346938,21,"<a href=\"Deck.php.html#11\">App\\DeckHandler\\Deck<\/a>"],[100,20,"<a href=\"Game.php.html#9\">App\\DeckHandler\\Game<\/a>"],[100,15,"<a href=\"Player.php.html#9\">App\\DeckHandler\\Player<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[0,5,"<a href=\"LibraryRepository.php.html#17\">App\\Repository\\LibraryRepository<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -247,7 +254,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,1,"<a href=\"Card.php.html#25\">App\\DeckHandler\\Card::__construct<\/a>"],[100,1,"<a href=\"Card.php.html#34\">App\\DeckHandler\\Card::getSuit<\/a>"],[100,1,"<a href=\"Card.php.html#42\">App\\DeckHandler\\Card::getRank<\/a>"],[100,3,"<a href=\"Card.php.html#50\">App\\DeckHandler\\Card::toString<\/a>"],[100,1,"<a href=\"Card.php.html#58\">App\\DeckHandler\\Card::toStringApi<\/a>"],[100,3,"<a href=\"Deck.php.html#19\">App\\DeckHandler\\Deck::__construct<\/a>"],[100,1,"<a href=\"Deck.php.html#39\">App\\DeckHandler\\Deck::shuffle<\/a>"],[83.33333333333334,3,"<a href=\"Deck.php.html#50\">App\\DeckHandler\\Deck::deal<\/a>"],[100,5,"<a href=\"Deck.php.html#72\">App\\DeckHandler\\Deck::sort<\/a>"],[100,2,"<a href=\"Deck.php.html#102\">App\\DeckHandler\\Deck::deckToString<\/a>"],[100,2,"<a href=\"Deck.php.html#118\">App\\DeckHandler\\Deck::cardsToString<\/a>"],[100,2,"<a href=\"Deck.php.html#128\">App\\DeckHandler\\Deck::deckToStringApi<\/a>"],[100,2,"<a href=\"Deck.php.html#137\">App\\DeckHandler\\Deck::cardsToStringApi<\/a>"],[100,1,"<a href=\"Deck.php.html#148\">App\\DeckHandler\\Deck::countDeck<\/a>"],[100,4,"<a href=\"Game.php.html#17\">App\\DeckHandler\\Game::highestBelow21<\/a>"],[100,4,"<a href=\"Game.php.html#35\">App\\DeckHandler\\Game::result<\/a>"],[100,9,"<a href=\"Game.php.html#55\">App\\DeckHandler\\Game::checkValues<\/a>"],[100,3,"<a href=\"Game.php.html#76\">App\\DeckHandler\\Game::valueToString<\/a>"],[100,1,"<a href=\"Player.php.html#21\">App\\DeckHandler\\Player::__construct<\/a>"],[100,2,"<a href=\"Player.php.html#31\">App\\DeckHandler\\Player::addCard<\/a>"],[100,1,"<a href=\"Player.php.html#41\">App\\DeckHandler\\Player::getStatus<\/a>"],[100,2,"<a href=\"Player.php.html#49\">App\\DeckHandler\\Player::changeStatus<\/a>"],[100,1,"<a href=\"Player.php.html#61\">App\\DeckHandler\\Player::getCards<\/a>"],[100,1,"<a href=\"Player.php.html#69\">App\\DeckHandler\\Player::playerToString<\/a>"],[100,1,"<a href=\"Player.php.html#76\">App\\DeckHandler\\Player::playerToStringApi<\/a>"],[100,6,"<a href=\"Player.php.html#88\">App\\DeckHandler\\Player::getValueOfHand<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[0,1,"<a href=\"LibraryRepository.php.html#19\">App\\Repository\\LibraryRepository::__construct<\/a>"],[0,2,"<a href=\"LibraryRepository.php.html#24\">App\\Repository\\LibraryRepository::save<\/a>"],[0,2,"<a href=\"LibraryRepository.php.html#33\">App\\Repository\\LibraryRepository::remove<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);

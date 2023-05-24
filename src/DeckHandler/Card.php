@@ -8,7 +8,7 @@ namespace App\DeckHandler;
  */
 class Card
 {
-    /** 
+    /**
      * @var string $suit
      * @var string $rank
      */
@@ -19,8 +19,6 @@ class Card
      * Card constructor.
      * @param $suit
      * @param $rank
-     * @var string $suit
-     * @var string $rank
      */
     public function __construct($suit, $rank)
     {

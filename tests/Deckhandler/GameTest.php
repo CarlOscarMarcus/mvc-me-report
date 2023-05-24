@@ -26,16 +26,16 @@ class GameTest extends TestCase
     public function testResult()
     {
         $game = new Game();
-        $player = [10, 15];
-        $dealer = [9, 14];
+        $player = array(10, 11);
+        $dealer = array(9, 10);
         $this->assertEquals('Player wins <br>', $game->result($player, $dealer));
 
-        $player = [10, 15];
-        $dealer = [10, 21];
+        $player = array(10, 8);
+        $dealer = array(21, 21);
         $this->assertEquals('Dealer wins <br>', $game->result($player, $dealer));
 
-        $player = [10, 10];
-        $dealer = [10, 10];
+        $player = array(10, 10);
+        $dealer = array(10, 10);
         $this->assertEquals('Tie <br> Push', $game->result($player, $dealer));
     }
 

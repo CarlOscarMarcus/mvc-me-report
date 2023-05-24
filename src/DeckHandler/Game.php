@@ -10,8 +10,6 @@ class Game
 {
     /**
      * @param array $arr
-     * @var int $highest
-     * @var int $num
      * @return int $highest
      */
     public function highestBelow21($arr)
@@ -26,10 +24,8 @@ class Game
     }
 
     /**
-     * @param Player $player
-     * @param Player $dealer
-     * @var int $playerHigh
-     * @var int $deakerHigh
+     * @param array $player
+     * @param array $dealer
      * @return string
      */
     public function result($player, $dealer)
@@ -45,11 +41,13 @@ class Game
             return 'Tie <br> Push';
         }
 
+        return "false";
+
     }
 
     /**
-     * @param Player $player
-     * @param Player $dealer
+     * @param array $player
+     * @param array $dealer
      * @return string
      */
     public function checkValues($player, $dealer)
@@ -65,13 +63,12 @@ class Game
         } elseif($dealer[0] > 21 && $dealer[1] > 21) {
             return "Player wins <br> Dealer Busts";
         }
-        return false;
+        return "false";
     }
 
     /**
-     * @param Player $hand
-     * @var int $value
-     * @return int $value
+     * @param array $hand
+     * @return string $value
      */
     public function valueToString($hand)
     {
