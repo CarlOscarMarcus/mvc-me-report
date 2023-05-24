@@ -164,7 +164,7 @@ class LibraryController extends AbstractController
         $entityManager = $doctrine->getManager();
         $connection = $entityManager->getConnection();
         $platform = $connection->getDatabasePlatform();
-        $connection->executeUpdate($platform->getTruncateTableSQL('Library', true /* whether to cascade */));
+        $connection->executeUpdate($platform->getTruncateTableSQL('Library', true));
 
         return $this->redirectToRoute('library_show_all');
     }
