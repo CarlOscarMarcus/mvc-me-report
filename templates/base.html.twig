@@ -43,7 +43,16 @@
                             <option value="{{ path('blackjack') }}">/game/blackjack </option>
                         </select>
                     </li>
-                    <li><a href="{{ path('app_library') }}">Library</a></li>
+                    <li>
+                        <select onchange="window.location.href=this.value;">
+                            <option disabled selected>Library</option>
+                            <option href="{{ path('app_library') }}">Library</option>
+                            <option value="{{ path('library_create') }}"> library/create </option>
+                            <option value="{{ path('library_show_all') }}"> library/show </option>
+                            <option value="{{ path('library_reset') }}"> library/reset </option>
+                            <option value="{{ path('api_library_books') }}"> api/library/books </option>
+                        </select>
+                    </li>
                 </ul>
             </nav>
         </header>
