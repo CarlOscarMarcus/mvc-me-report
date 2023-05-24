@@ -2,8 +2,18 @@
 
 namespace App\DeckHandler;
 
+/**
+ * Class Game
+ * @namespace App\DeckHandler
+ */
 class Game
 {
+    /**
+     * @param array $arr
+     * @var int $highest
+     * @var int $num
+     * @return int $highest
+     */
     public function highestBelow21($arr)
     {
         $highest = 0;
@@ -15,7 +25,13 @@ class Game
         return $highest;
     }
 
-
+    /**
+     * @param Player $player
+     * @param Player $dealer
+     * @var int $playerHigh
+     * @var int $deakerHigh
+     * @return string
+     */
     public function result($player, $dealer)
     {
         $playerHigh = $this->highestBelow21($player);
@@ -31,6 +47,11 @@ class Game
 
     }
 
+    /**
+     * @param Player $player
+     * @param Player $dealer
+     * @return string
+     */
     public function checkValues($player, $dealer)
     {
         if($player[0] == 21 || $player[1] == 21) {
@@ -46,6 +67,12 @@ class Game
         }
         return false;
     }
+
+    /**
+     * @param Player $hand
+     * @var int $value
+     * @return int $value
+     */
     public function valueToString($hand)
     {
         $value = 0;

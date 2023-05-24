@@ -4,8 +4,17 @@ namespace App\DeckHandler;
 
 use Exception;
 
+/**
+ * Class Deck
+ * @namespace App\DeckHandler
+ */
 class Deck
 {
+    /**
+     * Create a new deck with all three suits and 14 values
+     * @var array $cards
+     * @var array $suits
+     */
     protected $cards;
     public function __construct()
     {
@@ -23,11 +32,21 @@ class Deck
         }
     }
 
+    /**
+     * Shuffle the deck
+     * @return array $cards
+     */
     public function shuffle()
     {
         shuffle($this->cards);
     }
 
+    /**
+     * Deal a hand amout of cards as argument
+     * @param int $numCards
+     * @var array $temp
+     * @return array $temp
+     */
     public function deal($numCards = 1)
     {
         $temp = array();
@@ -42,6 +61,14 @@ class Deck
         return $temp;
     }
 
+
+    /**
+     * Sort the current deck
+     * @var array $suitOrder
+     * @var Card $aSuitIndex
+     * @var Card $bSuitIndex
+     * @var array $valueOrder
+     */
     public function sort()
     {
         usort($this->cards, function ($suits, $rank) {
@@ -67,6 +94,11 @@ class Deck
         });
     }
 
+    /**
+     * Reformat deck cards to readable format
+     * @var array $cardStrings
+     * @return array $cardStrings
+     */
     public function deckToString()
     {
         $cardStrings = array();
@@ -76,6 +108,13 @@ class Deck
         return implode($cardStrings);
     }
 
+    /**
+     * Reformat player hand cards to readable format
+     * @param array $cards
+     * @var array $cardStrings
+     * @var Card $cards
+     * @return string $cardStrings
+     */
     public function cardsToString($cards)
     {
         $cardStrings = array();

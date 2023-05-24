@@ -2,17 +2,32 @@
 
 namespace App\DeckHandler;
 
+/**
+ * Class Player
+ * @namespace App\DeckHandler
+ */
 class Player extends Deck
 {
+    /**
+     * @var array $cards
+     * @var bool $active
+     */
     protected $cards = array();
     protected $active = true;
 
+    /**
+     * Player constructor.
+     */
     public function __construct()
     {
         $this->cards = array();
         $this->active = true;
     }
 
+    /**
+     * @param array $cards
+     * @return array
+     */
     public function addCard($cards)
     {
         foreach($cards as $card) {
@@ -20,12 +35,17 @@ class Player extends Deck
         }
     }
 
+    /**
+     * @return bool
+     */
     public function getStatus()
     {
         return $this->active;
     }
 
-    // Take care of if buttons on blackjack displays or not
+    /**
+     * Take care of if buttons displays or not
+     */
     public function changeStatus()
     {
         if($this->active == true) {
@@ -35,11 +55,17 @@ class Player extends Deck
         $this->active = true;
     }
 
+    /**
+     * @return array
+     */
     public function getCards()
     {
         return $this->cards;
     }
 
+    /**
+     * @return array
+     */
     public function playerToString()
     {
         // Bug needs to be fixed
@@ -54,7 +80,11 @@ class Player extends Deck
         return parent::cardsToStringApi($temp);
     }
 
-    // Blackjack
+    /**
+     * @var int $sum
+     * @var bool $hasAce
+     * @return array
+     */
     public function getValueOfHand()
     {
         $sum = 0;
