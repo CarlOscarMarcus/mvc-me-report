@@ -46,7 +46,7 @@
                     <li>
                         <select onchange="window.location.href=this.value;">
                             <option disabled selected>Library</option>
-                            <option href="{{ path('app_library') }}">Library</option>
+                            <option value="{{ path('app_library') }}">Library</option>
                             <option value="{{ path('library_create') }}"> library/create </option>
                             <option value="{{ path('library_show_all') }}"> library/show </option>
                             <option value="{{ path('library_reset') }}"> library/reset </option>
