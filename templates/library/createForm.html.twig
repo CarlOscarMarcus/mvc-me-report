@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Insert book in library</h1>
+        </div>
+        <div class="row">
+            <form method="post" action="">
+                <label for="bookTitle" required>Book Title: </label><br>
+                <input type="text" id="bookTitle" name="bookTitle" placeholder="Exemple" required><br>
+                <label for="bookISBN">ISBN:</label><br>
+                <input type="int" id="bookISBN" name="bookISBN" placeholder="101" required><br>
+                <label for="bookAuthor">Author:</label><br>
+                <input type="text" id="bookAuthor" name="bookAuthor" placeholder="osay21" required><br>
+                <label for="bookImage">ImageUrl:</label><br>
+                <input type="text" id="bookImage" name="bookImage" value="https://dbwebb.se/favicon.ico" required><br>
+                <input type="submit" name="addBook" value="Submit">
+            </form>
+        </div>
+    </div>
+{% endblock %}

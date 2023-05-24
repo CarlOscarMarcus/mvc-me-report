@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Books in library</h1>
+        </div>
+        <div class="row">
+            <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Image</th>
+                    <th>ISBN</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in data %}
+                    <tr>
+                        <td><a href="{{ path('library_show_all') }}/{{book.4}}">{{book.0}}</a></td>
+                        <td>{{book.1}}</td>
+                        <td><img class="libraryimg" src="{{book.3}}"></td>
+                        <td>{{book.2}}</td>
+                        <td>
+                            <a href="{{ path('library_update', {'id': book.4}) }}">Update</a><br>
+                            <span onclick="myFunction()">
+                                <a href="{{ path('library_delete', {'id': book.4}) }}" id="delete"> Delete</a>
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        const myLink = document.getElementById('delete');
+        myLink.addEventListener('click', function(event) {
+            if (!confirm('Are you sure?')) {
+            event.preventDefault();
+            }
+        });
+    </script>
+{% endblock %}

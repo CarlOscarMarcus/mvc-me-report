@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\DeckHandler\Deck;
 use App\DeckHandler\Player;
 use App\DeckHandler\Game;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;

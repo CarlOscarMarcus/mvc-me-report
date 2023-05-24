@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1>{{data.0}} written by {{data.1}}</h1>
+        </div>
+        <div class="row">
+            <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Image</th>
+                    <th>ISBN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="{{ path('library_show_all') }}/{{data.4}}">{{data.0}}</a></td>
+                    <td>{{data.1}}</td>
+                    <td><img src="{{data.3}}"></td>
+                    <td>{{data.2}}</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <a href="{{ path('library_show_all') }}"> Go back to library </a>
+        </div>
+    </div>
+{% endblock %}
