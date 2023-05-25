@@ -49,7 +49,7 @@ class GameTest extends TestCase
         $game = new Game();
         $player = [10, 11];
         $dealer = [9, 14];
-        $this->assertFalse($game->checkValues($player, $dealer));
+        $this->assertEquals('', $game->checkValues($player, $dealer));
 
         // Player blackjack
         $player = [10, 21];

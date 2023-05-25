@@ -63,7 +63,7 @@ class Game
         } elseif($dealer[0] > 21 && $dealer[1] > 21) {
             return "Player wins <br> Dealer Busts";
         }
-        return "false";
+        return '';
     }
 
     /**
