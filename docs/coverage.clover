@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1685018076">
-  <project timestamp="1685018076">
+<coverage generated="1685546025">
+  <project timestamp="1685546025">
     <file name="/home/osay21/dbwebb-kurser/mvc/me/report/src/DeckHandler/Card.php">
       <class name="App\DeckHandler\Card" namespace="global">
         <metrics complexity="7" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="13" coveredelements="13"/>
