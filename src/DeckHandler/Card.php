@@ -46,7 +46,7 @@ class Card
      */
     public function toString()
     {
-        if (in_array($this->suit, ['♥', '♦']) || in_array($this->suit, ['3', '4'])) {
+        if (in_array($this->suit, ['â¥', 'â¦']) || in_array($this->suit, ['3', '4'])) {
             return '<div class="card red">'.$this->rank.$this->suit.'</div>';
         }
 

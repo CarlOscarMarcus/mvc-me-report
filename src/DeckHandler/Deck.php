@@ -20,7 +20,7 @@ class Deck
     public function __construct()
     {
         $this->cards = [];
-        $suits = ['♠', '♣', '♥', '♦'];
+        $suits = ['â ', 'â£', 'â¥', 'â¦'];
         $cardValues = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
         // Create the deck
@@ -69,7 +69,7 @@ class Deck
     public function sort()
     {
         usort($this->cards, function ($suits, $rank) {
-            $suitOrder = ['♠', '♣', '♥', '♦'];
+            $suitOrder = ['â ', 'â£', 'â¥', 'â¦'];
             $aSuitIndex = array_search($suits->getSuit(), $suitOrder);
             $bSuitIndex = array_search($rank->getSuit(), $suitOrder);
 

@@ -613,7 +613,7 @@
                     code.className = 'language-' + language;
                     pre.textContent = '';
                     pre.setAttribute('data-line', line)
-                    code.textContent = 'Loading…';
+                    code.textContent = 'Loadingâ¦';
                     pre.appendChild(code);
 
                     var xhr = new XMLHttpRequest();
@@ -632,16 +632,16 @@
                         }
 
                         if (xhr.status === 404) {
-                            code.textContent = '✖ Error: File could not be found';
+                            code.textContent = 'â Error: File could not be found';
                             return;
                         }
 
                         if (xhr.status >= 400) {
-                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                            code.textContent = 'â Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
                             return;
                         }
 
-                        code.textContent = '✖ Error: An unknown error occurred';
+                        code.textContent = 'â Error: An unknown error occurred';
                     };
 
                     xhr.send(null);
@@ -707,37 +707,4 @@
                                             <li class=""><a href="classes/App-Controller-BlackjackControllerTwig.html#method_blackjackDoc">blackjackDoc()</a></li>
                                             <li class=""><a href="classes/App-Controller-BlackjackControllerTwig.html#method_blackjackHit">blackjackHit()</a></li>
                                             <li class=""><a href="classes/App-Controller-BlackjackControllerTwig.html#method_blackjackIndex">blackjackIndex()</a></li>
-                                            <li class=""><a href="classes/App-Controller-BlackjackControllerTwig.html#method_blackjackReset">blackjackReset()</a></li>
-                                            <li class=""><a href="classes/App-Controller-BlackjackControllerTwig.html#method_blackjackStand">blackjackStand()</a></li>
-                                    </ul>
-            </li>
-                    </ul>
-    </section>
-
-                </section>
-                            </div>
-            <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
-    <section class="phpdocumentor-search-results__dialog">
-        <header class="phpdocumentor-search-results__header">
-            <h2 class="phpdocumentor-search-results__title">Search results</h2>
-            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
-        </header>
-        <section class="phpdocumentor-search-results__body">
-            <ul class="phpdocumentor-search-results__entries"></ul>
-        </section>
-    </section>
-</section>
-        </div>
-        <a href="classes/App-Controller-BlackjackControllerTwig.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
-
-    </main>
-
-    <script>
-        cssVars({});
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
-</body>
-</html>
+                                   

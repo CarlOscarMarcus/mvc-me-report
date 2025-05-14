@@ -52,10 +52,10 @@ class CardControllerApi
         $sortedDeck = clone $deck;
         $sortedDeck->sort();
         $data = [
-            'Spader' => '♠',
-            'Hjarter' => '♥',
-            'Ruter' => '♦',
-            'Klover' => '♣',
+            'Spader' => 'â ',
+            'Hjarter' => 'â¥',
+            'Ruter' => 'â¦',
+            'Klover' => 'â£',
             'deck' => $sortedDeck->deckToStringApi(),
         ];
 
@@ -75,10 +75,10 @@ class CardControllerApi
         $deck->shuffle();
         $session->set('deck', $deck);
         $data = [
-            'Spader' => '♠',
-            'Hjarter' => '♥',
-            'Ruter' => '♦',
-            'Klover' => '♣',
+            'Spader' => 'â ',
+            'Hjarter' => 'â¥',
+            'Ruter' => 'â¦',
+            'Klover' => 'â£',
             'deck' => $deck->deckToStringApi(),
         ];
 
@@ -99,10 +99,10 @@ class CardControllerApi
         $session->set('deck', $deck);
 
         $data = [
-            'Spader' => '♠',
-            'Hjarter' => '♥',
-            'Ruter' => '♦',
-            'Klover' => '♣',
+            'Spader' => 'â ',
+            'Hjarter' => 'â¥',
+            'Ruter' => 'â¦',
+            'Klover' => 'â£',
             'Card' => $deck->cardsToStringApi($cards),
             'deck_left' => $deck->countDeck(),
         ];
@@ -124,10 +124,10 @@ class CardControllerApi
         $session->set('deck', $deck);
 
         $data = [
-            'Spader' => '♠',
-            'Hjarter' => '♥',
-            'Ruter' => '♦',
-            'Klover' => '♣',
+            'Spader' => 'â ',
+            'Hjarter' => 'â¥',
+            'Ruter' => 'â¦',
+            'Klover' => 'â£',
             'Cards' => $deck->cardsToStringApi($cards),
             'deck_left' => $deck->countDeck(),
         ];

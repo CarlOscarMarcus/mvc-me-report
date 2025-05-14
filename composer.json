@@ -3,7 +3,7 @@
     "description": "mvc v2 osay21",
     "authors": [
         {
-            "name": "Oscar Wystråle (osay21)",
+            "name": "Oscar WystrÃ¥le (osay21)",
             "email": "osay21@student.bth.se"
         }
     ],
@@ -118,7 +118,7 @@
             "@phpstan"
         ],
         "phpunit": "XDEBUG_MODE=coverage vendor/bin/phpunit",
-        "phpdoc": "tools/phpdoc/phpdoc",
+        "phpdoc": "tools/phpdoc/phpdoc run -d ./src -t ./docs/api",
         "phpmetrics": "tools/phpmetrics/vendor/bin/phpmetrics --config=phpmetrics.json"
     },
     "conflict": {

@@ -171,6 +171,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-LibraryController.html#method_apiShowAllBooks"
         },                {
+            "fqsen": "\\App\\Controller\\LibraryController\u003A\u003AapiShowBook\u0028\u0029",
+            "name": "apiShowBook",
+            "summary": "",
+            "url": "classes/App-Controller-LibraryController.html#method_apiShowBook"
+        },                {
             "fqsen": "\\App\\Controller\\LuckyControllerTwig",
             "name": "LuckyControllerTwig",
             "summary": "",

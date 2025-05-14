@@ -11,7 +11,7 @@ class LuckyControllerTwig extends AbstractController
     #[Route('/lucky', name: 'lucky')]
     public function lucky(): Response
     {
-        $cardSuits = ['♠', '♥', '♦', '♣'];
+        $cardSuits = ['â ', 'â¥', 'â¦', 'â£'];
         $cardValues = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
         $randomSuit = array_rand($cardSuits);
