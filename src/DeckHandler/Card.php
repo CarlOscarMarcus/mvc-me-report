@@ -3,22 +3,21 @@
 namespace App\DeckHandler;
 
 /**
- * Class Card
+ * Class Card.
+ *
  * @namespace App\DeckHandler
  */
 class Card
 {
     /**
-     * @var string $suit
-     * @var string $rank
+     * @var string
+     * @var string
      */
     protected $suit;
     protected $rank;
 
     /**
      * Card constructor.
-     * @param $suit
-     * @param $rank
      */
     public function __construct($suit, $rank)
     {
@@ -47,14 +46,15 @@ class Card
      */
     public function toString()
     {
-        if (in_array($this->suit, ['♥','♦']) || in_array($this->suit, ['3','4'])) {
-            return '<div class="card red">' . $this->rank . $this->suit . '</div>';
+        if (in_array($this->suit, ['♥', '♦']) || in_array($this->suit, ['3', '4'])) {
+            return '<div class="card red">'.$this->rank.$this->suit.'</div>';
         }
-        return '<div class="card black">' . $this->rank . $this->suit . '</div>';
+
+        return '<div class="card black">'.$this->rank.$this->suit.'</div>';
     }
 
     public function toStringApi()
     {
-        return $this->rank . $this->suit . ' ';
+        return $this->rank.$this->suit.' ';
     }
 }

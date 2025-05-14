@@ -3,16 +3,17 @@
 namespace App\DeckHandler;
 
 /**
- * Class Player
+ * Class Player.
+ *
  * @namespace App\DeckHandler
  */
 class Player extends Deck
 {
     /**
-     * @var array $cards
-     * @var bool $active
+     * @var array
+     * @var bool
      */
-    protected $cards = array();
+    protected $cards = [];
     protected $active = true;
 
     /**
@@ -20,19 +21,21 @@ class Player extends Deck
      */
     public function __construct()
     {
-        $this->cards = array();
+        $this->cards = [];
         $this->active = true;
     }
 
     /**
      * @param array $cards
+     *
      * @return array
      */
     public function addCard($cards)
     {
-        foreach($cards as $card) {
+        foreach ($cards as $card) {
             array_push($this->cards, $card);
         }
+
         return $this->cards;
     }
 
@@ -45,12 +48,13 @@ class Player extends Deck
     }
 
     /**
-     * Take care of if buttons displays or not
+     * Take care of if buttons displays or not.
      */
     public function changeStatus()
     {
-        if($this->active == true) {
+        if (true == $this->active) {
             $this->active = false;
+
             return;
         }
         $this->active = true;
@@ -71,6 +75,7 @@ class Player extends Deck
     {
         // Bug needs to be fixed
         $temp = $this->cards;
+
         return parent::cardsToString($temp);
     }
 
@@ -78,6 +83,7 @@ class Player extends Deck
     {
         // Bug needs to be fixed
         $temp = $this->cards;
+
         return parent::cardsToStringApi($temp);
     }
 
@@ -89,7 +95,7 @@ class Player extends Deck
         $sum = 0;
         $hasAce = false;
         foreach ($this->cards as $card) {
-            if ($card->getRank() == 'A') {
+            if ('A' == $card->getRank()) {
                 $hasAce = true;
             } elseif (in_array($card->getRank(), ['J', 'Q', 'K'])) {
                 $sum += 10;
@@ -100,6 +106,7 @@ class Player extends Deck
         if ($hasAce) {
             return [$sum + 1, $sum + 11];
         }
+
         return [$sum, $sum];
     }
 }

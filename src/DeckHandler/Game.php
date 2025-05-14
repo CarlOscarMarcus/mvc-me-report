@@ -3,13 +3,15 @@
 namespace App\DeckHandler;
 
 /**
- * Class Game
+ * Class Game.
+ *
  * @namespace App\DeckHandler
  */
 class Game
 {
     /**
      * @param array $arr
+     *
      * @return int $highest
      */
     public function highestBelow21($arr)
@@ -20,12 +22,14 @@ class Game
                 $highest = $num;
             }
         }
+
         return $highest;
     }
 
     /**
      * @param array $player
      * @param array $dealer
+     *
      * @return string
      */
     public function result($player, $dealer)
@@ -35,53 +39,58 @@ class Game
 
         if ($playerHigh > $dealerHigh) {
             return 'Player wins <br>';
-        } elseif($playerHigh < $dealerHigh) {
+        } elseif ($playerHigh < $dealerHigh) {
             return 'Dealer wins <br>';
-        } elseif($playerHigh == $dealerHigh) {
+        } elseif ($playerHigh == $dealerHigh) {
             return 'Tie <br> Push';
         }
 
-        return "false";
-
+        return 'false';
     }
 
     /**
      * @param array $player
      * @param array $dealer
+     *
      * @return string
      */
     public function checkValues($player, $dealer)
     {
-        if($player[0] == 21 || $player[1] == 21) {
-            return "Player Blackjack!";
-        } elseif($dealer[0] == 21 || $dealer[1] == 21) {
-            return "Dealer Blackjack!";
+        if (21 == $player[0] || 21 == $player[1]) {
+            return 'Player Blackjack!';
+        } elseif (21 == $dealer[0] || 21 == $dealer[1]) {
+            return 'Dealer Blackjack!';
         }
 
-        if($player[0] > 21 && $player[1] > 21) {
-            return "Dealer wins <br> Player Busts";
-        } elseif($dealer[0] > 21 && $dealer[1] > 21) {
-            return "Player wins <br> Dealer Busts";
+        if ($player[0] > 21 && $player[1] > 21) {
+            return 'Dealer wins <br> Player Busts';
+        } elseif ($dealer[0] > 21 && $dealer[1] > 21) {
+            return 'Player wins <br> Dealer Busts';
         }
+
         return '';
     }
 
     /**
      * @param array $hand
+     *
      * @return string $value
      */
     public function valueToString($hand)
     {
         $value = 0;
-        if($hand[0] !== $hand[1]) {
-            if($hand[1] > 21) {
+        if ($hand[0] !== $hand[1]) {
+            if ($hand[1] > 21) {
                 $value = strval($hand[0]);
+
                 return $value;
             }
-            $value = strval($hand[0]) . " | " . strval($hand[1]);
+            $value = strval($hand[0]).' | '.strval($hand[1]);
+
             return $value;
         }
         $value = strval($hand[0]);
+
         return $value;
     }
 }

@@ -11,16 +11,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CardControllerTwig extends AbstractController
 {
-    #[Route("/card", name: "card")]
+    #[Route('/card', name: 'card')]
     public function card(): Response
     {
         return $this->render('cards/index.html.twig');
     }
 
-    #[Route("/card/deck", name: "cardDeck")]
+    #[Route('/card/deck', name: 'cardDeck')]
     public function cardDeck(SessionInterface $session): Response
     {
-        if(!$session->get('deck') == null) {
+        if (null == !$session->get('deck')) {
             $deck = new Deck();
             $deck->shuffle();
             $session->set('deck', $deck);
@@ -30,26 +30,26 @@ class CardControllerTwig extends AbstractController
         $sortedDeck = clone $deck;
         $sortedDeck->sort();
         $data = [
-            'deck' => $sortedDeck->deckToString()
+            'deck' => $sortedDeck->deckToString(),
         ];
 
         return $this->render('cards/deck.html.twig', $data);
     }
 
-    #[Route("/card/shuffle", name: "cardShuffle")]
+    #[Route('/card/shuffle', name: 'cardShuffle')]
     public function cardShuffle(SessionInterface $session): Response
     {
         $deck = new Deck();
         $deck->shuffle();
         $session->set('deck', $deck);
         $data = [
-            'deck' => $deck->deckToString()
+            'deck' => $deck->deckToString(),
         ];
 
         return $this->render('cards/shuffle.html.twig', $data);
     }
 
-    #[Route("/card/draw", name: "cardDraw")]
+    #[Route('/card/draw', name: 'cardDraw')]
     public function cardDraw(SessionInterface $session): Response
     {
         $deck = $session->get('deck');
@@ -57,13 +57,13 @@ class CardControllerTwig extends AbstractController
         $session->set('deck', $deck);
         $data = [
             'deck' => $deck->cardsToString($cards),
-            'deck_left' => $deck->countDeck()
+            'deck_left' => $deck->countDeck(),
         ];
 
         return $this->render('cards/draw.html.twig', $data);
     }
 
-    #[Route("/card/draw/{number<\d+>}", name: "cardDrawCostum")]
+    #[Route("/card/draw/{number<\d+>}", name: 'cardDrawCostum')]
     public function cardDrawCostum(SessionInterface $session, int $number = 1): Response
     {
         $deck = $session->get('deck');
@@ -72,19 +72,19 @@ class CardControllerTwig extends AbstractController
 
         $data = [
             'deck' => $deck->cardsToString($cards),
-            'deck_left' => $deck->countDeck()
+            'deck_left' => $deck->countDeck(),
         ];
 
         return $this->render('cards/draw.html.twig', $data);
     }
 
-    #[Route("/card/draw/{players<\d+>}/{number<\d+>}", name: "cardDrawPlayers")]
+    #[Route("/card/draw/{players<\d+>}/{number<\d+>}", name: 'cardDrawPlayers')]
     public function cardDrawPlayers(SessionInterface $session, int $players = 1, int $number = 1): Response
     {
         $playerHands = [];
         $deck = $session->get('deck');
 
-        for($x = 0; $x < $players; $x++) {
+        for ($x = 0; $x < $players; ++$x) {
             array_push($playerHands, new Player());
         }
 
@@ -92,26 +92,25 @@ class CardControllerTwig extends AbstractController
             $hand->addCard($deck->deal($number));
         }
 
-        $temp = "";
+        $temp = '';
         foreach ($playerHands as $hand) {
-            $temp .= 'Player' . strval((array_search($hand, $playerHands) + 1) . ": ");
+            $temp .= 'Player'.strval((array_search($hand, $playerHands) + 1).': ');
             $temp .= $hand->playerToString();
-            $temp .= "<br>";
+            $temp .= '<br>';
         }
 
         $session->set('deck', $deck);
         $data = [
             'deck' => $temp,
-            'deck_left' => $deck->countDeck()
+            'deck_left' => $deck->countDeck(),
         ];
 
         return $this->render('cards/draw.html.twig', $data);
     }
 
-    #[Route("/api", name: "apiIndex")]
+    #[Route('/api', name: 'apiIndex')]
     public function apiIndex(): Response
     {
         return $this->render('cards/api_index.html.twig');
     }
-
 }
