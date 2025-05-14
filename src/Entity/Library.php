@@ -41,7 +41,6 @@ class Library
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -53,7 +52,6 @@ class Library
     public function setISBN(string $ISBN): self
     {
         $this->ISBN = $ISBN;
-
         return $this;
     }
 
@@ -65,7 +63,6 @@ class Library
     public function setAuthor(string $author): self
     {
         $this->author = $author;
-
         return $this;
     }
 
@@ -77,7 +74,6 @@ class Library
     public function setImage(string $image): self
     {
         $this->image = $image;
-
         return $this;
     }
 
@@ -89,7 +85,6 @@ class Library
     public function setURL(string $URL): self
     {
         $this->URL = $URL;
-
         return $this;
     }
 }

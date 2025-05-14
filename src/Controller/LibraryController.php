@@ -40,14 +40,11 @@ class LibraryController extends AbstractController
         $book->setImage($request->request->get('bookImage'));
         $book->setURL('');
 
-        // tell Doctrine you want to (eventually) save the Product
-        // (no queries yet)
         $entityManager->persist($book);
 
         $entityManager->flush();
         $book->setURL(strval($book->getId()));
 
-        // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
 
         return $this->redirectToRoute('library_show_all');
