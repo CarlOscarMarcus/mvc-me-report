@@ -184,7 +184,7 @@ class LibraryController extends AbstractController
     #[Route('/api/library/book/{isbn}', name: 'api_library_book', methods: ['GET'])]
     public function apiShowBook(
         string $isbn,
-        LibraryRepository $libraryRepository
+        LibraryRepository $libraryRepository,
     ): Response {
         // Find a book by ISBN
         $book = $libraryRepository->findOneBy(['ISBN' => $isbn]);
@@ -192,7 +192,7 @@ class LibraryController extends AbstractController
         if (!$book) {
             // If no book is found, return a 404 response
             return $this->json([
-                'error' => 'Book not found'
+                'error' => 'Book not found',
             ], Response::HTTP_NOT_FOUND);
         }
 
