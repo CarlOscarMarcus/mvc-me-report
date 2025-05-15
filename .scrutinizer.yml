@@ -1,26 +1,32 @@
+# .scrutinizer.yml
+
 imports:
-    - php
+  - php
 
 filter:
-    excluded_paths: [vendor/*, test/*]
+  excluded_paths:
+    - vendor/*
+    - tests/*
 
 build:
   image: default-bionic
 
+  # Define a single build node where tests run
   nodes:
-    my-tests:
+    tests-node:
       environment:
         php:
-          version: 8.3.3
+          version: 8.3
+      tests:
+        override:
+          - composer install
+          - composer phpunit  # Or your custom phpunit command
 
-  analysis:
-    tests:
-      override:
-        - php-scrutinizer-run
-
-tests:
-  override:
-    - command: "composer phpunit"
-      coverage:
-        file: "coverage/clover.xml"
-        format: "php-clover"
+analysis:
+  # Tell Scrutinizer where to find the coverage report
+  tests:
+    override:
+      - command: "composer phpunit"
+        coverage:
+          file: "docs/coverage.clover"
+          format: "php-clover"
