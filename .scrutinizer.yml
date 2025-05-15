@@ -9,17 +9,12 @@ filter:
 build:
   image: default-bionic
 
-  nodes:
-    tests-node:
-      environment:
-        php:
-          version: 8.3
-      tests:
-        override:
-          - composer install
-          - composer phpunit
+  tests:
+    override:
+      - composer install
+      - composer phpunit
 
-      coverage:
-        # Tell Scrutinizer where to find the coverage report (adjust path if needed)
-        file: docs/coverage.clover
-        format: php-clover
+  coverage:
+    # Path to your coverage file (adjust if needed)
+    file: docs/coverage.clover
+    format: php-clover
