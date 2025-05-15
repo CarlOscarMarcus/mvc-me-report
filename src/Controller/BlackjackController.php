@@ -50,7 +50,6 @@ class BlackjackController extends AbstractController
         $player = $session->get('player');
         $dealer = $session->get('dealer');
         $deck = $session->get('deck');
-        $result = $session->get('result');
 
         if ($game->checkValues($player->getValueOfHand(), $dealer->getValueOfHand())) {
             $session->set('result', $game->checkValues($player->getValueOfHand(), $dealer->getValueOfHand()));

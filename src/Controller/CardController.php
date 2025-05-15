@@ -20,7 +20,7 @@ class CardController extends AbstractController
     #[Route('/card/deck', name: 'cardDeck')]
     public function cardDeck(SessionInterface $session): Response
     {
-        if (null == !$session->get('deck')) {
+        if ($session->get('deck') === null) {
             $deck = new Deck();
             $deck->shuffle();
             $session->set('deck', $deck);

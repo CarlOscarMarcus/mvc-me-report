@@ -52,7 +52,7 @@ class Player extends Deck
      */
     public function changeStatus()
     {
-        if (true == $this->active) {
+        if ($this->active === true) {
             $this->active = false;
 
             return;
