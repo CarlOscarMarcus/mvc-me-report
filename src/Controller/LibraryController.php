@@ -137,17 +137,21 @@ class LibraryController extends AbstractController
     public function updateBookPost(
         Request $request,
         ManagerRegistry $doctrine,
+        int $id
     ): Response {
         $entityManager = $doctrine->getManager();
+        $book = $entityManager->getRepository(Library::class)->find($id);
 
-        $book = new Library();
+        if (!$book) {
+            throw $this->createNotFoundException('Book not found.');
+        }
+
         $book->setTitle($request->request->get('bookTitle'));
         $book->setISBN($request->request->get('bookISBN'));
         $book->setAuthor($request->request->get('bookAuthor'));
         $book->setImage($request->request->get('bookImage'));
 
         $entityManager->flush();
-
         return $this->redirectToRoute('library_show_all');
     }
 
