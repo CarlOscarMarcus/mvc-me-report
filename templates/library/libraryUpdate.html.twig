@@ -5,18 +5,18 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            <h1>Update {{data.0}} written by {{data.1}}</h1>
+            <h1>Update {{library.title}} written by {{library.author}}</h1>
         </div>
         <div class="row" library>
             <form method="post" action="">
                 <label for="bookTitle">Book Title: </label><br>
-                <input type="text" id="bookTitle" name="bookTitle" value="{{data.0}}" required><br>
+                <input type="text" id="bookTitle" name="bookTitle" value="{{library.title}}" required><br>
                 <label for="bookISBN">ISBN:</label><br>
-                <input type="int" id="bookISBN" name="bookISBN" value="{{data.2}}" required><br>
+                <input type="int" id="bookISBN" name="bookISBN" value="{{library.ISBN}}" required><br>
                 <label for="bookAuthor">Author:</label><br>
-                <input type="text" id="bookAuthor" name="bookAuthor" value="{{data.1}}" required><br>
+                <input type="text" id="bookAuthor" name="bookAuthor" value="{{library.author}}" required><br>
                 <label for="bookImage">ImageUrl:</label><br>
-                <input type="text" id="bookImage" name="bookImage" value="{{data.3}}" required><br>
+                <input type="text" id="bookImage" name="bookImage" value="{{library.image}}" required><br>
                 <input type="submit" name="addBook" value="Submit">
             </form>
         </div>

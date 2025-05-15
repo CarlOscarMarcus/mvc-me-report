@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CardControllerTwig extends AbstractController
+class CardController extends AbstractController
 {
     #[Route('/card', name: 'card')]
     public function card(): Response

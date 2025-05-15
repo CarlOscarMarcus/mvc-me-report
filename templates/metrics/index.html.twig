@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MetricsController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <div name="Introduktion">
+        <h1>Introduktion</h1>
+        <ol>
+            <li>Codestyle</li>
+            <p>
+                Refererar till mönstret av sin kod som kan innebär sitt formatering, variables namn, tab standarder, mellan rum osv.
+                Detta påvärkar kodens läsbarhet och underhållning just om att har samma mönster då kan man följa koden lättare utan att lära sig olika formateringar av koden.
+                Detta gör också det blir lättare att sammanbeta med andra för det bli lättare att leta i koden och förstå hur koden fungerar.
+                Detta påvärkar inte mätvärderna just att det handlar om formatering dock kan ett lint tool hjälpa till där kodstandarden är satt som kan ge varnings om man inte använder sig av t.ex. camelCase.
+            </p>
+
+            <li>Coverage</li>
+            <p> 
+                Coverage hadlar om hur mycket av koden som används vid test fall.
+                Ju högre coverage man har desto mer av koden är testad vid test fall.
+                Detta påvärkar mätvärderna för scrutinizer.
+                I mitt fall har jag 0 coverage på vissa filer som sänker värdet på koden och det innebär att koden är otestat som kan leda till okända buggar.
+                Jag skulle behövs lägga till tester för library koden. Då skulle jag behöva testa att lägga till, updatera, ta bort och reset för att säkerhetställa att funktionaliteten fungerar.
+            </p>
+            <li>Complexity</li>
+            <p> 
+                Complexity refererar till hur kompliserad koden är. Oftast är kompliserad kod svårare att testa, förstå/läsa och ökar risken är buggar.
+                Det finns flera olika methoder att mäta kompliteten av sin koden. 
+                Som scrutinizer använder sig av heter cyclomatic complexity som räknar hur många punkter i en funktion som bestämmer flödet på koden som if och lopar.
+                Ju fler punkter det finns gör koden mer komplex som kan betyda att dela funktionen i flera kan vara en bra ide om man får ett dåligt poäng.
+                På två funktioner har jag just nu komplex värdet 8 som försämrar mitt betyd på funktionen till B.
+                Om jag skulle dela upp de två funktionera till mindre då skulle jag kunna få ett bättre värde som kommer göra koden bli lättare att läsa och förstå.
+                Men också lättare att testa för att det är mindre funktionalitet i samma funktion.
+            </p>
+            <li>Cohesion</li>
+            <p> 
+                Cohesion är hur fokuserad en klass eller method är mot ett mål.
+                Om man har en hög cohesion det menas på att klassen eller methoden är fokuserad mot ett mål som man leda till en ökar chansen att klassen eller methoden är återanvändbar.
+                Som min CardController den klassen tar hand om mycket som att starta ett spel, bladning, utdelning och uträckningarna om hur spelar status är.
+                Detta gör att många olika saker händer i samma klass.
+                Om jag skulle ändra på min CardController så att den får ett bättre poäng då skulle jag ändrat sp CardController tar bara hand om visa korten.
+                Sedan skapa en ny klass som tar hand om besparningen och modifierigen av kortleken som gör att funktionalitet delas upp från hanterningen av korten och uppvisningen av dem.
+            </p>
+            <li>Coupling</li>
+            <p> 
+                Handlar om hur beronde olika klasses är för varandra. En hög Coupling innebär oftast att om en ändring i en class, method eller moduler behövs då kommer det behövas ändrningar på flera platser.
+                Detta gör att det bli svårt att updatera sin kod och återanväda sin kod.
+                Om man får en lägre poäng på detta värde är bra då det innebär att mindre ändring behövs just att klasses, methoder eller moduler är mindre oberoende av varandra.
+                Som gör också att klasses kan återanvändas för flera olika funktioner.
+            </p>
+            <li>CRAP</li>
+            <p>
+                CRAP står för cahnge risk anti-patterns som innebär hur sannolikt är det att buggar framkommen vid ändring av kod.
+                Detta beror på hur kompliserad koden är och hur täkt är koden av tester. Ett högt värde innebär att koden har en svår underhållning vid ändrningar av koden.
+                Jag har några funktioner som har en hög CRAP poäng och när jag kollar på koden så har den många if statser som gör koden komplex och svår läst.
+                Jag skulle behöva göra koden mindre komplex i detta fallet med Game::checkValues() så är det bara ifstaser som get en output med fler arguments if satser som 
+                vara mer lätt läst genom att göra koden längre med fler if statser men med bara ett argument. 
+            <p>
+        </ol>
+    </div> 
+
+    <div name="Phpmetrics">
+        <h1> Phpmetrics </h1>
+        <p>
+            Jag har flera varningar på Phpmetrics som har titlen Probably bugged som kan vara beronde på hur komplex som koden är. 
+            För att det är samma filer som flaggas som hög komplexitet med scrutinizer som kan innebär att det finns buggar.
+            För att kunna förbättra denna koden så skulle jag jobbat med att göra koden mindre komplex som kommer leda till lättare testning och minskar sannoliktheten är buggar.
+            <h6>(Klicka för fullbild)</h6>
+            <a href="../../public/img/phpmetrics1.png" target="_blank">
+                <img src="../../public/img/phpmetrics1.png" style="width:100%">
+            </a>
+        </p>
+        <p>
+            Jag har 10 klasser som inte är testade som gör att jag kan inte få all infomation om klasserna som cyclomatic och buggar. 
+            Så jag kommer att skriva fler tester för de klasserna som inte har tester för att öka min coverage
+
+            <h6>(Klicka för fullbild)</h6>
+            <a href="../../public/img/phpmetrics2.png" target="_blank">
+                <img src="../../public/img/phpmetrics2.png" style="width:100%">
+            </a>
+        </p>
+        <p>
+            Vissa av mina klasses har bugs och defects som kan göra funktionalitet inte fungerar alltid så jag ska jobba att minska antalet buggar och defects på min kod.
+            <h6>(Klicka för fullbild)</h6>
+            <a href="../../public/img/phpmetrics3.png" target="_blank">
+                <img src="../../public/img/phpmetrics3.png" style="width:100%">
+            </a>
+        </p>
+
+    </div>
+
+    <div name="Scrutinizer">
+        <h1> Scrutinizer </h1> 
+        <img src="https://scrutinizer-ci.com/g/CarlOscarMarcus/mvc-me-report/badges/quality-score.png?b=main">
+        <img src="https://scrutinizer-ci.com/g/CarlOscarMarcus/mvc-me-report/badges/coverage.png?b=main">
+        <img src="https://scrutinizer-ci.com/g/CarlOscarMarcus/mvc-me-report/badges/build.png?b=main">
+        <p>
+            Baserat på scrutinizer så har jag två filer som har rakningen B och resten A. Det som påvärkar de två funktioner är desas komplexitet och deras CRAP.
+            Om jag skulle förbättra dem då skulle det vara att programmera om så att filterna bli mindre komplexa genom att dela upp funktionaliteten i olika klasses 
+            för att minska CRAP och öka deras cohesion och minska deras kompexitet.
+        </p>
+        <p>
+            Sedan har jag flera klasser som inte har någon coverage. Just nu ligger min code coverage på 78.2% som enligt riktlinjerna okej.
+            Dock kan jag öka coverage för att säkerhetställa funktionalitet fungerar.
+        </p>
+        <p>
+            Jag har också en mindre issue som handlar om en variabel som är "dead" som gör att den inte används. src/Controller/BlackjackController.php
+            Har också issues om best preactice och coding style som agerar på samma klass src/DeckHandler/Player.php
+            Så jag har bara funktionell kod i mina filer.
+        </p>
+    </div>
+
+    <div name="Förbättringar">
+        <h1>Förbättringar</h1>
+        <p>
+            Jag kommer att börja med att öka min kodtäckning så jag kan säkerhetställa att mina funktioner fungerar som plannerat och hjälpa till att hitta buggar.
+            När jag fixa en bättre coverage så kommer mina mätvärderna öka angånde coverage över projektet. Innan ändringar är Coverage 78.2%
+        <p>
+        <p>
+            Kommer att jobba med att minska komplexiteten på klasser och methoder som kommer att förbättra mina värden som CRAP, Coupling och Complexity.
+            Innan ändringar har är en poäng på 9.89 på scrutinizer och cyclomatic complexity på 5.43 by class på phpmetrics1
+        </p>
+        <p>
+
+        </p>
+    </div>
+
+</div>
+{% endblock %}

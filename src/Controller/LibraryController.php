@@ -117,20 +117,13 @@ class LibraryController extends AbstractController
         LibraryRepository $libraryRepository,
         int $id,
     ): Response {
-        $library = $libraryRepository
-            ->find($id);
+        $library = $libraryRepository->find($id);
 
-        $title = "{$library->getTitle()}";
-        $author = "{$library->getAuthor()}";
-        $ISBN = "{$library->getISBN()}";
-        $image = "{$library->getImage()}";
-        $id = "{$library->getId()}";
+        if (!$library) {
+            throw $this->createNotFoundException('Book not found.');
+        }
 
-        $data = [
-            'data' => [$title, $author, $ISBN, $image, $id],
-        ];
-
-        return $this->render('library/libraryUpdate.html.twig', $data);
+        return $this->render('library/libraryUpdate.html.twig', ['library' => $library]);
     }
 
     #[Route('/library/update/{id}', name: 'library_update_post', methods: ['POST'])]
