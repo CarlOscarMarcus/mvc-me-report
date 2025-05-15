@@ -45,4 +45,26 @@ class LibraryRepositoryTest extends KernelTestCase
         $this->assertNotNull($found);
         $this->assertSame('Example Book', $found->getTitle());
     }
+
+    public function testRemove(): void
+    {
+        $book = new Library();
+        $book->setTitle('Example Book');
+        $book->setAuthor('Author');
+        $book->setISBN('1234567890');
+        $book->setImage('cover.jpg');
+        $book->setURL('');
+
+        $repo = $this->entityManager->getRepository(Library::class);
+        $repo->save($book, true);
+
+        $book->setURL(strval($book->getId()));
+
+        $repo->save($book, true);
+
+        $id = $book->getId();
+        $repo->remove($book, true);
+
+        $this->assertNull($repo->find($id));
+    }
 }
