@@ -118,7 +118,7 @@
             "@phpstan"
         ],
         "phpunit": [
-            "@php -d XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html coverage/"
+            "php -d xdebug.mode=coverage vendor/bin/phpunit --coverage-html docs/coverage/"
         ],
         "phpdoc": "tools/phpdoc/phpdoc run -d ./src -t ./docs/api",
         "phpmetrics": "tools/phpmetrics/vendor/bin/phpmetrics --config=tools/phpmetrics/phpmetrics.json"
