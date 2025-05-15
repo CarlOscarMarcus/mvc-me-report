@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class BlackjackControllerTwig extends AbstractController
+class BlackjackController extends AbstractController
 {
     #[Route('/game', name: 'blackjackIndex')]
     public function blackjackIndex(): Response
