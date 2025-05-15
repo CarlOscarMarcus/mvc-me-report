@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="" tests="15" assertions="29" errors="0" warnings="0" failures="0" skipped="0" time="0.004141">
-    <testsuite name="Project Test Suite" tests="15" assertions="29" errors="0" warnings="0" failures="0" skipped="0" time="0.004141">
-      <testsuite name="Tests\DeckHandler\DeckTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/DeckTest.php" tests="4" assertions="6" errors="0" warnings="0" failures="0" skipped="0" time="0.003243">
-        <testcase name="testDeckCreation" class="Tests\DeckHandler\DeckTest" classname="Tests.DeckHandler.DeckTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/DeckTest.php" line="16" assertions="1" time="0.002042"/>
-        <testcase name="testDeckShuffle" class="Tests\DeckHandler\DeckTest" classname="Tests.DeckHandler.DeckTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/DeckTest.php" line="32" assertions="2" time="0.000741"/>
-        <testcase name="testDeckDeal" class="Tests\DeckHandler\DeckTest" classname="Tests.DeckHandler.DeckTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/DeckTest.php" line="55" assertions="2" time="0.000070"/>
+  <testsuite name="" tests="16" assertions="29" errors="1" warnings="0" failures="0" skipped="0" time="0.077440">
+    <testsuite name="Project Test Suite" tests="16" assertions="29" errors="1" warnings="0" failures="0" skipped="0" time="0.077440">
+      <testsuite name="Tests\DeckHandler\DeckTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/DeckTest.php" tests="4" assertions="6" errors="0" warnings="0" failures="0" skipped="0" time="0.003025">
+        <testcase name="testDeckCreation" class="Tests\DeckHandler\DeckTest" classname="Tests.DeckHandler.DeckTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/DeckTest.php" line="16" assertions="1" time="0.001821"/>
+        <testcase name="testDeckShuffle" class="Tests\DeckHandler\DeckTest" classname="Tests.DeckHandler.DeckTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/DeckTest.php" line="32" assertions="2" time="0.000751"/>
+        <testcase name="testDeckDeal" class="Tests\DeckHandler\DeckTest" classname="Tests.DeckHandler.DeckTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/DeckTest.php" line="55" assertions="2" time="0.000063"/>
         <testcase name="testDeckSort" class="Tests\DeckHandler\DeckTest" classname="Tests.DeckHandler.DeckTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/DeckTest.php" line="74" assertions="1" time="0.000390"/>
       </testsuite>
-      <testsuite name="Tests\DeckHandler\GameTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/GameTest.php" tests="4" assertions="12" errors="0" warnings="0" failures="0" skipped="0" time="0.000297">
-        <testcase name="testHighestBelow21" class="Tests\DeckHandler\GameTest" classname="Tests.DeckHandler.GameTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/GameTest.php" line="14" assertions="1" time="0.000179"/>
-        <testcase name="testResult" class="Tests\DeckHandler\GameTest" classname="Tests.DeckHandler.GameTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/GameTest.php" line="26" assertions="3" time="0.000040"/>
-        <testcase name="testCheckValues" class="Tests\DeckHandler\GameTest" classname="Tests.DeckHandler.GameTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/GameTest.php" line="46" assertions="5" time="0.000039"/>
-        <testcase name="testValueToString" class="Tests\DeckHandler\GameTest" classname="Tests.DeckHandler.GameTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/GameTest.php" line="81" assertions="3" time="0.000039"/>
+      <testsuite name="Tests\DeckHandler\GameTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/GameTest.php" tests="4" assertions="12" errors="0" warnings="0" failures="0" skipped="0" time="0.000281">
+        <testcase name="testHighestBelow21" class="Tests\DeckHandler\GameTest" classname="Tests.DeckHandler.GameTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/GameTest.php" line="14" assertions="1" time="0.000168"/>
+        <testcase name="testResult" class="Tests\DeckHandler\GameTest" classname="Tests.DeckHandler.GameTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/GameTest.php" line="26" assertions="3" time="0.000039"/>
+        <testcase name="testCheckValues" class="Tests\DeckHandler\GameTest" classname="Tests.DeckHandler.GameTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/GameTest.php" line="46" assertions="5" time="0.000036"/>
+        <testcase name="testValueToString" class="Tests\DeckHandler\GameTest" classname="Tests.DeckHandler.GameTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/GameTest.php" line="81" assertions="3" time="0.000038"/>
       </testsuite>
-      <testsuite name="Tests\DeckHandler\PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" tests="7" assertions="11" errors="0" warnings="0" failures="0" skipped="0" time="0.000600">
-        <testcase name="testAddCard" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="21" assertions="1" time="0.000219"/>
-        <testcase name="testPlayerValueWithDressedCards" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="38" assertions="1" time="0.000041"/>
-        <testcase name="testGetStatus" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="53" assertions="1" time="0.000106"/>
-        <testcase name="testChangeStatus" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="65" assertions="2" time="0.000101"/>
-        <testcase name="testGetValueOfHand" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="82" assertions="4" time="0.000053"/>
-        <testcase name="testPlayerToString" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="115" assertions="1" time="0.000040"/>
-        <testcase name="testPlayerToStringApi" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="134" assertions="1" time="0.000040"/>
+      <testsuite name="Tests\DeckHandler\PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" tests="7" assertions="11" errors="0" warnings="0" failures="0" skipped="0" time="0.000561">
+        <testcase name="testAddCard" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="21" assertions="1" time="0.000193"/>
+        <testcase name="testPlayerValueWithDressedCards" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="38" assertions="1" time="0.000040"/>
+        <testcase name="testGetStatus" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="53" assertions="1" time="0.000104"/>
+        <testcase name="testChangeStatus" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="65" assertions="2" time="0.000097"/>
+        <testcase name="testGetValueOfHand" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="82" assertions="4" time="0.000050"/>
+        <testcase name="testPlayerToString" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="115" assertions="1" time="0.000038"/>
+        <testcase name="testPlayerToStringApi" class="Tests\DeckHandler\PlayerTest" classname="Tests.DeckHandler.PlayerTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Deckhandler/PlayerTest.php" line="134" assertions="1" time="0.000039"/>
+      </testsuite>
+      <testsuite name="App\Tests\Repository\LibraryRepositoryTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Repository/LibraryRepositoryTest.php" tests="1" assertions="0" errors="1" warnings="0" failures="0" skipped="0" time="0.073573">
+        <testcase name="testSaveAndFind" class="App\Tests\Repository\LibraryRepositoryTest" classname="App.Tests.Repository.LibraryRepositoryTest" file="/home/osay21/dbwebb-kurser/mvc/me/report/tests/Repository/LibraryRepositoryTest.php" line="25" assertions="0" time="0.073573">
+          <error type="Doctrine\DBAL\Exception\NotNullConstraintViolationException">App\Tests\Repository\LibraryRepositoryTest::testSaveAndFind
+Doctrine\DBAL\Exception\NotNullConstraintViolationException: An exception occurred while executing a query: SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: library.id
+
+/home/osay21/dbwebb-kurser/mvc/me/report/vendor/doctrine/dbal/src/Driver/API/SQLite/ExceptionConverter.php:48
+/home/osay21/dbwebb-kurser/mvc/me/report/vendor/doctrine/dbal/src/Connection.php:1976
+/home/osay21/dbwebb-kurser/mvc/me/report/vendor/doctrine/dbal/src/Connection.php:1918
+/home/osay21/dbwebb-kurser/mvc/me/report/vendor/doctrine/dbal/src/Statement.php:194
+/home/osay21/dbwebb-kurser/mvc/me/report/vendor/doctrine/dbal/src/Statement.php:249
+/home/osay21/dbwebb-kurser/mvc/me/report/vendor/doctrine/orm/src/Persisters/Entity/BasicEntityPersister.php:288
+/home/osay21/dbwebb-kurser/mvc/me/report/vendor/doctrine/orm/src/UnitOfWork.php:1186
+/home/osay21/dbwebb-kurser/mvc/me/report/vendor/doctrine/orm/src/UnitOfWork.php:448
+/home/osay21/dbwebb-kurser/mvc/me/report/vendor/doctrine/orm/src/EntityManager.php:414
+/home/osay21/dbwebb-kurser/mvc/me/report/src/Repository/LibraryRepository.php:29
+/home/osay21/dbwebb-kurser/mvc/me/report/tests/Repository/LibraryRepositoryTest.php:35</error>
+        </testcase>
       </testsuite>
     </testsuite>
   </testsuite>
