@@ -44,8 +44,6 @@ class Game
         } elseif ($playerHigh == $dealerHigh) {
             return 'Tie <br> Push';
         }
-
-        return 'false';
     }
 
     /**
@@ -54,18 +52,68 @@ class Game
      *
      * @return string
      */
-    public function checkValues($player, $dealer)
+    /**
+     * Checks if either player or dealer has a blackjack (21)
+     *
+     * @param array $player Player's hand values
+     * @param array $dealer Dealer's hand values
+     *
+     * @return string|null Result message if blackjack, null otherwise
+     */
+    private function checkBlackjack($player, $dealer)
     {
         if (21 == $player[0] || 21 == $player[1]) {
             return 'Player Blackjack!';
-        } elseif (21 == $dealer[0] || 21 == $dealer[1]) {
+        }
+        
+        if (21 == $dealer[0] || 21 == $dealer[1]) {
             return 'Dealer Blackjack!';
         }
+        
+        return null;
+    }
 
+    /**
+     * Checks if either player or dealer has busted (over 21)
+     *
+     * @param array $player Player's hand values
+     * @param array $dealer Dealer's hand values
+     *
+     * @return string|null Result message if bust, null otherwise
+     */
+    private function checkBust($player, $dealer)
+    {
         if ($player[0] > 21 && $player[1] > 21) {
             return 'Dealer wins <br> Player Busts';
-        } elseif ($dealer[0] > 21 && $dealer[1] > 21) {
+        }
+        
+        if ($dealer[0] > 21 && $dealer[1] > 21) {
             return 'Player wins <br> Dealer Busts';
+        }
+        
+        return null;
+    }
+
+    /**
+     * Checks the values of both player and dealer hands to determine the game state
+     *
+     * @param array $player Player's hand values
+     * @param array $dealer Dealer's hand values
+     *
+     * @return string Result message based on the current game state
+     */
+    public function checkValues($player, $dealer)
+    {
+        // Check for blackjack
+        $blackjackResult = $this->checkBlackjack($player, $dealer);
+        if ($blackjackResult !== null) {
+            return $blackjackResult;
+        }
+
+        // Check for bust
+        $bustResult = $this->checkBust($player, $dealer);
+        if ($bustResult !== null) {
+            return $bustResult;
         }
 
         return '';

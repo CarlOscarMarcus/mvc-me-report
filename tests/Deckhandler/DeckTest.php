@@ -46,6 +46,29 @@ class DeckTest extends TestCase
     }
 
     /**
+     * Test that an Exception is thrown when not enough cards are available to deal.
+     *
+     * @covers \App\DeckHandler\Deck::__construct
+     * @covers \App\DeckHandler\Deck::shuffle
+     * @covers \App\DeckHandler\Deck::deal
+     * @covers \App\DeckHandler\Card::__construct
+     */
+    public function testDealThrowsExceptionWhenNotEnoughCards()
+    {
+        $deck = new Deck();
+        $deck->shuffle();
+
+        // Deal all cards to empty the deck
+        $deck->deal(52);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Not enough cards in deck to draw 1 cards. Renew your deck with /card/shuffle');
+
+        // Try to deal when there are no cards left
+        $deck->deal(1);
+    }
+
+    /**
      * Test to deal cards to player and cards dissapear after being dealt
      * @covers \App\DeckHandler\Deck::__construct
      * @covers \App\DeckHandler\Deck::deal

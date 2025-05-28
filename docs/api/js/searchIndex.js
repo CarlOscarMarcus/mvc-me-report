@@ -1,40 +1,80 @@
 Search.appendIndex(
     [
                 {
-            "fqsen": "\\App\\Controller\\BlackjackControllerTwig",
-            "name": "BlackjackControllerTwig",
+            "fqsen": "\\App\\Controller\\BlackjackController",
+            "name": "BlackjackController",
             "summary": "",
-            "url": "classes/App-Controller-BlackjackControllerTwig.html"
+            "url": "classes/App-Controller-BlackjackController.html"
         },                {
-            "fqsen": "\\App\\Controller\\BlackjackControllerTwig\u003A\u003AblackjackIndex\u0028\u0029",
+            "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003AblackjackIndex\u0028\u0029",
             "name": "blackjackIndex",
             "summary": "",
-            "url": "classes/App-Controller-BlackjackControllerTwig.html#method_blackjackIndex"
+            "url": "classes/App-Controller-BlackjackController.html#method_blackjackIndex"
         },                {
-            "fqsen": "\\App\\Controller\\BlackjackControllerTwig\u003A\u003AblackjackDoc\u0028\u0029",
+            "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003AblackjackDoc\u0028\u0029",
             "name": "blackjackDoc",
             "summary": "",
-            "url": "classes/App-Controller-BlackjackControllerTwig.html#method_blackjackDoc"
+            "url": "classes/App-Controller-BlackjackController.html#method_blackjackDoc"
         },                {
-            "fqsen": "\\App\\Controller\\BlackjackControllerTwig\u003A\u003Ablackjack\u0028\u0029",
+            "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003Ablackjack\u0028\u0029",
             "name": "blackjack",
             "summary": "",
-            "url": "classes/App-Controller-BlackjackControllerTwig.html#method_blackjack"
+            "url": "classes/App-Controller-BlackjackController.html#method_blackjack"
         },                {
-            "fqsen": "\\App\\Controller\\BlackjackControllerTwig\u003A\u003AblackjackHit\u0028\u0029",
+            "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003AblackjackHit\u0028\u0029",
             "name": "blackjackHit",
             "summary": "",
-            "url": "classes/App-Controller-BlackjackControllerTwig.html#method_blackjackHit"
+            "url": "classes/App-Controller-BlackjackController.html#method_blackjackHit"
         },                {
-            "fqsen": "\\App\\Controller\\BlackjackControllerTwig\u003A\u003AblackjackStand\u0028\u0029",
+            "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003AblackjackStand\u0028\u0029",
             "name": "blackjackStand",
             "summary": "",
-            "url": "classes/App-Controller-BlackjackControllerTwig.html#method_blackjackStand"
+            "url": "classes/App-Controller-BlackjackController.html#method_blackjackStand"
         },                {
-            "fqsen": "\\App\\Controller\\BlackjackControllerTwig\u003A\u003AblackjackReset\u0028\u0029",
+            "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003AblackjackReset\u0028\u0029",
             "name": "blackjackReset",
             "summary": "",
-            "url": "classes/App-Controller-BlackjackControllerTwig.html#method_blackjackReset"
+            "url": "classes/App-Controller-BlackjackController.html#method_blackjackReset"
+        },                {
+            "fqsen": "\\App\\Controller\\CardController",
+            "name": "CardController",
+            "summary": "",
+            "url": "classes/App-Controller-CardController.html"
+        },                {
+            "fqsen": "\\App\\Controller\\CardController\u003A\u003Acard\u0028\u0029",
+            "name": "card",
+            "summary": "",
+            "url": "classes/App-Controller-CardController.html#method_card"
+        },                {
+            "fqsen": "\\App\\Controller\\CardController\u003A\u003AcardDeck\u0028\u0029",
+            "name": "cardDeck",
+            "summary": "",
+            "url": "classes/App-Controller-CardController.html#method_cardDeck"
+        },                {
+            "fqsen": "\\App\\Controller\\CardController\u003A\u003AcardShuffle\u0028\u0029",
+            "name": "cardShuffle",
+            "summary": "",
+            "url": "classes/App-Controller-CardController.html#method_cardShuffle"
+        },                {
+            "fqsen": "\\App\\Controller\\CardController\u003A\u003AcardDraw\u0028\u0029",
+            "name": "cardDraw",
+            "summary": "",
+            "url": "classes/App-Controller-CardController.html#method_cardDraw"
+        },                {
+            "fqsen": "\\App\\Controller\\CardController\u003A\u003AcardDrawCostum\u0028\u0029",
+            "name": "cardDrawCostum",
+            "summary": "",
+            "url": "classes/App-Controller-CardController.html#method_cardDrawCostum"
+        },                {
+            "fqsen": "\\App\\Controller\\CardController\u003A\u003AcardDrawPlayers\u0028\u0029",
+            "name": "cardDrawPlayers",
+            "summary": "",
+            "url": "classes/App-Controller-CardController.html#method_cardDrawPlayers"
+        },                {
+            "fqsen": "\\App\\Controller\\CardController\u003A\u003AapiIndex\u0028\u0029",
+            "name": "apiIndex",
+            "summary": "",
+            "url": "classes/App-Controller-CardController.html#method_apiIndex"
         },                {
             "fqsen": "\\App\\Controller\\CardControllerApi",
             "name": "CardControllerApi",
@@ -75,46 +115,6 @@ Search.appendIndex(
             "name": "apiBlackjack",
             "summary": "",
             "url": "classes/App-Controller-CardControllerApi.html#method_apiBlackjack"
-        },                {
-            "fqsen": "\\App\\Controller\\CardControllerTwig",
-            "name": "CardControllerTwig",
-            "summary": "",
-            "url": "classes/App-Controller-CardControllerTwig.html"
-        },                {
-            "fqsen": "\\App\\Controller\\CardControllerTwig\u003A\u003Acard\u0028\u0029",
-            "name": "card",
-            "summary": "",
-            "url": "classes/App-Controller-CardControllerTwig.html#method_card"
-        },                {
-            "fqsen": "\\App\\Controller\\CardControllerTwig\u003A\u003AcardDeck\u0028\u0029",
-            "name": "cardDeck",
-            "summary": "",
-            "url": "classes/App-Controller-CardControllerTwig.html#method_cardDeck"
-        },                {
-            "fqsen": "\\App\\Controller\\CardControllerTwig\u003A\u003AcardShuffle\u0028\u0029",
-            "name": "cardShuffle",
-            "summary": "",
-            "url": "classes/App-Controller-CardControllerTwig.html#method_cardShuffle"
-        },                {
-            "fqsen": "\\App\\Controller\\CardControllerTwig\u003A\u003AcardDraw\u0028\u0029",
-            "name": "cardDraw",
-            "summary": "",
-            "url": "classes/App-Controller-CardControllerTwig.html#method_cardDraw"
-        },                {
-            "fqsen": "\\App\\Controller\\CardControllerTwig\u003A\u003AcardDrawCostum\u0028\u0029",
-            "name": "cardDrawCostum",
-            "summary": "",
-            "url": "classes/App-Controller-CardControllerTwig.html#method_cardDrawCostum"
-        },                {
-            "fqsen": "\\App\\Controller\\CardControllerTwig\u003A\u003AcardDrawPlayers\u0028\u0029",
-            "name": "cardDrawPlayers",
-            "summary": "",
-            "url": "classes/App-Controller-CardControllerTwig.html#method_cardDrawPlayers"
-        },                {
-            "fqsen": "\\App\\Controller\\CardControllerTwig\u003A\u003AapiIndex\u0028\u0029",
-            "name": "apiIndex",
-            "summary": "",
-            "url": "classes/App-Controller-CardControllerTwig.html#method_apiIndex"
         },                {
             "fqsen": "\\App\\Controller\\LibraryController",
             "name": "LibraryController",
@@ -176,35 +176,45 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-LibraryController.html#method_apiShowBook"
         },                {
-            "fqsen": "\\App\\Controller\\LuckyControllerTwig",
-            "name": "LuckyControllerTwig",
+            "fqsen": "\\App\\Controller\\LuckyController",
+            "name": "LuckyController",
             "summary": "",
-            "url": "classes/App-Controller-LuckyControllerTwig.html"
+            "url": "classes/App-Controller-LuckyController.html"
         },                {
-            "fqsen": "\\App\\Controller\\LuckyControllerTwig\u003A\u003Alucky\u0028\u0029",
+            "fqsen": "\\App\\Controller\\LuckyController\u003A\u003Alucky\u0028\u0029",
             "name": "lucky",
             "summary": "",
-            "url": "classes/App-Controller-LuckyControllerTwig.html#method_lucky"
+            "url": "classes/App-Controller-LuckyController.html#method_lucky"
         },                {
-            "fqsen": "\\App\\Controller\\ReportControllerTwig",
-            "name": "ReportControllerTwig",
+            "fqsen": "\\App\\Controller\\MetricsController",
+            "name": "MetricsController",
             "summary": "",
-            "url": "classes/App-Controller-ReportControllerTwig.html"
+            "url": "classes/App-Controller-MetricsController.html"
         },                {
-            "fqsen": "\\App\\Controller\\ReportControllerTwig\u003A\u003Aindex\u0028\u0029",
+            "fqsen": "\\App\\Controller\\MetricsController\u003A\u003Aindex\u0028\u0029",
             "name": "index",
             "summary": "",
-            "url": "classes/App-Controller-ReportControllerTwig.html#method_index"
+            "url": "classes/App-Controller-MetricsController.html#method_index"
         },                {
-            "fqsen": "\\App\\Controller\\ReportControllerTwig\u003A\u003Aabout\u0028\u0029",
+            "fqsen": "\\App\\Controller\\ReportController",
+            "name": "ReportController",
+            "summary": "",
+            "url": "classes/App-Controller-ReportController.html"
+        },                {
+            "fqsen": "\\App\\Controller\\ReportController\u003A\u003Aindex\u0028\u0029",
+            "name": "index",
+            "summary": "",
+            "url": "classes/App-Controller-ReportController.html#method_index"
+        },                {
+            "fqsen": "\\App\\Controller\\ReportController\u003A\u003Aabout\u0028\u0029",
             "name": "about",
             "summary": "",
-            "url": "classes/App-Controller-ReportControllerTwig.html#method_about"
+            "url": "classes/App-Controller-ReportController.html#method_about"
         },                {
-            "fqsen": "\\App\\Controller\\ReportControllerTwig\u003A\u003Areport\u0028\u0029",
+            "fqsen": "\\App\\Controller\\ReportController\u003A\u003Areport\u0028\u0029",
             "name": "report",
             "summary": "",
-            "url": "classes/App-Controller-ReportControllerTwig.html#method_report"
+            "url": "classes/App-Controller-ReportController.html#method_report"
         },                {
             "fqsen": "\\App\\DeckHandler\\Card",
             "name": "Card",
@@ -316,9 +326,19 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-DeckHandler-Game.html#method_result"
         },                {
+            "fqsen": "\\App\\DeckHandler\\Game\u003A\u003AcheckBlackjack\u0028\u0029",
+            "name": "checkBlackjack",
+            "summary": "Checks\u0020if\u0020either\u0020player\u0020or\u0020dealer\u0020has\u0020a\u0020blackjack\u0020\u002821\u0029",
+            "url": "classes/App-DeckHandler-Game.html#method_checkBlackjack"
+        },                {
+            "fqsen": "\\App\\DeckHandler\\Game\u003A\u003AcheckBust\u0028\u0029",
+            "name": "checkBust",
+            "summary": "Checks\u0020if\u0020either\u0020player\u0020or\u0020dealer\u0020has\u0020busted\u0020\u0028over\u002021\u0029",
+            "url": "classes/App-DeckHandler-Game.html#method_checkBust"
+        },                {
             "fqsen": "\\App\\DeckHandler\\Game\u003A\u003AcheckValues\u0028\u0029",
             "name": "checkValues",
-            "summary": "",
+            "summary": "Checks\u0020the\u0020values\u0020of\u0020both\u0020player\u0020and\u0020dealer\u0020hands\u0020to\u0020determine\u0020the\u0020game\u0020state",
             "url": "classes/App-DeckHandler-Game.html#method_checkValues"
         },                {
             "fqsen": "\\App\\DeckHandler\\Game\u003A\u003AvalueToString\u0028\u0029",
