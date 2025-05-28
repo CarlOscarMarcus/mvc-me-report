@@ -41,10 +41,9 @@ class LibraryController extends AbstractController
         $book->setURL('');
 
         $entityManager->persist($book);
-
         $entityManager->flush();
-        $book->setURL(strval($book->getId()));
-
+        
+        $book->setURL((string) $book->getId());
         $entityManager->flush();
 
         return $this->redirectToRoute('library_show_all');
@@ -54,23 +53,11 @@ class LibraryController extends AbstractController
     public function showAllLibrary(
         LibraryRepository $libraryRepository,
     ): Response {
-        $library = $libraryRepository
-            ->findAll();
+        $books = $libraryRepository->findAll();
 
-        $temp = [];
-        foreach ($library as $book) {
-            $title = "{$book->getTitle()}";
-            $author = "{$book->getAuthor()}";
-            $ISBN = "{$book->getISBN()}";
-            $image = "{$book->getImage()}";
-            $id = $book->getId();
-            array_push($temp, [$title, $author, $ISBN, $image, $id]);
-        }
-        $data = [
-            'data' => $temp,
-        ];
-
-        return $this->render('library/showAllBooks.html.twig', $data);
+        return $this->render('library/showAllBooks.html.twig', [
+            'data' => array_map(fn($book) => $book->toArray(), $books)
+        ]);
     }
 
     #[Route('/library/show/{id}', name: 'library_by_id')]
@@ -78,20 +65,15 @@ class LibraryController extends AbstractController
         LibraryRepository $libraryRepository,
         int $id,
     ): Response {
-        $library = $libraryRepository
-            ->find($id);
+        $library = $libraryRepository->find($id);
 
-        $title = "{$library->getTitle()}";
-        $author = "{$library->getAuthor()}";
-        $ISBN = "{$library->getISBN()}";
-        $image = "{$library->getImage()}";
-        $id = "{$library->getId()}";
+        if (!$library) {
+            throw $this->createNotFoundException('Book not found.');
+        }
 
-        $data = [
-            'data' => [$title, $author, $ISBN, $image, $id],
-        ];
-
-        return $this->render('library/showBooksById.html.twig', $data);
+        return $this->render('library/showBooksById.html.twig', [
+            'data' => $library->toArray()
+        ]);
     }
 
     #[Route('/library/delete/{id}', name: 'library_delete', methods: ['GET'])]
@@ -103,7 +85,7 @@ class LibraryController extends AbstractController
         $library = $entityManager->getRepository(Library::class)->find($id);
 
         if (!$library) {
-            throw $this->createNotFoundException('No library found for id '.$id);
+            throw $this->createNotFoundException('Book not found.');
         }
 
         $entityManager->remove($library);
@@ -157,48 +139,9 @@ class LibraryController extends AbstractController
 
         foreach ($library as $book) {
             $entityManager->remove($book);
-            $entityManager->flush();
         }
+        $entityManager->flush();
 
         return $this->redirectToRoute('library_show_all');
-    }
-
-    #[Route('api/library/books', name: 'api_library_books')]
-    public function apiShowAllBooks(
-        LibraryRepository $LibraryRepository,
-    ): Response {
-        $books = $LibraryRepository
-            ->findAll();
-
-        $response = $this->json($books);
-        $response->setEncodingOptions(
-            $response->getEncodingOptions() | JSON_PRETTY_PRINT
-        );
-
-        return $response;
-    }
-
-    #[Route('/api/library/book/{isbn}', name: 'api_library_book', methods: ['GET'])]
-    public function apiShowBook(
-        string $isbn,
-        LibraryRepository $libraryRepository,
-    ): Response {
-        // Find a book by ISBN
-        $book = $libraryRepository->findOneBy(['ISBN' => $isbn]);
-
-        if (!$book) {
-            // If no book is found, return a 404 response
-            return $this->json([
-                'error' => 'Book not found',
-            ], Response::HTTP_NOT_FOUND);
-        }
-
-        // Return the book data as JSON with pretty print enabled
-        $response = $this->json($book);
-        $response->setEncodingOptions(
-            $response->getEncodingOptions() | JSON_PRETTY_PRINT
-        );
-
-        return $response;
     }
 }

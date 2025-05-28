@@ -87,4 +87,20 @@ class Library
         $this->URL = $URL;
         return $this;
     }
+
+    /**
+     * Convert book data to array for templates
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            $this->getTitle(),
+            $this->getAuthor(),
+            $this->getISBN(),
+            $this->getImage(),
+            $this->getId()
+        ];
+    }
 }
