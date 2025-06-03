@@ -22,7 +22,6 @@ class Game
                 $highest = $num;
             }
         }
-
         return $highest;
     }
 
