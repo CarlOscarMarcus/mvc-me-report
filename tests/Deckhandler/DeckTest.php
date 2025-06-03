@@ -80,7 +80,7 @@ class DeckTest extends TestCase
         $deck = new Deck();
         $cards = $deck->deal(5);
         $this->assertEquals(5, count($cards));
-        $this->assertEquals(47, $deck->countDeck());
+        $this->assertEquals(47, $deck->countDeck()); 
     }
 
     /**
