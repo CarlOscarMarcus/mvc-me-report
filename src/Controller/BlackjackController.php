@@ -82,37 +82,37 @@ private function startNewGame(SessionInterface $session): void
     $session->set('result', '');
 }
 
-    private function handleDealerTurn(Game $game, Player $dealer, Player $player, Deck $deck, SessionInterface $session): void
-    {
-        while (
-            $dealer->getValueOfHand()[0] < 17 &&
-            $game->highestBelow21($dealer->getValueOfHand()) < $game->highestBelow21($player->getValueOfHand())
-        ) {
-            $dealer->addCard($deck->deal(1));
-        }
-
-        $session->set('gameStatus', 'result');
+private function handleDealerTurn(Game $game, Player $dealer, Player $player, Deck $deck, SessionInterface $session): void
+{
+    while (
+        $dealer->getValueOfHand()[0] < 17 &&
+        $game->highestBelow21($dealer->getValueOfHand()) < $game->highestBelow21($player->getValueOfHand())
+    ) {
+        $dealer->addCard($deck->deal(1));
     }
 
-    private function saveGameState(SessionInterface $session, Player $player, Player $dealer, Deck $deck): void
-    {
-        $session->set('player', $player);
-        $session->set('dealer', $dealer);
-        $session->set('deck', $deck);
-    }
+    $session->set('gameStatus', 'result');
+}
 
-    private function buildViewData(Game $game, SessionInterface $session, Player $player, Player $dealer): array
-    {
-        return [
-            'player' => $game->valueToString($player->getValueOfHand()),
-            'playerCard' => $player->playerToString(),
-            'dealer' => $game->valueToString($dealer->getValueOfHand()),
-            'dealerCard' => $dealer->playerToString(),
-            'buttons' => $player->getStatus(),
-            'gameStatus' => $session->get('gameStatus'),
-            'result' => $session->get('result'),
-        ];
-    }
+private function saveGameState(SessionInterface $session, Player $player, Player $dealer, Deck $deck): void
+{
+    $session->set('player', $player);
+    $session->set('dealer', $dealer);
+    $session->set('deck', $deck);
+}
+
+private function buildViewData(Game $game, SessionInterface $session, Player $player, Player $dealer): array
+{
+    return [
+        'player' => $game->valueToString($player->getValueOfHand()),
+        'playerCard' => $player->playerToString(),
+        'dealer' => $game->valueToString($dealer->getValueOfHand()),
+        'dealerCard' => $dealer->playerToString(),
+        'buttons' => $player->getStatus(),
+        'gameStatus' => $session->get('gameStatus'),
+        'result' => $session->get('result'),
+    ];
+}
 
     #[Route('/game/blackjack/hit', name: 'blackjackHit')]
     public function blackjackHit(SessionInterface $session): Response
