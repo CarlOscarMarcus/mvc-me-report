@@ -43,6 +43,8 @@ class Game
         } elseif ($playerHigh == $dealerHigh) {
             return 'Tie <br> Push';
         }
+
+        return '';
     }
 
     /**
@@ -64,11 +66,11 @@ class Game
         if (21 == $player[0] || 21 == $player[1]) {
             return 'Player Blackjack!';
         }
-        
+
         if (21 == $dealer[0] || 21 == $dealer[1]) {
             return 'Dealer Blackjack!';
         }
-        
+
         return null;
     }
 
@@ -85,11 +87,11 @@ class Game
         if ($player[0] > 21 && $player[1] > 21) {
             return 'Dealer wins <br> Player Busts';
         }
-        
+
         if ($dealer[0] > 21 && $dealer[1] > 21) {
             return 'Player wins <br> Dealer Busts';
         }
-        
+
         return null;
     }
 

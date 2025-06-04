@@ -48,4 +48,3 @@ class LibraryApiController extends AbstractController
         return $response;
     }
 }
-

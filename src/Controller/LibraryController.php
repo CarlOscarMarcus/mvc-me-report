@@ -42,7 +42,7 @@ class LibraryController extends AbstractController
 
         $entityManager->persist($book);
         $entityManager->flush();
-        
+
         $book->setURL((string) $book->getId());
         $entityManager->flush();
 
@@ -56,7 +56,7 @@ class LibraryController extends AbstractController
         $books = $libraryRepository->findAll();
 
         return $this->render('library/showAllBooks.html.twig', [
-            'data' => array_map(fn($book) => $book->toArray(), $books)
+            'data' => array_map(fn ($book) => $book->toArray(), $books)
         ]);
     }
 

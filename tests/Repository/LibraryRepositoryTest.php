@@ -4,43 +4,44 @@ namespace App\Tests\Repository;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Entity\Library;
+use App\Repository\LibraryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\SchemaTool;
 
 class LibraryRepositoryTest extends KernelTestCase
 {
     private EntityManagerInterface $entityManager;
+    private LibraryRepository $repo;
 
     protected function setUp(): void
     {
         self::bootKernel();
+
         $this->entityManager = self::getContainer()->get('doctrine')->getManager();
+        $this->repo = self::getContainer()->get(LibraryRepository::class);
 
-        // Create the schema (ONLY needed for SQLite in-memory DB)
-        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
+        // Rebuild in-memory schema
+        $schemaTool = new SchemaTool($this->entityManager);
         $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
+        $schemaTool->dropSchema($metadata);
         $schemaTool->createSchema($metadata);
-
     }
 
     public function testSaveAndFind(): void
     {
         $book = new Library();
-        $book->setTitle('Example Book');
-        $book->setAuthor('Author');
-        $book->setISBN('1234567890');
-        $book->setImage('cover.jpg');
-        $book->setURL('');
+        $book->setTitle('Example Book')
+             ->setAuthor('Author')
+             ->setISBN('1234567890')
+             ->setImage('cover.jpg')
+             ->setURL('');
 
-        $repo = $this->entityManager->getRepository(Library::class);
-        $repo->save($book, true);
+        $this->repo->save($book, true);
 
         $book->setURL(strval($book->getId()));
+        $this->repo->save($book, true);
 
-        $repo->save($book, true);
-
-
-
-        $found = $repo->find($book->getId());
+        $found = $this->repo->find($book->getId());
 
         $this->assertNotNull($found);
         $this->assertSame('Example Book', $found->getTitle());
@@ -49,22 +50,20 @@ class LibraryRepositoryTest extends KernelTestCase
     public function testRemove(): void
     {
         $book = new Library();
-        $book->setTitle('Example Book');
-        $book->setAuthor('Author');
-        $book->setISBN('1234567890');
-        $book->setImage('cover.jpg');
-        $book->setURL('');
+        $book->setTitle('Example Book')
+             ->setAuthor('Author')
+             ->setISBN('1234567890')
+             ->setImage('cover.jpg')
+             ->setURL('');
 
-        $repo = $this->entityManager->getRepository(Library::class);
-        $repo->save($book, true);
+        $this->repo->save($book, true);
 
         $book->setURL(strval($book->getId()));
-
-        $repo->save($book, true);
+        $this->repo->save($book, true);
 
         $id = $book->getId();
-        $repo->remove($book, true);
+        $this->repo->remove($book, true);
 
-        $this->assertNull($repo->find($id));
+        $this->assertNull($this->repo->find($id));
     }
 }
