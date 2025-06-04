@@ -21,6 +21,26 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-BlackjackController.html#method_blackjack"
         },                {
+            "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003AstartNewGame\u0028\u0029",
+            "name": "startNewGame",
+            "summary": "",
+            "url": "classes/App-Controller-BlackjackController.html#method_startNewGame"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003AhandleDealerTurn\u0028\u0029",
+            "name": "handleDealerTurn",
+            "summary": "",
+            "url": "classes/App-Controller-BlackjackController.html#method_handleDealerTurn"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003AsaveGameState\u0028\u0029",
+            "name": "saveGameState",
+            "summary": "",
+            "url": "classes/App-Controller-BlackjackController.html#method_saveGameState"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003AbuildViewData\u0028\u0029",
+            "name": "buildViewData",
+            "summary": "",
+            "url": "classes/App-Controller-BlackjackController.html#method_buildViewData"
+        },                {
             "fqsen": "\\App\\Controller\\BlackjackController\u003A\u003AblackjackHit\u0028\u0029",
             "name": "blackjackHit",
             "summary": "",
@@ -116,6 +136,21 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-CardControllerApi.html#method_apiBlackjack"
         },                {
+            "fqsen": "\\App\\Controller\\LibraryApiController",
+            "name": "LibraryApiController",
+            "summary": "",
+            "url": "classes/App-Controller-LibraryApiController.html"
+        },                {
+            "fqsen": "\\App\\Controller\\LibraryApiController\u003A\u003AgetAllBooks\u0028\u0029",
+            "name": "getAllBooks",
+            "summary": "",
+            "url": "classes/App-Controller-LibraryApiController.html#method_getAllBooks"
+        },                {
+            "fqsen": "\\App\\Controller\\LibraryApiController\u003A\u003AgetBookByIsbn\u0028\u0029",
+            "name": "getBookByIsbn",
+            "summary": "",
+            "url": "classes/App-Controller-LibraryApiController.html#method_getBookByIsbn"
+        },                {
             "fqsen": "\\App\\Controller\\LibraryController",
             "name": "LibraryController",
             "summary": "",
@@ -165,16 +200,6 @@ Search.appendIndex(
             "name": "libraryReset",
             "summary": "",
             "url": "classes/App-Controller-LibraryController.html#method_libraryReset"
-        },                {
-            "fqsen": "\\App\\Controller\\LibraryController\u003A\u003AapiShowAllBooks\u0028\u0029",
-            "name": "apiShowAllBooks",
-            "summary": "",
-            "url": "classes/App-Controller-LibraryController.html#method_apiShowAllBooks"
-        },                {
-            "fqsen": "\\App\\Controller\\LibraryController\u003A\u003AapiShowBook\u0028\u0029",
-            "name": "apiShowBook",
-            "summary": "",
-            "url": "classes/App-Controller-LibraryController.html#method_apiShowBook"
         },                {
             "fqsen": "\\App\\Controller\\LuckyController",
             "name": "LuckyController",
@@ -460,6 +485,11 @@ Search.appendIndex(
             "name": "setURL",
             "summary": "",
             "url": "classes/App-Entity-Library.html#method_setURL"
+        },                {
+            "fqsen": "\\App\\Entity\\Library\u003A\u003AtoArray\u0028\u0029",
+            "name": "toArray",
+            "summary": "Convert\u0020book\u0020data\u0020to\u0020array\u0020for\u0020templates",
+            "url": "classes/App-Entity-Library.html#method_toArray"
         },                {
             "fqsen": "\\App\\Entity\\Library\u003A\u003A\u0024id",
             "name": "id",
