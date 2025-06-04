@@ -27,71 +27,91 @@ class BlackjackController extends AbstractController
     #[Route('/game/blackjack', name: 'blackjack', methods: ['GET'])]
     public function blackjack(SessionInterface $session): Response
     {
-        if (null == $session->get('gameStatus') || 'new' == $session->get('gameStatus')) {
-            // Create new game
-            $session->set('gameStatus', 'active');
-            $player = new Player();
-            $dealer = new Player();
-            $deck = new Deck();
-            $deck->shuffle();
-            $result = '';
+    $gameStatus = $session->get('gameStatus');
 
-            // Give player two cards
-            $player->addCard($deck->deal(2));
-            $dealer->addCard($deck->deal(2));
-            // Set new values
-            $session->set('player', $player);
-            $session->set('dealer', $dealer);
-            $session->set('deck', $deck);
-            $session->set('result', $result);
+    if ($gameStatus === null || $gameStatus === 'new') {
+        $this->startNewGame($session);
+    }
+
+    $player = $session->get('player');
+    $dealer = $session->get('dealer');
+    $deck = $session->get('deck');
+    $game = new Game();
+
+    // Check immediate win/loss
+    $result = $game->checkValues($player->getValueOfHand(), $dealer->getValueOfHand());
+    if ($result) {
+        $session->set('result', $result);
+        $player->changeStatus();
+        $session->set('gameStatus', 'gameOver');
+    }
+
+    // Dealer's turn if player stands
+    if ($gameStatus === 'stand') {
+        $this->handleDealerTurn($game, $dealer, $player, $deck, $session);
+        return $this->redirectToRoute('blackjack'); // Better than header('Refresh:0')
+    }
+
+    // Final result calculation
+    if ($gameStatus === 'result') {
+        $session->set('result', $game->result($player->getValueOfHand(), $dealer->getValueOfHand()));
+        $session->set('gameStatus', 'gameOver');
+    }
+
+    // Save game state
+    $this->saveGameState($session, $player, $dealer, $deck);
+
+    // Render view
+    return $this->render('game/blackjack.html.twig', $this->buildViewData($game, $session, $player, $dealer));
+    }
+
+private function startNewGame(SessionInterface $session): void
+{
+    $player = new Player();
+    $dealer = new Player();
+    $deck = new Deck();
+    $deck->shuffle();
+
+    $player->addCard($deck->deal(2));
+    $dealer->addCard($deck->deal(2));
+
+    $session->set('gameStatus', 'active');
+    $session->set('player', $player);
+    $session->set('dealer', $dealer);
+    $session->set('deck', $deck);
+    $session->set('result', '');
+}
+
+    private function handleDealerTurn(Game $game, Player $dealer, Player $player, Deck $deck, SessionInterface $session): void
+    {
+        while (
+            $dealer->getValueOfHand()[0] < 17 &&
+            $game->highestBelow21($dealer->getValueOfHand()) < $game->highestBelow21($player->getValueOfHand())
+        ) {
+            $dealer->addCard($deck->deal(1));
         }
-        $game = new Game();
 
-        $player = $session->get('player');
-        $dealer = $session->get('dealer');
-        $deck = $session->get('deck');
+        $session->set('gameStatus', 'result');
+    }
 
-        if ($game->checkValues($player->getValueOfHand(), $dealer->getValueOfHand())) {
-            $session->set('result', $game->checkValues($player->getValueOfHand(), $dealer->getValueOfHand()));
-            $player->changeStatus();
-            $session->set('gameStatus', 'gameOver');
-        }
-
-        if ('stand' == $session->get('gameStatus')) {
-            // Dealer draws if player stands
-            if ($dealer->getValueOfHand()[0] < 17
-                && $game->highestBelow21($dealer->getValueOfHand()) < $game->highestBelow21($player->getValueOfHand())
-            ) {
-                $dealer->addCard($deck->deal(1));
-            }
-            $session->set('gameStatus', 'result');
-            header('Refresh:0');
-        } elseif ('result' == $session->get('gameStatus')) {
-            $session->set('result', $game->result($player->getValueOfHand(), $dealer->getValueOfHand()));
-            $session->set('gameStatus', 'gameOver');
-        }
-
-        // Set new values
+    private function saveGameState(SessionInterface $session, Player $player, Player $dealer, Deck $deck): void
+    {
         $session->set('player', $player);
         $session->set('dealer', $dealer);
         $session->set('deck', $deck);
+    }
 
-        $data = [
-            // Players
+    private function buildViewData(Game $game, SessionInterface $session, Player $player, Player $dealer): array
+    {
+        return [
             'player' => $game->valueToString($player->getValueOfHand()),
             'playerCard' => $player->playerToString(),
-
-            // Dealer
             'dealer' => $game->valueToString($dealer->getValueOfHand()),
             'dealerCard' => $dealer->playerToString(),
-
-            // Other
             'buttons' => $player->getStatus(),
             'gameStatus' => $session->get('gameStatus'),
             'result' => $session->get('result'),
         ];
-
-        return $this->render('game/blackjack.html.twig', $data);
     }
 
     #[Route('/game/blackjack/hit', name: 'blackjackHit')]
