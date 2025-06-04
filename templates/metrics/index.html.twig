@@ -121,15 +121,28 @@
         <h1>Förbättringar</h1>
         <p>
             Jag kommer att börja med att öka min kodtäckning så jag kan säkerhetställa att mina funktioner fungerar som plannerat och hjälpa till att hitta buggar.
-            När jag fixa en bättre coverage så kommer mina mätvärderna öka angånde coverage över projektet. Innan ändringar är Coverage 78.2%
+            När jag fixa en bättre coverage så kommer mina mätvärderna öka angånde coverage över projektet. Innan ändringar är Coverage 78.2% <br/>
+            Nu när jag har förbättra min kodtäckning så kan jag konstatera att min kod fungerar som den är menad att göra. 
+            Jag gjorde valdet att ingorera mina Controller som tar hand om routing och renderingen genom twig filterna för att de använder sig av
+            tatiska templatefiler eller funktionalitet från andra klasses. Efter jag tog bort coverage för unit tests och implementerat ny unit tester
+            för Entity och respository så ökade min coverage från 78,2% till 89.8% och den ökade coverage ökade mitt allmäna score.
+            Min slutliga score på scrutinizer blev 10. Främst anledning till detta var just att jag valde att ta bort min kontrollers möjlighet att testas.
         <p>
         <p>
             Kommer att jobba med att minska komplexiteten på klasser och methoder som kommer att förbättra mina värden som CRAP, Coupling och Complexity.
-            Innan ändringar har är en poäng på 9.89 på scrutinizer och cyclomatic complexity på 5.43 by class på phpmetrics1
+            Innan ändringar har är en poäng på 9.89 på scrutinizer och cyclomatic complexity på 5.43 by class på phpmetrics1. <br/>
+            När det kommer till komplexiteten på koden så jobbade jag främst men den största filerna som tog hand om majoriteten av funktionaliteten.
+            Främst var det BlackjackController, library, game och deck. Genom att dela upp funktionaliteten av koden genom funktioner eller
+            minska antalet upprepningar av kod hjälpte mitt score att förbättas både på allmäna poäng för scrutinizer till 10. 
+            Flera av mina filer hade betyget A men några hade B och det var dem jag fokuserad på så oftast var att de var otestade eller have hög CRAP eller Coupling.
+            Det som jag ändrade mest för detta var flow:et av koden. Just att minska antalet upprepningar och ska återanvändbar kod gjorde att koden blev kortare men
+            också fick en bättre komplex värde. Enligt phpmectrics gick jag från en 5.43 för cyclomatic complexity till en 5.27.
         </p>
         <p>
             Jag kommer att fixa mina issues som kommer inte ändra min mättningvärden men den kommer ta bort några varningar.
-            Innan ändrningar har jag två filer som har minor issues.
+            Innan ändrningar har jag två filer som har minor issues. <br />
+            Nu har jag inga Issues som jag kan fixa. Jag har dock en issue kvar som jag inte räknade med som handlar om Kernel.php filen.
+            Efter ändringarna ändrades inte mättningvärderna men nu finns det inga issues med min egen skriva kod.
         </p>
     </div>
 
