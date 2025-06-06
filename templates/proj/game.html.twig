@@ -86,10 +86,15 @@
                     <button type="submit">Ta bort spelare</button>
                 </form>
             {% endif %}
-
-            <form method="POST" action="{{ path('blackjack_reset') }}">
-                <button type="submit">Omstart</button>
-            </form>
+            <p>
+                <form method="POST" action="{{ path('blackjack_reset') }}">
+                    <button type="submit">Omstart</button>
+                </form>
+            </p>
+        </div>
+        <div style="margin-top: 10px;">
+            <p><strong>Balance:</strong> {{ balanceAmount }}</p>
+            <p><strong>Debt:</strong> {{ debtAmount }}</p>
         </div>
     </div>
 {% endblock %}

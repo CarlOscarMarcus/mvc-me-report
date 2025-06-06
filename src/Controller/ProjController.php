@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\DeckHandler\Deck;
 use App\DeckHandler\Player;
+use App\DeckHandler\Balance;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,10 +25,10 @@ class ProjController extends AbstractController
         return $this->render('proj/about.html.twig');
     }
 
-
     #[Route('/proj/game', name: 'blackjack_proj')]
     public function blackjackIndex(SessionInterface $session): Response
     {
+        $balance = $this->getBalance($session);
         $deck = $this->getDeck($session);
         $players = $this->getPlayers($session);
 
@@ -45,10 +46,8 @@ class ProjController extends AbstractController
             [$totalLow, $totalHigh] = $player->getTotals();
             $playerTotal = ($totalHigh <= 21) ? $totalHigh : $totalLow;
 
-            // Default resultat om spelet pågår
             $result = null;
 
-            // Beräkna resultat först när spelet är slut
             if ($allPlayersStayed || $session->get('activePlayerIndex') === null) {
                 if ($player->isBust()) {
                     $result = 'lost';
@@ -83,9 +82,10 @@ class ProjController extends AbstractController
             'allPlayersStayed' => $allPlayersStayed,
             'activePlayerIndex' => $activePlayerIndex,
             'canAddRemovePlayers' => $activePlayerIndex === null,
+            'balanceAmount' => $balance->getBalance(),
+            'debtAmount' => $balance->getDebt(),
         ]);
     }
-
 
     #[Route('/hit', name: 'blackjack_hit', methods: ['POST'])]
     public function hit(SessionInterface $session): Response
@@ -114,7 +114,6 @@ class ProjController extends AbstractController
                 }
             }
 
-            // Ny kod: om spelaren får blackjack, automatiskt stay och gå vidare
             if ($player->hasBlackjack()) {
                 $player->stay();
 
@@ -171,7 +170,6 @@ class ProjController extends AbstractController
 
         $players = $this->getPlayers($session);
 
-        // Limit players to max 3 on reset
         $players = array_slice($players, 0, 3);
 
         foreach ($players as $player) {
@@ -195,7 +193,6 @@ class ProjController extends AbstractController
     {
         $activePlayerIndex = $session->get('activePlayerIndex');
 
-        // Tillåt bara att lägga till spelare om det INTE är pågående spelomgång
         if ($activePlayerIndex !== null) {
             return $this->redirectToRoute('blackjack_proj');
         }
@@ -213,7 +210,6 @@ class ProjController extends AbstractController
     {
         $activePlayerIndex = $session->get('activePlayerIndex');
 
-        // Tillåt bara ta bort spelare om det INTE är pågående spelomgång
         if ($activePlayerIndex !== null) {
             return $this->redirectToRoute('blackjack_proj');
         }
@@ -244,7 +240,6 @@ class ProjController extends AbstractController
                 $player->addCard($deck->draw());
                 $player->doubleDown();
 
-                // After doubling down, immediately switch to next player or dealer
                 $nextIndex = $this->findNextActivePlayer($players, $activeIndex);
 
                 if ($nextIndex === null) {
@@ -263,113 +258,18 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('blackjack_proj');
     }
 
-    #[Route('/split/{playerIndex}', name: 'blackjack_split', methods: ['POST'])]
-    public function split(SessionInterface $session, int $playerIndex): RedirectResponse
-    {
-        $players = $this->getPlayers($session);
-        $deck = $this->getDeck($session);
-
-        if (!isset($players[$playerIndex])) {
-            return $this->redirectToRoute('blackjack_proj');
-        }
-
-        $player = $players[$playerIndex];
-
-        $hand = $player->getHand();
-        if (count($hand) === 2 && $hand[0]->getRawValue() === $hand[1]->getRawValue()) {
-            
-            // Create new player for split hand
-            $newPlayer = new Player();
-            $newPlayer->addCard($hand[1]); // move second card to new hand
-            $player->removeCard(1); // remove second card from original
-
-            // Draw one card each for both hands after split
-            $player->addCard($deck->draw());
-            $newPlayer->addCard($deck->draw());
-
-            // Mark new player as split hand (optional)
-            $newPlayer->markAsSplit();
-
-            // Insert new player immediately after original
-            array_splice($players, $playerIndex + 1, 0, [$newPlayer]);
-
-            $this->savePlayers($session, $players);
-            $this->saveDeck($session, $deck);
-        }
-
-        return $this->redirectToRoute('blackjack_proj');
-    }
-
-    
-    /* ---------- PRIVATE HELPERS ---------- */
-
-    private function findNextActivePlayer(array $players, int $currentIndex): ?int
-    {
-        $nextIndex = $currentIndex + 1;
-        while (isset($players[$nextIndex])) {
-            if (!$players[$nextIndex]->hasStayed() && !$players[$nextIndex]->isBust()) {
-                return $nextIndex;
-            }
-            $nextIndex++;
-        }
-        return null;
-    }
-
-    private function dealerPlay(SessionInterface $session, Deck $deck): void
-    {
-        $dealer = $this->getDealer($session);
-
-        while (!$dealer->isBust() && !$dealer->hasStayed()) {
-            [$low, $high] = $dealer->getTotals();
-            $total = $high <= 21 ? $high : $low;
-            if ($total < 17) {
-                $dealer->addCard($deck->draw());
-            } else {
-                $dealer->stay();
-            }
-        }
-
-        $this->saveDealer($session, $dealer);
-        $this->saveDeck($session, $deck);
-    }
-
-    private function initialiseDealer(Deck $deck): Player
-    {
-        $dealer = new Player();
-        $dealer->addCard($deck->draw()); // första kortet synligt
-        $dealer->addCard($deck->draw()); // dolt kort
-        return $dealer;
-    }
-
-    /* session helpers */
-    private function getDeck(SessionInterface $session): Deck
-    {
-        $data = $session->get('deck');
-        return $data ? Deck::fromArray($data) : (new Deck())->shuffleAndReturn();
-    }
-
-    private function saveDeck(SessionInterface $session, Deck $deck): void
-    {
-        $session->set('deck', $deck->toArray());
-    }
+    // Helper methods
 
     private function getPlayers(SessionInterface $session): array
     {
-        $data = $session->get('players');
-
-        if (!$data || !is_array($data) || empty($data)) {
-            $players = [new Player()];
-            $session->set('players', array_map(fn($p) => $p->toArray(), $players));
-            return $players;
-        }
-
-        return array_map(fn($p) => Player::fromArray($p), $data);
+        $data = $session->get('players', []);
+        return array_map(fn($playerArray) => Player::fromArray($playerArray), $data);
     }
-
 
     private function savePlayers(SessionInterface $session, array $players): void
     {
-        $session->set('players', array_map(fn(Player $p) => $p->toArray(), $players));
+        $data = array_map(fn(Player $player) => $player->toArray(), $players);
+        $session->set('players', $data);
     }
 
     private function getDealer(SessionInterface $session): Player
@@ -381,5 +281,68 @@ class ProjController extends AbstractController
     private function saveDealer(SessionInterface $session, Player $dealer): void
     {
         $session->set('dealer', $dealer->toArray());
+    }
+
+    private function getDeck(SessionInterface $session): Deck
+    {
+        $data = $session->get('deck');
+        return $data ? Deck::fromArray($data) : new Deck();
+    }
+
+    private function saveDeck(SessionInterface $session, Deck $deck): void
+    {
+        $session->set('deck', $deck->toArray());
+    }
+
+    private function getBalance(SessionInterface $session): Balance
+    {
+        $data = $session->get('balance');
+        return $data ? Balance::fromArray($data) : new Balance(); // default balance 10, debt 0
+    }
+
+    private function saveBalance(SessionInterface $session, Balance $balance): void
+    {
+        $session->set('balance', $balance->toArray());
+    }
+
+    private function findNextActivePlayer(array $players, int $currentIndex): ?int
+    {
+        $count = count($players);
+        for ($i = $currentIndex + 1; $i < $count; $i++) {
+            if (!$players[$i]->hasStayed() && !$players[$i]->isBust()) {
+                return $i;
+            }
+        }
+        return null;
+    }
+
+    private function dealerPlay(SessionInterface $session, Deck $deck): void
+    {
+        $dealer = $this->getDealer($session);
+
+        while (true) {
+            [$low, $high] = $dealer->getTotals();
+            $total = ($high <= 21) ? $high : $low;
+
+            if ($total < 17) {
+                if ($deck->cardsLeft() === 0) {
+                    break;
+                }
+                $dealer->addCard($deck->draw());
+            } else {
+                break;
+            }
+        }
+
+        $this->saveDealer($session, $dealer);
+        $this->saveDeck($session, $deck);
+    }
+
+    private function initialiseDealer(Deck $deck): Player
+    {
+        $dealer = new Player();
+        $dealer->addCard($deck->draw());
+        $dealer->addCard($deck->draw());
+        return $dealer;
     }
 }
