@@ -12,8 +12,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProjController extends AbstractController
 {
-    #[Route('/proj/game', name: 'blackjack_index')]
-    public function index(SessionInterface $session): Response
+    #[Route('/proj', name: 'proj_index')]
+    public function projIndex(): Response
+    {
+        return $this->render('proj/index.html.twig');
+    }
+
+    #[Route('/proj/about', name: 'proj_about')]
+    public function projAbout(): Response
+    {
+        return $this->render('proj/about.html.twig');
+    }
+
+
+    #[Route('/proj/game', name: 'blackjack_proj')]
+    public function blackjackIndex(SessionInterface $session): Response
     {
         $deck = $this->getDeck($session);
         $players = $this->getPlayers($session);
@@ -82,7 +95,7 @@ class ProjController extends AbstractController
         $activeIndex = $session->get('activePlayerIndex', 0);
 
         if (!isset($players[$activeIndex])) {
-            return $this->redirectToRoute('blackjack_index');
+            return $this->redirectToRoute('blackjack_proj');
         }
 
         $player = $players[$activeIndex];
@@ -120,7 +133,7 @@ class ProjController extends AbstractController
         $this->savePlayers($session, $players);
         $this->saveDeck($session, $deck);
 
-        return $this->redirectToRoute('blackjack_index');
+        return $this->redirectToRoute('blackjack_proj');
     }
 
     #[Route('/stay', name: 'blackjack_stay', methods: ['POST'])]
@@ -130,7 +143,7 @@ class ProjController extends AbstractController
         $activeIndex = $session->get('activePlayerIndex', 0);
 
         if (!isset($players[$activeIndex])) {
-            return $this->redirectToRoute('blackjack_index');
+            return $this->redirectToRoute('blackjack_proj');
         }
 
         $players[$activeIndex]->stay();
@@ -147,7 +160,7 @@ class ProjController extends AbstractController
 
         $this->savePlayers($session, $players);
 
-        return $this->redirectToRoute('blackjack_index');
+        return $this->redirectToRoute('blackjack_proj');
     }
 
     #[Route('/reset', name: 'blackjack_reset', methods: ['POST'])]
@@ -171,7 +184,7 @@ class ProjController extends AbstractController
         $this->saveDealer($session, $dealer);
         $session->set('activePlayerIndex', 0);
 
-        return $this->redirectToRoute('blackjack_index');
+        return $this->redirectToRoute('blackjack_proj');
     }
 
     #[Route('/add-player', name: 'blackjack_add_player', methods: ['POST'])]
@@ -181,7 +194,7 @@ class ProjController extends AbstractController
 
         // Tillåt bara att lägga till spelare om det INTE är pågående spelomgång
         if ($activePlayerIndex !== null) {
-            return $this->redirectToRoute('blackjack_index');
+            return $this->redirectToRoute('blackjack_proj');
         }
 
         $players = $this->getPlayers($session);
@@ -189,7 +202,7 @@ class ProjController extends AbstractController
             $players[] = new Player();
             $this->savePlayers($session, $players);
         }
-        return $this->redirectToRoute('blackjack_index');
+        return $this->redirectToRoute('blackjack_proj');
     }
 
     #[Route('/remove-player', name: 'blackjack_remove_player', methods: ['POST'])]
@@ -199,7 +212,7 @@ class ProjController extends AbstractController
 
         // Tillåt bara ta bort spelare om det INTE är pågående spelomgång
         if ($activePlayerIndex !== null) {
-            return $this->redirectToRoute('blackjack_index');
+            return $this->redirectToRoute('blackjack_proj');
         }
 
         $players = $this->getPlayers($session);
@@ -207,7 +220,7 @@ class ProjController extends AbstractController
             array_pop($players);
             $this->savePlayers($session, $players);
         }
-        return $this->redirectToRoute('blackjack_index');
+        return $this->redirectToRoute('blackjack_proj');
     }
 
     /* ---------- PRIVATE HELPERS ---------- */

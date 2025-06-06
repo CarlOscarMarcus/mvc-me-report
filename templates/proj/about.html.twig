@@ -1,0 +1,46 @@
+{% extends "basegame.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1 style:"color:black">Welcome to blackjack</h1>
+        </div>
+        <div class="row">
+            <!-- Förklaring av Multi-hand Blackjack -->
+            <section class="blackjack-description">
+                <h2>🔍 Förklaring: Multi-hand Blackjack</h2>
+
+                <p>
+                    I detta Blackjack-spel möter du dealern med <strong>flera händer samtidigt</strong>.
+                    Det gör spelet mer strategiskt och efterliknar upplevelsen i ett riktigt casino.
+                </p>
+
+                <h3>🃏 Flera Händer</h3>
+                <ul>
+                    <li>Du kan spela <strong>flera separata händer</strong> i samma omgång.</li>
+                    <li>Varje hand styrs <em>individuellt</em>; du kan välja olika
+                        strategier (Hit, Stand, Double Down, Split där det är möjligt).</li>
+                    <li>Spelet hanterar <strong>turordningen</strong> automatiskt – du spelar en hand i taget tills alla är klara, därefter spelar dealern.</li>
+                </ul>
+
+                <h3>🧠 Spelets Logik</h3>
+                <ol>
+                    <li>Vid start får <strong>alla händer två kort</strong>.</li>
+                    <li>Du beslutar för varje hand vad som ska göras (Hit, Stand osv.).</li>
+                    <li>När alla dina händer är färdigspelade agerar <strong>dealern</strong>
+                        enligt klassiska Blackjack-regler (t.ex. stanna på 17 eller mer).</li>
+                    <li>Vinst eller förlust <strong>räknas per hand</strong> –
+                        du kan alltså vinna med vissa händer och förlora med andra i samma runda.</li>
+                </ol>
+
+                <h3>🎯 Syfte</h3>
+                <p>
+                    Multi-hand-systemet ger dig större flexibilitet och möjlighet att
+                    <strong>öva olika strategier</strong> inom en och samma spelrunda.
+                </p>
+            </section>
+        </div>
+    </div>
+{% endblock %}

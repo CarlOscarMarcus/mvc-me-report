@@ -1,96 +1,16 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html>
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Blackjack{% endblock %}</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0b0c10;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
 
-        header {
-            width: 100%;
-            background-color: #1f2833;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .icon {
-            height: 40px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav ul li {
-            position: relative;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #66fcf1;
-            padding: 6px 10px;
-            transition: background 0.3s;
-        }
-
-        nav ul li a:hover {
-            background-color: #45a29e;
-            border-radius: 5px;
-        }
-
-        nav select {
-            background-color: #0b0c10;
-            color: #66fcf1;
-            border: 1px solid #66fcf1;
-            padding: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: #1f2833;
-            color: #66fcf1;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: #45a29e;
-        }
-
-        main {
-            flex-grow: 1;
-            padding: 20px;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-    </style>
-
+    {% block stylesheets %}{% endblock %}
     </head>
     <body>
-    <header>
+        <header>
             <?php define('BASE_URL', 'http://localhost:8888/~osay21/dbwebb-kurser/mvc/me/report/') ?>
             <img class="icon" src="{{ asset('img/bth_logga.png')}}">
             <nav>
@@ -101,6 +21,7 @@
                     <li><a href="{{ path('lucky') }}">Lucky</a></li>
                     <li><a href="{{ path('apiIndex') }}">API</a></li>
                     <li><a href="{{ path('metricsIndex') }}">Metrics</a></li>
+                    <li><a href="{{ path('proj_index') }}">Proj</a></li>
                     <li>
                         <select onchange="window.location.href=this.value;">
                             <option disabled selected>Cards</option>
@@ -136,5 +57,8 @@
             </nav>
         </header>
         {% block body %}{% endblock %}
+        <div class="footer">
+            <p>&copy; Oscar Wystråle</p>
+        </div>
     </body>
 </html>

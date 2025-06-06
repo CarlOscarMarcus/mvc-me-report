@@ -1,0 +1,17 @@
+{% extends "basegame.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1 style:"color:black">Welcome to blackjack</h1>
+        </div>
+        <div class="row">
+            <p>
+                <a style="color:white" href="{{path('proj_about')}}">Proj/About </a> <br/>
+                <a style="color:white" href="{{path('blackjack_proj')}}"> Proj/Game Click to start game </a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
