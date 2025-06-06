@@ -1,39 +1,73 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Index{% endblock %}
+{% block title %}Blackjack Game{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="row">
-            <h1>Blackjack</h1>
-        </div>
-        <div class="blackjackResult">
-            <div class="result">
-                <h3> {{result|raw}} </h3>
-            </div>
-        </div>
-        <div class="blackjackDealer">
-            <div class="dealer">
-                <h3> Dealer </h3>
-                {{dealerCard|raw}}<br>
-                {{dealer|raw}}
-            </div>
-        </div>
-        <div class="blackjackPlayers">
-            <div class="players">
-                <h3> Player </h3>
-                {{playerCard|raw}} <br>
-                {{player|raw}} <br>
-                {% if buttons == true %}
-                <br>
-                <a href='{{path('blackjackHit')}}'> Hit </a> <br><br>
-                <a href='{{path('blackjackStand')}}'> Strand </a>
-                {% endif %}
-                {% if gameStatus == "gameOver" %}
-                <br>
-                <a href='{{path('blackjackReset')}}'> Start new game </a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+<h1>Blackjack</h1>
+
+<div>
+    <h2>Dealer</h2>
+    <p>Cards:
+        {% for card in dealer.hand %}
+            <span>{{ card.getDisplay }}</span>
+        {% else %}
+            <span>No cards yet</span>
+        {% endfor %}
+    </p>
+    <p>Total: {{ dealerTotalHigh ?? dealerTotalLow }}</p>
+</div>
+
+<hr>
+
+<div>
+    <h2>Player</h2>
+    <p>Cards:
+        {% for card in player.hand %}
+            <span>{{ card.getDisplay }}</span>
+        {% else %}
+            <span>No cards yet</span>
+        {% endfor %}
+    </p>
+    <p>
+        Total: 
+        {{ playerTotalHigh is not null ? playerTotalHigh : playerTotalLow }}
+    </p>
+
+    {% if result %}
+        <h3>Result: 
+            {% if result == 'won' %}
+                You won! 🎉
+            {% elseif result == 'lost' %}
+                You lost 😞
+            {% else %}
+                Push (tie)
+            {% endif %}
+        </h3>
+    {% endif %}
+
+    {% if activePlayerTurn %}
+        <form method="post" action="{{ path('blackjack_hit') }}">
+            <button type="submit">Hit</button>
+        </form>
+
+        <form method="post" action="{{ path('blackjack_stay') }}">
+            <button type="submit">Stay</button>
+        </form>
+    {% else %}
+        <p>Game over. Press Reset to start a new game.</p>
+    {% endif %}
+
+    <form method="post" action="{{ path('blackjack_reset') }}">
+        <button type="submit">Reset Game</button>
+    </form>
+</div>
+
+<hr>
+
+<p>Cards left in deck: {{ deckCount }}</p>
+
+{% if nextCard is defined %}
+    <p>Next card (peek): {{ nextCard.getDisplay }}</p>
+{% endif %}
+
 {% endblock %}

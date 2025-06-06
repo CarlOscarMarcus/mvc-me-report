@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/blackjack.css') }}">
+{% endblock %}
+
+{% block title %}Blackjack – Casino Bord{% endblock %}
+
+
+{% block body %}
+    <div class="table">
+        <div class="dealer">
+            <h2>Dealer</h2>
+            <div class="cards">
+                {% for card in dealer.getHand() %}
+                    {{ card.getDisplay }}&nbsp;
+                {% endfor %}
+            </div>
+            <div class="points">
+                Poäng: {{ dealerTotalHigh ?? dealerTotalLow }}
+            </div>
+        </div>
+
+        <div class="players-container">
+            {% for p in players %}
+                <div class="player-card {% if loop.index0 == activePlayerIndex %}active{% endif %}">
+                    <h3>Spelare {{ loop.index }}</h3>
+                    <div class="cards">
+                        {% for card in p.player.getHand() %}
+                            {{ card.getDisplay }}&nbsp;
+                        {% endfor %}
+                    </div>
+                    <div class="points">
+                        Poäng: {{ p.totalHigh ?? p.totalLow }}
+                    </div>
+
+                    {% if p.result is not null %}
+                        <div class="result
+                            {% if p.result == 'won' %}won{% elseif p.result == 'lost' %}lost{% elseif p.result == 'push' %}push{% endif %}">
+                            {% if p.result == 'won' %}
+                                Vann!
+                            {% elseif p.result == 'lost' %}
+                                Förlorade
+                            {% elseif p.result == 'push' %}
+                                Push (Oavgjort)
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    {% if activePlayerIndex == loop.index0 and p.result is null %}
+                        <div class="buttons">
+                            <form method="post" action="{{ path('blackjack_hit', {'playerIndex': loop.index0}) }}" style="display:inline;">
+                                <button type="submit">Hit</button>
+                            </form>
+                            <form method="post" action="{{ path('blackjack_stay', {'playerIndex': loop.index0}) }}" style="display:inline;">
+                                <button type="submit">Stand</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="footer-buttons">
+            {% if canAddRemovePlayers %}
+                <form method="post" action="{{ path('blackjack_add_player') }}">
+                    <button type="submit">Lägg till spelare</button>
+                </form>
+                <form method="post" action="{{ path('blackjack_remove_player') }}">
+                    <button type="submit">Ta bort spelare</button>
+                </form>
+            {% endif %}
+
+            <form method="POST" action="{{ path('blackjack_reset') }}">
+                <button type="submit">Omstart</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\DeckHandler\Deck;
 use App\DeckHandler\Player;
+use App\DeckHandler\Card;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -20,19 +21,14 @@ class CardController extends AbstractController
     #[Route('/card/deck', name: 'cardDeck')]
     public function cardDeck(SessionInterface $session): Response
     {
-        if ($session->get('deck') === null) {
-            $deck = new Deck();
-            $deck->shuffle();
-            $session->set('deck', $deck);
-        }
+        $deck = $this->getDeck($session);
+        $this->saveDeck($session, $deck);
 
-        $deck = $session->get('deck');
         $sortedDeck = clone $deck;
         $sortedDeck->sort();
         $data = [
             'deck' => $sortedDeck->deckToString(),
         ];
-
         return $this->render('cards/deck.html.twig', $data);
     }
 
@@ -41,7 +37,7 @@ class CardController extends AbstractController
     {
         $deck = new Deck();
         $deck->shuffle();
-        $session->set('deck', $deck);
+        $this->saveDeck($session, $deck);
         $data = [
             'deck' => $deck->deckToString(),
         ];
@@ -52,12 +48,12 @@ class CardController extends AbstractController
     #[Route('/card/draw', name: 'cardDraw')]
     public function cardDraw(SessionInterface $session): Response
     {
-        $deck = $session->get('deck');
-        $cards = $deck->deal();
-        $session->set('deck', $deck);
+        $deck = $this->getDeck($session);
+        $card = $deck->draw();
+        $this->saveDeck($session, $deck);
         $data = [
-            'deck' => $deck->cardsToString($cards),
-            'deck_left' => $deck->countDeck(),
+            'deck' => $card->getDisplay(),
+            'deck_left' => $deck->cardsLeft(),
         ];
 
         return $this->render('cards/draw.html.twig', $data);
@@ -66,13 +62,18 @@ class CardController extends AbstractController
     #[Route("/card/draw/{number<\d+>}", name: 'cardDrawCostum')]
     public function cardDrawCostum(SessionInterface $session, int $number = 1): Response
     {
-        $deck = $session->get('deck');
+        $player = new Player();
+        $deck = $this->getDeck($session);
         $cards = $deck->deal($number);
-        $session->set('deck', $deck);
+        $card_string = "";
+        foreach($cards as $card) {
+            $card_string .= $card->getDisplay();
+        }
+        $this->saveDeck($session, $deck);
 
         $data = [
-            'deck' => $deck->cardsToString($cards),
-            'deck_left' => $deck->countDeck(),
+            'deck' => $card_string,
+            'deck_left' => $deck->cardsLeft(),
         ];
 
         return $this->render('cards/draw.html.twig', $data);
@@ -81,36 +82,49 @@ class CardController extends AbstractController
     #[Route("/card/draw/{players<\d+>}/{number<\d+>}", name: 'cardDrawPlayers')]
     public function cardDrawPlayers(SessionInterface $session, int $players = 1, int $number = 1): Response
     {
+        $deck = $this->getDeck($session);
+
+
         $playerHands = [];
-        $deck = $session->get('deck');
 
-        for ($x = 0; $x < $players; ++$x) {
-            array_push($playerHands, new Player());
+        for ($x = 0; $x < $players; $x++) {
+            $player = new Player();
+            for ($i = 0; $i < $number; $i++) {
+                $player->addCard($deck->draw());
+            }
+            $playerHands[] = $player->getHand();
         }
-
-        foreach ($playerHands as $hand) {
-            $hand->addCard($deck->deal($number));
-        }
-
-        $temp = '';
+        $temp = "";
         foreach ($playerHands as $hand) {
             $temp .= 'Player'.strval((array_search($hand, $playerHands) + 1).': ');
-            $temp .= $hand->playerToString();
+            foreach ($hand as $cards) {
+                $temp .= $cards->getDisplay();
+            }
             $temp .= '<br>';
         }
+        $this->saveDeck($session, $deck);
 
-        $session->set('deck', $deck);
-        $data = [
+        return $this->render('cards/draw.html.twig', [
             'deck' => $temp,
-            'deck_left' => $deck->countDeck(),
-        ];
-
-        return $this->render('cards/draw.html.twig', $data);
+            'deck_left' => $deck->cardsLeft()
+        ]);
     }
 
     #[Route('/api', name: 'apiIndex')]
     public function apiIndex(): Response
     {
         return $this->render('cards/api_index.html.twig');
+    }
+
+    /* session helpers */
+    private function getDeck(SessionInterface $session): Deck
+    {
+        $data = $session->get('deck');
+        return $data ? Deck::fromArray($data) : (new Deck())->shuffleAndReturn();
+    }
+
+    private function saveDeck(SessionInterface $session, Deck $deck): void
+    {
+        $session->set('deck', $deck->toArray());
     }
 }

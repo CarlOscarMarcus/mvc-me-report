@@ -2,111 +2,97 @@
 
 namespace App\DeckHandler;
 
-/**
- * Class Player.
- *
- * @namespace App\DeckHandler
- */
-class Player extends Deck
+class Player
 {
-    /**
-     * @var array
-     * @var bool
-     */
-    protected $cards = [];
-    protected $active = true;
+    private array $hand = [];
+    private bool $hasStayed = false;
+    private bool $isBust = false;
+    private bool $hasBlackjack = false;
 
-    /**
-     * Player constructor.
-     */
-    public function __construct()
+    public function addCard(Card $card): void
     {
-        $this->cards = [];
-        $this->active = true;
+        $this->hand[] = $card;
+        $this->updateStatus();
     }
 
-    /**
-     * @param array $cards
-     *
-     * @return array
-     */
-    public function addCard($cards)
+    public function stay(): void
     {
-        foreach ($cards as $card) {
-            array_push($this->cards, $card);
+        $this->hasStayed = true;
+    }
+
+    public function reset(): void
+    {
+        $this->hand = [];
+        $this->hasStayed = false;
+        $this->isBust = false;
+        $this->hasBlackjack = false;
+    }
+
+    public function getHand(): array
+    {
+        return $this->hand;
+    }
+
+    public function hasStayed(): bool
+    {
+        return $this->hasStayed;
+    }
+
+    public function isBust(): bool
+    {
+        return $this->isBust;
+    }
+
+    public function hasBlackjack(): bool
+    {
+        return $this->hasBlackjack;
+    }
+
+    public function getTotals(): array
+    {
+        $low = 0;
+        $high = 0;
+
+        foreach ($this->hand as $card) {
+            $vals = $card->getValue();
+            $low += $vals[0];
+            $high += $vals[1] ?? $vals[0];
         }
 
-        return $this->cards;
+        return [$low, $high];
     }
 
-    /**
-     * @return bool
-     */
-    public function getStatus()
+    private function updateStatus(): void
     {
-        return $this->active;
-    }
+        [$low, $high] = $this->getTotals();
 
-    /**
-     * Take care of if buttons displays or not.
-     */
-    public function changeStatus()
-    {
-        if ($this->active === true) {
-            $this->active = false;
-
-            return;
-        }
-        $this->active = true;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCards()
-    {
-        return $this->cards;
-    }
-
-    /**
-     * @return string
-     */
-    public function playerToString()
-    {
-        // Bug needs to be fixed
-        $temp = $this->cards;
-
-        return parent::cardsToString($temp);
-    }
-
-    public function playerToStringApi()
-    {
-        // Bug needs to be fixed
-        $temp = $this->cards;
-
-        return parent::cardsToStringApi($temp);
-    }
-
-    /**
-     * @return array
-     */
-    public function getValueOfHand()
-    {
-        $sum = 0;
-        $hasAce = false;
-        foreach ($this->cards as $card) {
-            if ('A' == $card->getRank()) {
-                $hasAce = true;
-            } elseif (in_array($card->getRank(), ['J', 'Q', 'K'])) {
-                $sum += 10;
-            } elseif (!in_array($card->getRank(), ['J', 'Q', 'K'])) {
-                $sum += intval($card->getRank());
-            }
-        }
-        if ($hasAce) {
-            return [$sum + 1, $sum + 11];
+        if ($low > 21 && $high > 21) {
+            $this->isBust = true;
         }
 
-        return [$sum, $sum];
+        if (($high === 21 || $low === 21) && !$this->hasStayed) {
+            $this->hasBlackjack = true;
+            $this->hasStayed = true;
+        }
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'hand' => array_map(fn($card) => $card->getDisplay(), $this->hand),
+            'hasStayed' => $this->hasStayed,
+            'isBust' => $this->isBust,
+            'hasBlackjack' => $this->hasBlackjack,
+        ];
+    }
+
+    public static function fromArray(array $data): self
+    {
+        $player = new self();
+        $player->hand = array_map(fn($cardData) => Card::fromString($cardData), $data['hand']);
+        $player->hasStayed = $data['hasStayed'] ?? false;
+        $player->isBust = $data['isBust'] ?? false;
+        $player->hasBlackjack = $data['hasBlackjack'] ?? false;
+        return $player;
     }
 }

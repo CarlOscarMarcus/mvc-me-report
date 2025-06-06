@@ -1,0 +1,159 @@
+/* ---------- Global page background for the blackjack table ---------- */
+body.blackjack-page {
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    background: radial-gradient(circle at center, #145214 0%, #0b2e07 70%);
+    color: #f0f0f0;
+    margin: 0;
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+}
+
+/* ---------- Main table (“felt”) ---------- */
+.table {
+    background: linear-gradient(135deg, #0a3b0a, #155215);
+    border: 8px solid #b58a2f;
+    border-radius: 30px;
+    width: 90vw;
+    max-width: 1200px;
+    padding: 2rem 3rem 3rem 3rem;
+    box-shadow: inset 0 0 40px #276227, 0 0 20px 4px #b58a2f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ---------- Dealer panel ---------- */
+.dealer {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid #b58a2f;
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    width: 100%;
+    margin-bottom: 3rem;
+    text-align: center;
+    box-shadow: 0 0 15px #276227;
+}
+.dealer h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f9d84a;
+    text-shadow: 0 0 6px #f9d84a;
+}
+.dealer .cards {
+    font-size: 2rem;
+    letter-spacing: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.dealer .points {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #f9d84a;
+    text-shadow: 0 0 4px #f9d84a;
+}
+
+/* ---------- Players area ---------- */
+.players-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.player-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid #b58a2f;
+    border-radius: 25px;
+    width: 220px;
+    padding: 1.5rem 1.5rem 2rem;
+    box-shadow: 0 0 12px #276227;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+.player-card.active {
+    border-color: #f9d84a;
+    box-shadow: 0 0 25px #f9d84a;
+}
+
+.player-card h3 {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    color: #f9d84a;
+    text-shadow: 0 0 6px #f9d84a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.cards {
+    font-size: 2rem;
+    letter-spacing: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.points {
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #f9d84a;
+    text-shadow: 0 0 4px #f9d84a;
+}
+
+/* ---------- Result labels ---------- */
+.result {
+    font-weight: 700;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 0.7rem;
+    width: 100%;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+.result.won  { background:#4caf50; color:#fff; box-shadow:0 0 10px #4caf50; }
+.result.lost { background:#e53935; color:#fff; box-shadow:0 0 10px #e53935; }
+.result.push { background:#ffeb3b; color:#000; box-shadow:0 0 10px #ffeb3b; }
+
+/* ---------- Buttons ---------- */
+.buttons { margin-top:1rem; display:flex; gap:0.8rem; }
+button {
+    background: linear-gradient(145deg, #f9d84a, #b58a2f);
+    border: none;
+    border-radius: 20px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #3b2f02;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px #b58a2f, inset 0 2px 5px #f9d84a;
+    transition: background 0.3s ease;
+}
+button:hover:not(:disabled) {
+    background: linear-gradient(145deg, #b58a2f, #f9d84a);
+    box-shadow: 0 4px 10px #f9d84a, inset 0 3px 6px #b58a2f;
+}
+button:disabled {
+    background: #555;
+    color: #999;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* ---------- Footer buttons ---------- */
+.footer-buttons { margin-top: 3rem; display:flex; gap:1rem; }
+.footer-buttons form { display:inline-block; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .players-container { flex-direction: column; align-items: center; }
+    .player-card       { width: 90vw; }
+    .table             { padding: 1.5rem 2rem 2rem; }
+}

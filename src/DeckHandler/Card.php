@@ -2,59 +2,75 @@
 
 namespace App\DeckHandler;
 
-/**
- * Class Card.
- *
- * @namespace App\DeckHandler
- */
 class Card
 {
-    /**
-     * @var string
-     * @var string
-     */
-    protected $suit;
-    protected $rank;
+    private int $suit;       // Stored as 1–4 (♠ ♥ ♦ ♣)
+    private string $value;   // e.g., 'A', '2', ..., 'K'
 
-    /**
-     * Card constructor.
-     */
-    public function __construct($suit, $rank)
+    // Suit ID to symbol map
+    private const SUIT_ID_TO_CHAR = [
+        1 => '♠',
+        2 => '♥',
+        3 => '♦',
+        4 => '♣',
+    ];
+
+    private const SUIT_CHAR_TO_ID = [
+        '♠' => 1,
+        '♥' => 2,
+        '♦' => 3,
+        '♣' => 4,
+    ];
+
+
+    public function __construct(int $suit, string $value)
     {
         $this->suit = $suit;
-        $this->rank = $rank;
+        $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
-    public function getSuit()
+    public function getSuitId(): int
     {
         return $this->suit;
     }
 
-    /**
-     * @return string
-     */
-    public function getRank()
+    public function getSuit(): string
     {
-        return $this->rank;
+        return self::SUIT_ID_TO_CHAR[$this->suit] ?? '?';
     }
 
-    /**
-     * @return string
-     */
-    public function toString()
+    public function getValue(): array
     {
-        if (in_array($this->suit, ['â¥', 'â¦']) || in_array($this->suit, ['3', '4'])) {
-            return '<div class="card red">'.$this->rank.$this->suit.'</div>';
-        }
-
-        return '<div class="card black">'.$this->rank.$this->suit.'</div>';
+        return match ($this->value) {
+            'A' => [1, 11],
+            'K', 'Q', 'J' => [10],
+            default => [(int)$this->value]
+        };
     }
 
-    public function toStringApi()
+    public function getDisplay(): string
     {
-        return $this->rank.$this->suit.' ';
+        return $this->getSuit() . $this->value;
+    }
+
+    public function getRawValue(): string
+    {
+        return $this->value;
+    }
+
+    public static function fromArray(Array $data): self
+    {
+        $char = $data[0];
+        $value = $data[1];
+        $suitId = self::SUIT_CHAR_TO_ID[$char] ?? 0;
+        return new self($suitId, $value);
+    }
+
+    public static function fromString(string $cardString): self
+    {
+        $char = mb_substr($cardString, 0, 1);
+        $value = mb_substr($cardString, 1);
+        $suitId = self::SUIT_CHAR_TO_ID[$char] ?? 0;
+        return new self($suitId, $value);
     }
 }

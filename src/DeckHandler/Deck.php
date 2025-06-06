@@ -2,65 +2,72 @@
 
 namespace App\DeckHandler;
 
-/**
- * Class Deck.
- *
- * @namespace App\DeckHandler
- */
 class Deck
 {
-    /**
-     * Create a new deck with all three suits and 14 values.
-     *
-     * @var array
-     * @var array
-     */
-    protected $cards;
+    private array $cards = [];
 
     public function __construct()
     {
-        $this->cards = [];
-        $suits = ['â ', 'â£', 'â¥', 'â¦'];
-        $cardValues = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+        $this->initializeDeck();
+    }
 
-        // Create the deck
-        $lenght = count($suits);
-        for ($i = 0; $i < $lenght; ++$i) {
-            for ($j = 0; $j <= 12; ++$j) {
-                $card = new Card($suits[$i], $cardValues[$j]);
-                array_push($this->cards, $card);
+    private function initializeDeck(): void
+    {
+        $suits = [1, 2, 3, 4];
+        $values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+        $this->cards = [];
+
+        foreach ($suits as $suit) {
+            foreach ($values as $value) {
+                $this->cards[] = new Card($suit, $value);
             }
         }
     }
 
-    /**
-     * Shuffle the deck.
-     */
-    public function shuffle()
+    public function shuffle(): void
     {
         shuffle($this->cards);
     }
 
-    /**
-     * Deal a hand amout of cards as argument.
-     *
-     * @param int $numCards
-     *
-     * @return array $temp
-     */
-    public function deal($numCards = 1)
+    
+    public function shuffleAndReturn(): self
     {
-        $temp = [];
+        $this->shuffle();
+        return $this;
+    }
 
-        if (count($this->cards) < $numCards) {
-            throw new \Exception("Not enough cards in deck to draw {$numCards} cards. Renew your deck with /card/shuffle");
+    public function draw(): ?Card
+    {
+        return array_pop($this->cards) ?: null;
+    }
+
+    public function cardsLeft(): int
+    {
+        return count($this->cards);
+    }
+
+    public function toArray(): array
+    {
+        return array_map(fn($card) => [$card->getSuit(), $card->getRawValue()], $this->cards);
+    }
+
+    // Recreate deck from array of arrays [[suit, value], ...]
+    public static function fromArray(array $data): self
+    {
+        $deck = new self();
+        $deck->cards = [];
+
+        foreach ($data as [$suit, $value]) {
+            $deck->cards[] = Card::fromArray([$suit, (string)$value[0]]);
         }
 
-        for ($i = 0; $i < $numCards; ++$i) {
-            array_push($temp, array_shift($this->cards));
-        }
+        return $deck;
+    }
 
-        return $temp;
+    public function peek(): ?Card
+    {
+        return $this->cards[count($this->cards) - 1] ?? null;  // Returns the first card or null if empty
     }
 
     /**
@@ -69,9 +76,9 @@ class Deck
     public function sort()
     {
         usort($this->cards, function ($suits, $rank) {
-            $suitOrder = ['â ', 'â£', 'â¥', 'â¦'];
-            $aSuitIndex = array_search($suits->getSuit(), $suitOrder);
-            $bSuitIndex = array_search($rank->getSuit(), $suitOrder);
+            $suitOrder = [1, 2, 3, 4];
+            $aSuitIndex = array_search($suits->getSuitId(), $suitOrder);
+            $bSuitIndex = array_search($rank->getSuitId(), $suitOrder);
 
             if ($aSuitIndex < $bSuitIndex) {
                 return -1;
@@ -80,8 +87,8 @@ class Deck
             }
 
             $valueOrder = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-            $aValueIndex = array_search($suits->getRank(), $valueOrder);
-            $bValueIndex = array_search($rank->getRank(), $valueOrder);
+            $aValueIndex = array_search($suits->getRawValue(), $valueOrder);
+            $bValueIndex = array_search($rank->getRawValue(), $valueOrder);
 
             if ($aValueIndex < $bValueIndex) {
                 return -1;
@@ -100,53 +107,25 @@ class Deck
     {
         $cardStrings = [];
         foreach ($this->cards as $card) {
-            array_push($cardStrings, $card->toString());
+            array_push($cardStrings, $card->getDisplay());
         }
 
         return implode($cardStrings);
     }
 
-    /**
-     * Reformat player hand cards to readable format.
-     *
-     * @param array $cards
-     *
-     * @return string $cardStrings
-     */
-    public function cardsToString($cards)
+    public function deal(int $count): array
     {
-        $cardStrings = [];
-        foreach ($cards as $card) {
-            array_push($cardStrings, $card->toString());
+        $cards = [];
+
+        for ($i = 0; $i < $count; $i++) {
+            $card = $this->draw();
+            if ($card === null) {
+                break; // Stop if the deck is empty
+            }
+            $cards[] = $card;
         }
 
-        return implode('', $cardStrings);
+        return $cards;
     }
 
-    // API
-    public function deckToStringApi()
-    {
-        $cardStrings = [];
-        foreach ($this->cards as $card) {
-            array_push($cardStrings, $card->toStringApi());
-        }
-
-        return implode($cardStrings);
-    }
-
-    public function cardsToStringApi($cards)
-    {
-        $cardStrings = [];
-        foreach ($cards as $card) {
-            $cardString = $card->getRank().$card->getSuit().' ';
-            array_push($cardStrings, $cardString);
-        }
-
-        return implode('', $cardStrings);
-    }
-
-    public function countDeck()
-    {
-        return count($this->cards);
-    }
 }

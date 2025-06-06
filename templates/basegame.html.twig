@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="sv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Blackjack{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0b0c10;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            width: 100%;
+            background-color: #1f2833;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .icon {
+            height: 40px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #66fcf1;
+            padding: 6px 10px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #45a29e;
+            border-radius: 5px;
+        }
+
+        nav select {
+            background-color: #0b0c10;
+            color: #66fcf1;
+            border: 1px solid #66fcf1;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1f2833;
+            color: #66fcf1;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a29e;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+
+    </head>
+    <body>
+    <header>
+            <?php define('BASE_URL', 'http://localhost:8888/~osay21/dbwebb-kurser/mvc/me/report/') ?>
+            <img class="icon" src="{{ asset('img/bth_logga.png')}}">
+            <nav>
+                <ul>
+                    <li><a href=" {{ path('index') }} ">Index</a></li>
+                    <li><a href="{{ path('about') }}">About</a></li>
+                    <li><a href="{{ path('report') }}">Report</a></li>
+                    <li><a href="{{ path('lucky') }}">Lucky</a></li>
+                    <li><a href="{{ path('apiIndex') }}">API</a></li>
+                    <li><a href="{{ path('metricsIndex') }}">Metrics</a></li>
+                    <li>
+                        <select onchange="window.location.href=this.value;">
+                            <option disabled selected>Cards</option>
+                            <option value="{{ path('card') }}">/card </option>
+                            <option value="{{ path('cardDeck') }}">/card/deck </option>
+                            <option value="{{ path('cardShuffle') }}">/card/shuffle </option>
+                            <option value="{{ path('cardDraw') }}">/card/draw </option>
+                            <option value="{{ path('cardDraw') }}/4">/card/draw/:number </option>
+                            <option value="{{ path('cardDraw') }}/2/5">/card/draw/:players/:number </option>
+                        </select>
+                    </li>
+                    <li>
+                        <select onchange="window.location.href=this.value;">
+                            <option disabled selected>Game</option>
+                            <option value="{{ path('blackjackIndex') }}">/game </option>
+                            <option value="{{ path('blackjackDoc') }}">/game/doc </option>
+                            <option value="{{ path('blackjack') }}">/game/blackjack </option>
+                        </select>
+                    </li>
+                    <li>
+                        <select onchange="window.location.href=this.value;">
+                            <option disabled selected>Library</option>
+                            <option value="{{ path('app_library') }}">/library</option>
+                            <option value="{{ path('library_create') }}"> /library/create </option>
+                            <option value="{{ path('library_show_all') }}"> /library/show </option>
+                            <option value="{{ path('library_reset') }}"> /library/reset </option>
+                            <option value="{{ path('api_library_books') }}"> /api/library/books </option>
+                            <option value="{{ path('api_library_book', {'isbn': '101'}) }}"> /api/library/book/:ISBN</option>
+                            
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        {% block body %}{% endblock %}
+    </body>
+</html>
