@@ -88,7 +88,7 @@ class Player
     public function doubleDown(): void
     {
         $this->hasDoubledDown = true;
-        $this->hasStood = true; // This ends the turn after one card
+        $this->hasStayed = true; // This ends the turn after one card
     }
 
     public function hasDoubledDown(): bool

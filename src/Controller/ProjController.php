@@ -74,7 +74,7 @@ class ProjController extends AbstractController
             }
 
             if ($result === 'won') {
-                $balance->setBalance($balance->getBalance() + 2 * $wager);
+                $balance->setBalance($balance->getBalance() + $wager * 2);
             } elseif ($result === 'push') {
                 $balance->setBalance($balance->getBalance() + $wager);
             }
@@ -262,9 +262,31 @@ class ProjController extends AbstractController
     {
         $players = $this->getPlayers($session);
         $deck = $this->getDeck($session);
+        $balance = $this->getBalance($session);
 
+        // Calculate total wager cost
+        $totalCost = 0;
         foreach ($players as $player) {
-            $player->reset();
+            $wager = $player->getWager();
+            if ($wager <= 0) {
+                $this->addFlash('error', 'Each hand must have a wager greater than 0.');
+                return $this->redirectToRoute('proj_blackjack');
+            }
+            $totalCost += $wager;
+        }
+
+        // Check if balance is sufficient
+        if ($balance->getBalance() < $totalCost) {
+            $this->addFlash('error', 'Not enough coins to cover the total wagers.');
+            return $this->redirectToRoute('proj_blackjack');
+        }
+
+        // Deduct the total cost
+        $balance->setBalance($balance->getBalance() - $totalCost);
+        $this->saveBalance($session, $balance);
+
+        // Deal cards
+        foreach ($players as $player) {
             $player->addCard($deck->draw());
             $player->addCard($deck->draw());
         }
@@ -273,25 +295,12 @@ class ProjController extends AbstractController
         $dealer->addCard($deck->draw());
         $dealer->addCard($deck->draw());
 
+        // Save game state
         $this->savePlayers($session, $players);
         $this->saveDealer($session, $dealer);
         $this->saveDeck($session, $deck);
         $session->set('activePlayerIndex', 0);
         $session->set('gameStarted', true);
-
-        $balance = $this->getBalance($session);
-        var_dump(count($players));
-        $cost = count($players);
-
-        if ($balance->getBalance() < $cost) {
-            // Not enough coins
-            $this->addFlash('error', 'Not enough coins to start the game.');
-            return $this->redirectToRoute('proj_blackjack');
-        }
-
-        $balance->setBalance($balance->getBalance() - $cost);
-        $this->saveBalance($session, $balance);
-
 
         return $this->redirectToRoute('proj_blackjack');
     }
@@ -386,15 +395,22 @@ class ProjController extends AbstractController
     #[Route('/loan', name: 'proj_loan', methods: ['POST'])]
     public function loan(SessionInterface $session, Request $request): RedirectResponse
     {
-        $amount = (float) $request->request->get('amount', 0);
+        $amount = (int) $request->request->get('amount', 0);
         if ($amount == 0) {
             $this->addFlash('error', 'Please enter a non-zero amount.');
             return $this->redirectToRoute('blackjack_proj');
         }
 
         $balance = $this->getBalance($session);
-        $balance->adjustLoan($amount);
-        $this->saveBalance($session, $balance);
+        $currentLoan = $balance->getDebt();
+
+        if ($amount < 0 && abs($amount) > $currentLoan) {
+            $this->addFlash('error', 'You cannot repay more than you owe.');
+        } else {
+            $balance->adjustLoan($amount);
+            $this->saveBalance($session, $balance);
+        }
+
 
         if ($amount > 0) {
             $this->addFlash('success', sprintf('Loan taken: %.2f coins.', $amount));
@@ -405,20 +421,52 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
+    #[Route('/update-wager/{playerIndex}', name: 'blackjack_update_wager', methods: ['POST'])]
+    public function updateWager(int $playerIndex, Request $request, SessionInterface $session): RedirectResponse
+    {
+        $wager = (float)$request->request->get('wager');
+        $players = $this->getPlayers($session);
+        $balance = $this->getBalance($session);
+
+        if (!isset($players[$playerIndex])) {
+            $this->addFlash('error', 'Invalid player index.');
+            return $this->redirectToRoute('proj_blackjack');
+        }
+
+        if ($wager < 0.1) {
+            $this->addFlash('error', 'Minimum wager is 0.1 coins.');
+            return $this->redirectToRoute('proj_blackjack');
+        }
+
+        // Optional: restrict if wager is more than current balance
+        if ($wager > $balance->getBalance()) {
+            $this->addFlash('error', 'You do not have enough balance for this wager.');
+            return $this->redirectToRoute('proj_blackjack');
+        }
+
+        $players[$playerIndex]->setWager($wager);
+        $this->savePlayers($session, $players);
+
+        $this->addFlash('success', "Wager updated to {$wager} coins for hand " . ($playerIndex + 1));
+
+        return $this->redirectToRoute('proj_blackjack');
+    }
+
+
     #[Route('/pay-loan', name: 'blackjack_pay_loan', methods: ['POST'])]
     public function payLoan(SessionInterface $session, Request $request): RedirectResponse
     {
         $amount = (float) $request->request->get('amount', 0);
         if ($amount <= 0) {
             $this->addFlash('error', 'Invalid payment amount.');
-            return $this->redirectToRoute('blackjack_proj');
+            return $this->redirectToRoute('proj_blackjack');
         }
 
         $balance = $this->getBalance($session);
 
         if ($amount > $balance->getBalance()) {
             $this->addFlash('error', 'Insufficient balance to pay back loan.');
-            return $this->redirectToRoute('blackjack_proj');
+            return $this->redirectToRoute('proj_blackjack');
         }
 
         if ($amount > $balance->getDebt()) {
@@ -432,7 +480,7 @@ class ProjController extends AbstractController
         $this->saveBalance($session, $balance);
 
         $this->addFlash('success', sprintf('Loan payment successful: %.2f coins.', $amount));
-        return $this->redirectToRoute('blackjack_proj');
+        return $this->redirectToRoute('proj_blackjack');
     }
 
     // Helper methods

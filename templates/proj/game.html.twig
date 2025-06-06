@@ -32,14 +32,26 @@
             {% for p in players %}
                 <div class="player-card {% if loop.index0 == activePlayerIndex %}active{% endif %}">
                     <h3> Hand {{ loop.index }} </h3>
+
                     {% if p.player.isSplit() %}
                         (Split hand)
                     {% endif %}
+
+                    {% if gameStarted == false %}
+                        <form method="post" action="{{ path('blackjack_update_wager', { playerIndex: loop.index0 }) }}" class="wager-form">
+                            <label for="wager-{{ loop.index0 }}">Wager:</label>
+                            <input type="number" name="wager" id="wager-{{ loop.index0 }}"
+                                value="{{ p.player.getWager() }}" step="0.1" min="0.1" required>
+                            <button type="submit">Update</button>
+                        </form>
+                    {% endif %}
+
                     <div class="cards">
                         {% for card in p.player.getHand() %}
                             {{ card.getDisplay }}&nbsp;
                         {% endfor %}
                     </div>
+
                     <div class="points">
                         Poäng: {{ p.totalHigh ?? p.totalLow }}
                     </div>
@@ -67,16 +79,14 @@
                             </form>
                         </div>
                         <div class="buttons">
-                            {# Double Down button here, if you have it #}
                             <form method="post" action="{{ path('proj_double_down') }}">
-                                <button type="submit">Double Down <span style="color:red;">Cost {{ p.player.wager }}</span></button>
+                                <button type="submit">Double Down <span style="color:red;">Cost {{ p.player.getWager() }}</span></button>
                             </form>
 
-                            {# Split button: only show if exactly 2 cards and both cards have same rank, and max player count not exceeded #}
                             {% set hand = p.player.getHand() %}
-                            {% if hand|length == 2 and hand[0].getRawValue() == hand[1].getRawValue()%}
+                            {% if hand|length == 2 and hand[0].getRawValue() == hand[1].getRawValue() %}
                                 <form method="post" action="{{ path('proj_split', {'playerIndex': loop.index0}) }}" style="display:inline;">
-                                    <button type="submit">Split <span style="color:red;">Cost 1</span></button>
+                                    <button type="submit">Split <span style="color:red;">Cost {{ p.player.getWager() }}</span></button>
                                 </form>
                             {% endif %}
                         </div>
@@ -84,6 +94,7 @@
                 </div>
             {% endfor %}
         </div>
+
 
         <div class="footer-buttons">
             {% if not gameStarted %}
