@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\DeckHandler\Deck;
 use App\DeckHandler\Player;
 use App\DeckHandler\Balance;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,6 +31,9 @@ class ProjController extends AbstractController
     public function blackjackIndex(SessionInterface $session): Response
     {
         $balance = $this->getBalance($session);
+        if (!$balance) {
+            $balance = new Balance();
+        }
         $deck = $this->getDeck($session);
         $players = $this->getPlayers($session);
 
@@ -38,17 +43,21 @@ class ProjController extends AbstractController
 
         $activePlayerIndex = $session->get('activePlayerIndex', 0);
 
-        $allPlayersStayed = count($players) > 0 && array_reduce($players, fn($carry, $p) => $carry && $p->hasStayed(), true);
+        $gameStarted = $session->get('gameStarted', false);
+        $allPlayersStayed = $gameStarted && count($players) > 0 && array_reduce($players, fn($carry, $p) => $carry && $p->hasStayed(), true);
+
 
         $playersWithResults = [];
+        
 
         foreach ($players as $player) {
             [$totalLow, $totalHigh] = $player->getTotals();
             $playerTotal = ($totalHigh <= 21) ? $totalHigh : $totalLow;
+            $wager = $player->getWager();
 
             $result = null;
 
-            if ($allPlayersStayed || $session->get('activePlayerIndex') === null) {
+            if ($allPlayersStayed || $session->get('activePlayerIndex') === null && $session->get('gameStarted') == true) {
                 if ($player->isBust()) {
                     $result = 'lost';
                 } elseif ($dealer->isBust()) {
@@ -63,6 +72,14 @@ class ProjController extends AbstractController
                     }
                 }
             }
+
+            if ($result === 'won') {
+                $balance->setBalance($balance->getBalance() + 2 * $wager);
+            } elseif ($result === 'push') {
+                $balance->setBalance($balance->getBalance() + $wager);
+            }
+
+            $this->saveBalance($session, $balance);
 
             $playersWithResults[] = [
                 'player' => $player,
@@ -84,12 +101,18 @@ class ProjController extends AbstractController
             'canAddRemovePlayers' => $activePlayerIndex === null,
             'balanceAmount' => $balance->getBalance(),
             'debtAmount' => $balance->getDebt(),
+            'gameStarted' => $gameStarted,
         ]);
     }
 
-    #[Route('/hit', name: 'proj_hit', methods: ['POST'])]
+    #[Route('/proj/hit', name: 'proj_hit', methods: ['POST'])]
     public function hit(SessionInterface $session): Response
     {
+
+        if (!$session->get('gameStarted', false)) {
+            return $this->redirectToRoute('proj_blackjack');
+        }
+
         $players = $this->getPlayers($session);
         $deck = $this->getDeck($session);
         $activeIndex = $session->get('activePlayerIndex', 0);
@@ -135,9 +158,63 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
-    #[Route('/stay', name: 'proj_stay', methods: ['POST'])]
+    #[Route('/proj/split/{playerIndex}', name: 'proj_split', methods: ['POST'])]
+    public function split(SessionInterface $session, int $playerIndex): RedirectResponse
+    {
+
+        $balance = $this->getBalance($session);
+        if ($balance->getBalance() < 1) {
+            $this->addFlash('error', 'Not enough coins to split.');
+            return $this->redirectToRoute('blackjack_proj');
+        }
+
+        $balance->setBalance($balance->getBalance() - 1);
+        $this->saveBalance($session, $balance);
+
+
+        $players = $this->getPlayers($session);
+        $deck = $this->getDeck($session);
+
+        if (!isset($players[$playerIndex])) {
+            return $this->redirectToRoute('blackjack_proj');
+        }
+
+        $player = $players[$playerIndex];
+
+        $hand = $player->getHand();
+        if (count($hand) === 2 && $hand[0]->getRawValue() === $hand[1]->getRawValue()) {
+            
+            // Create new player for split hand
+            $newPlayer = new Player();
+            $newPlayer->setWager($player->getWager());
+            $newPlayer->addCard($hand[1]); // move second card to new hand
+            $player->removeCard(1); // remove second card from original
+
+            // Draw one card each for both hands after split
+            $player->addCard($deck->draw());
+            $newPlayer->addCard($deck->draw());
+
+            // Mark new player as split hand (optional)
+            $newPlayer->markAsSplit();
+
+            // Insert new player immediately after original
+            array_splice($players, $playerIndex + 1, 0, [$newPlayer]);
+
+            $this->savePlayers($session, $players);
+            $this->saveDeck($session, $deck);
+        }
+
+        return $this->redirectToRoute('proj_blackjack');
+    }
+
+    #[Route('/proj/stay', name: 'proj_stay', methods: ['POST'])]
     public function stay(SessionInterface $session): Response
     {
+
+        if (!$session->get('gameStarted', false)) {
+            return $this->redirectToRoute('proj_blackjack');
+        }
+
         $players = $this->getPlayers($session);
         $activeIndex = $session->get('activePlayerIndex', 0);
 
@@ -168,9 +245,23 @@ class ProjController extends AbstractController
         $deck = new Deck();
         $deck->shuffle();
 
-        $players = $this->getPlayers($session);
+        $dealer = new Player(); // dealer gets cards only after start
+        $players = [];
 
-        $players = array_slice($players, 0, 3);
+        $session->set('deck', $deck->toArray());
+        $this->savePlayers($session, $players);
+        $this->saveDealer($session, $dealer);
+        $session->set('activePlayerIndex', null);
+        $session->set('gameStarted', false);
+
+        return $this->redirectToRoute('proj_blackjack');
+    }
+
+    #[Route('proj/start-game', name: 'proj_start_game', methods: ['POST'])]
+    public function startGame(SessionInterface $session): RedirectResponse
+    {
+        $players = $this->getPlayers($session);
+        $deck = $this->getDeck($session);
 
         foreach ($players as $player) {
             $player->reset();
@@ -178,17 +269,35 @@ class ProjController extends AbstractController
             $player->addCard($deck->draw());
         }
 
-        $dealer = $this->initialiseDealer($deck);
+        $dealer = new Player();
+        $dealer->addCard($deck->draw());
+        $dealer->addCard($deck->draw());
 
-        $session->set('deck', $deck->toArray());
         $this->savePlayers($session, $players);
         $this->saveDealer($session, $dealer);
+        $this->saveDeck($session, $deck);
         $session->set('activePlayerIndex', 0);
+        $session->set('gameStarted', true);
+
+        $balance = $this->getBalance($session);
+        var_dump(count($players));
+        $cost = count($players);
+
+        if ($balance->getBalance() < $cost) {
+            // Not enough coins
+            $this->addFlash('error', 'Not enough coins to start the game.');
+            return $this->redirectToRoute('proj_blackjack');
+        }
+
+        $balance->setBalance($balance->getBalance() - $cost);
+        $this->saveBalance($session, $balance);
+
 
         return $this->redirectToRoute('proj_blackjack');
     }
 
-    #[Route('/add-player', name: 'proj_add_player', methods: ['POST'])]
+
+    #[Route('/proj/add-player', name: 'proj_add_player', methods: ['POST'])]
     public function addPlayer(SessionInterface $session): RedirectResponse
     {
         $activePlayerIndex = $session->get('activePlayerIndex');
@@ -205,7 +314,7 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
-    #[Route('/remove-player', name: 'proj_remove_player', methods: ['POST'])]
+    #[Route('/proj/remove-player', name: 'proj_remove_player', methods: ['POST'])]
     public function removePlayer(SessionInterface $session): RedirectResponse
     {
         $activePlayerIndex = $session->get('activePlayerIndex');
@@ -222,9 +331,14 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
-    #[Route('/double-down', name: 'proj_double_down', methods: ['POST'])]
+    #[Route('/proj/double-down', name: 'proj_double_down', methods: ['POST'])]
     public function doubleDown(SessionInterface $session): RedirectResponse
     {
+
+        if (!$session->get('gameStarted', false)) {
+            return $this->redirectToRoute('proj_blackjack');
+        }
+
         $players = $this->getPlayers($session);
         $deck = $this->getDeck($session);
         $activeIndex = $session->get('activePlayerIndex', 0);
@@ -234,9 +348,20 @@ class ProjController extends AbstractController
         }
 
         $player = $players[$activeIndex];
+        $balance = $this->getBalance($session);
+        $currentWager = $player->getWager();
+
+        if ($balance->getBalance() < $currentWager) {
+            $this->addFlash('error', 'Not enough coins to double down.');
+            return $this->redirectToRoute('proj_blackjack');
+        }
 
         if (!$player->hasStayed() && !$player->isBust() && !$player->hasDoubledDown()) {
             if ($deck->cardsLeft() > 0) {
+                $player->doubleWager();
+                $balance->setBalance($balance->getBalance() - $currentWager);
+                $this->saveBalance($session, $balance);
+
                 $player->addCard($deck->draw());
                 $player->doubleDown();
 
@@ -256,6 +381,58 @@ class ProjController extends AbstractController
         $this->saveDeck($session, $deck);
 
         return $this->redirectToRoute('proj_blackjack');
+    }
+
+    #[Route('/loan', name: 'proj_loan', methods: ['POST'])]
+    public function loan(SessionInterface $session, Request $request): RedirectResponse
+    {
+        $amount = (float) $request->request->get('amount', 0);
+        if ($amount == 0) {
+            $this->addFlash('error', 'Please enter a non-zero amount.');
+            return $this->redirectToRoute('blackjack_proj');
+        }
+
+        $balance = $this->getBalance($session);
+        $balance->adjustLoan($amount);
+        $this->saveBalance($session, $balance);
+
+        if ($amount > 0) {
+            $this->addFlash('success', sprintf('Loan taken: %.2f coins.', $amount));
+        } else {
+            $this->addFlash('success', sprintf('Loan paid back: %.2f coins.', abs($amount)));
+        }
+
+        return $this->redirectToRoute('proj_blackjack');
+    }
+
+    #[Route('/pay-loan', name: 'blackjack_pay_loan', methods: ['POST'])]
+    public function payLoan(SessionInterface $session, Request $request): RedirectResponse
+    {
+        $amount = (float) $request->request->get('amount', 0);
+        if ($amount <= 0) {
+            $this->addFlash('error', 'Invalid payment amount.');
+            return $this->redirectToRoute('blackjack_proj');
+        }
+
+        $balance = $this->getBalance($session);
+
+        if ($amount > $balance->getBalance()) {
+            $this->addFlash('error', 'Insufficient balance to pay back loan.');
+            return $this->redirectToRoute('blackjack_proj');
+        }
+
+        if ($amount > $balance->getDebt()) {
+            $amount = $balance->getDebt(); // can't pay more than debt
+        }
+
+        // Deduct from balance and debt
+        $balance->setBalance($balance->getBalance() - $amount);
+        $balance->debt -= $amount;
+
+        $this->saveBalance($session, $balance);
+
+        $this->addFlash('success', sprintf('Loan payment successful: %.2f coins.', $amount));
+        return $this->redirectToRoute('blackjack_proj');
     }
 
     // Helper methods
@@ -297,12 +474,20 @@ class ProjController extends AbstractController
     private function getBalance(SessionInterface $session): Balance
     {
         $data = $session->get('balance');
-        return $data ? Balance::fromArray($data) : new Balance(); // default balance 10, debt 0
+        return $data ? Balance::fromArray($data) : new Balance();
     }
 
     private function saveBalance(SessionInterface $session, Balance $balance): void
     {
         $session->set('balance', $balance->toArray());
+    }
+
+    public function reduceDebt(float $amount): void
+    {
+        $this->debt -= $amount;
+        if ($this->debt < 0) {
+            $this->debt = 0;
+        }
     }
 
     private function findNextActivePlayer(array $players, int $currentIndex): ?int
@@ -341,8 +526,6 @@ class ProjController extends AbstractController
     private function initialiseDealer(Deck $deck): Player
     {
         $dealer = new Player();
-        $dealer->addCard($deck->draw());
-        $dealer->addCard($deck->draw());
         return $dealer;
     }
 }

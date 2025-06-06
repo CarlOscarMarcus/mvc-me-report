@@ -27,10 +27,23 @@ class Balance
         return $this->debt;
     }
 
-    public function takeLoan(float $amount): void
+    public function adjustLoan(float $amount): void
     {
-        $this->balance += $amount;
-        $this->debt += $amount; // increment total debt by loan amount
+        if ($amount > 0) {
+            // Taking loan
+            $this->balance += $amount;
+            $this->debt += $amount;
+        } elseif ($amount < 0) {
+            // Paying back loan
+            $payback = abs($amount);
+
+            // Can't pay back more than debt or more than balance
+            $payback = min($payback, $this->debt, $this->balance);
+
+            $this->balance -= $payback;
+            $this->debt -= $payback;
+        }
+        // if amount == 0, do nothing
     }
 
     public function toArray(): array

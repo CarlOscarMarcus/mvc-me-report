@@ -9,6 +9,13 @@
 
 {% block body %}
     <div class="table">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
         <div class="dealer">
             <h2>Dealer</h2>
             <div class="cards">
@@ -50,7 +57,7 @@
                         </div>
                     {% endif %}
 
-                    {% if activePlayerIndex == loop.index0 and p.result is null %}
+                    {% if activePlayerIndex == loop.index0 and p.result is null and gameStarted is true %}
                         <div class="buttons">
                             <form method="post" action="{{ path('proj_hit', {'playerIndex': loop.index0}) }}" style="display:inline;">
                                 <button type="submit">Hit</button>
@@ -58,17 +65,18 @@
                             <form method="post" action="{{ path('proj_stay', {'playerIndex': loop.index0}) }}" style="display:inline;">
                                 <button type="submit">Stand</button>
                             </form>
-
+                        </div>
+                        <div class="buttons">
                             {# Double Down button here, if you have it #}
                             <form method="post" action="{{ path('proj_double_down') }}">
-                                <button type="submit">Double Down</button>
+                                <button type="submit">Double Down <span style="color:red;">Cost {{ p.player.wager }}</span></button>
                             </form>
 
                             {# Split button: only show if exactly 2 cards and both cards have same rank, and max player count not exceeded #}
                             {% set hand = p.player.getHand() %}
                             {% if hand|length == 2 and hand[0].getRawValue() == hand[1].getRawValue()%}
                                 <form method="post" action="{{ path('proj_split', {'playerIndex': loop.index0}) }}" style="display:inline;">
-                                    <button type="submit">Split</button>
+                                    <button type="submit">Split <span style="color:red;">Cost 1</span></button>
                                 </form>
                             {% endif %}
                         </div>
@@ -78,23 +86,39 @@
         </div>
 
         <div class="footer-buttons">
-            {% if canAddRemovePlayers %}
+            {% if not gameStarted %}
                 <form method="post" action="{{ path('proj_add_player') }}">
-                    <button type="submit">Lägg till spelare</button>
+                    <button type="submit" {% if players|length >= 3 %}disabled{% endif %}>Add Hand <span style="color:red;">Cost 1</span></button>
                 </form>
+
                 <form method="post" action="{{ path('proj_remove_player') }}">
-                    <button type="submit">Ta bort spelare</button>
+                    <button type="submit" {% if players|length <= 0 %}disabled{% endif %}>Remove Hand</button>
+                </form>
+
+                {% if players|length > 0 %}
+                    <form method="post" action="{{ path('proj_start_game') }}">
+                        <button type="submit">Start Game</button>
+                    </form>
+                {% endif %}
+            {% else %}
+                <form method="post" action="{{ path('proj_reset') }}">
+                    <button type="submit">Reset</button>
                 </form>
             {% endif %}
-            <p>
-                <form method="POST" action="{{ path('proj_reset') }}">
-                    <button type="submit">Omstart</button>
-                </form>
-            </p>
         </div>
+
         <div style="margin-top: 10px;">
             <p><strong>Balance:</strong> {{ balanceAmount }}</p>
             <p><strong>Debt:</strong> {{ debtAmount }}</p>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <h3>Loan / Repay</h3>
+            <form action="{{ path('proj_loan') }}" method="post">
+                <input type="number" name="amount" step="0.01" required>
+                <button type="submit">Submit</button>
+            </form>
+            <p>Enter positive number to take a loan, negative number to repay.</p>
         </div>
     </div>
 {% endblock %}

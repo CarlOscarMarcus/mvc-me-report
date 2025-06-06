@@ -10,6 +10,7 @@ class Player
     private bool $hasBlackjack = false;
     private bool $hasDoubledDown = false;
     private bool $isSplit = false;
+    private int $wager = 1;
 
     public function addCard(Card $card): void
     {
@@ -37,6 +38,7 @@ class Player
         $this->hasBlackjack = false;
         $this->hasDoubledDown = false;
         $this->isSplit = false;
+        $this->wager = 1;
     }
 
     public function getHand(): array
@@ -117,6 +119,7 @@ class Player
             'hasBlackjack' => $this->hasBlackjack,
             'hasDoubledDown' => $this->hasDoubledDown,
             'isSplit' => $this->isSplit,
+            'wager' => $this->wager,
         ];
     }
 
@@ -129,6 +132,22 @@ class Player
         $player->hasBlackjack = $data['hasBlackjack'] ?? false;
         $player->hasDoubledDown = $data['hasDoubledDown'] ?? false;
         $player->isSplit = $data['isSplit'] ?? false;
+        $player->wager = $data['wager'] ?? 1;
         return $player;
+    }
+
+    public function setWager(int $amount): void
+    {
+        $this->wager = $amount;
+    }
+
+    public function getWager(): int
+    {
+        return $this->wager;
+    }
+
+    public function doubleWager(): void
+    {
+        $this->wager *= 2;
     }
 }
