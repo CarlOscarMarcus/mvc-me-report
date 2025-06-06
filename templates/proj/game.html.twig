@@ -55,6 +55,12 @@
                             <form method="post" action="{{ path('blackjack_stay', {'playerIndex': loop.index0}) }}" style="display:inline;">
                                 <button type="submit">Stand</button>
                             </form>
+                            {% if p.player.getHand()|length == 2 %}
+                                <form method="post" action="{{ path('blackjack_double_down') }}">
+                                    <button type="submit">Double Down</button>
+                                </form>
+                            {% endif %}
+
                         </div>
                     {% endif %}
                 </div>

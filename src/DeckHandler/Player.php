@@ -8,6 +8,7 @@ class Player
     private bool $hasStayed = false;
     private bool $isBust = false;
     private bool $hasBlackjack = false;
+    private bool $hasDoubledDown = false;
 
     public function addCard(Card $card): void
     {
@@ -26,6 +27,7 @@ class Player
         $this->hasStayed = false;
         $this->isBust = false;
         $this->hasBlackjack = false;
+        $this->hasDoubledDown = false;
     }
 
     public function getHand(): array
@@ -62,6 +64,17 @@ class Player
         return [$low, $high];
     }
 
+    public function doubleDown(): void
+    {
+        $this->hasDoubledDown = true;
+        $this->hasStood = true; // This ends the turn after one card
+    }
+
+    public function hasDoubledDown(): bool
+    {
+        return $this->hasDoubledDown;
+    }
+
     private function updateStatus(): void
     {
         [$low, $high] = $this->getTotals();
@@ -83,6 +96,7 @@ class Player
             'hasStayed' => $this->hasStayed,
             'isBust' => $this->isBust,
             'hasBlackjack' => $this->hasBlackjack,
+            'hasDoubledDown' => $this->hasDoubledDown,
         ];
     }
 
@@ -93,6 +107,7 @@ class Player
         $player->hasStayed = $data['hasStayed'] ?? false;
         $player->isBust = $data['isBust'] ?? false;
         $player->hasBlackjack = $data['hasBlackjack'] ?? false;
+        $player->hasDoubledDown = $data['hasDoubledDown'] ?? false;
         return $player;
     }
 }

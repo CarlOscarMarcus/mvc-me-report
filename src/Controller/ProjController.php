@@ -223,6 +223,44 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('blackjack_proj');
     }
 
+    #[Route('/double-down', name: 'blackjack_double_down', methods: ['POST'])]
+    public function doubleDown(SessionInterface $session): RedirectResponse
+    {
+        $players = $this->getPlayers($session);
+        $deck = $this->getDeck($session);
+        $activeIndex = $session->get('activePlayerIndex', 0);
+
+        if (!isset($players[$activeIndex])) {
+            return $this->redirectToRoute('blackjack_proj');
+        }
+
+        $player = $players[$activeIndex];
+
+        if (!$player->hasStayed() && !$player->isBust() && !$player->hasDoubledDown()) {
+            if ($deck->cardsLeft() > 0) {
+                $player->addCard($deck->draw());
+                $player->doubleDown();
+
+                // After doubling down, immediately switch to next player or dealer
+                $nextIndex = $this->findNextActivePlayer($players, $activeIndex);
+
+                if ($nextIndex === null) {
+                    $this->dealerPlay($session, $deck);
+                    $session->set('activePlayerIndex', null);
+                } else {
+                    $session->set('activePlayerIndex', $nextIndex);
+                }
+            }
+        }
+
+        $players[$activeIndex] = $player;
+        $this->savePlayers($session, $players);
+        $this->saveDeck($session, $deck);
+
+        return $this->redirectToRoute('blackjack_proj');
+    }
+
+    
     /* ---------- PRIVATE HELPERS ---------- */
 
     private function findNextActivePlayer(array $players, int $currentIndex): ?int
