@@ -170,9 +170,12 @@ class ProjController extends AbstractController
         $deck->shuffle();
 
         $players = $this->getPlayers($session);
+
+        // Limit players to max 3 on reset
+        $players = array_slice($players, 0, 3);
+
         foreach ($players as $player) {
             $player->reset();
-            // Dela ut 2 kort till varje spelare vid reset (valfritt, men vanligt)
             $player->addCard($deck->draw());
             $player->addCard($deck->draw());
         }
@@ -256,6 +259,43 @@ class ProjController extends AbstractController
         $players[$activeIndex] = $player;
         $this->savePlayers($session, $players);
         $this->saveDeck($session, $deck);
+
+        return $this->redirectToRoute('blackjack_proj');
+    }
+
+    #[Route('/split/{playerIndex}', name: 'blackjack_split', methods: ['POST'])]
+    public function split(SessionInterface $session, int $playerIndex): RedirectResponse
+    {
+        $players = $this->getPlayers($session);
+        $deck = $this->getDeck($session);
+
+        if (!isset($players[$playerIndex])) {
+            return $this->redirectToRoute('blackjack_proj');
+        }
+
+        $player = $players[$playerIndex];
+
+        $hand = $player->getHand();
+        if (count($hand) === 2 && $hand[0]->getRawValue() === $hand[1]->getRawValue()) {
+            
+            // Create new player for split hand
+            $newPlayer = new Player();
+            $newPlayer->addCard($hand[1]); // move second card to new hand
+            $player->removeCard(1); // remove second card from original
+
+            // Draw one card each for both hands after split
+            $player->addCard($deck->draw());
+            $newPlayer->addCard($deck->draw());
+
+            // Mark new player as split hand (optional)
+            $newPlayer->markAsSplit();
+
+            // Insert new player immediately after original
+            array_splice($players, $playerIndex + 1, 0, [$newPlayer]);
+
+            $this->savePlayers($session, $players);
+            $this->saveDeck($session, $deck);
+        }
 
         return $this->redirectToRoute('blackjack_proj');
     }

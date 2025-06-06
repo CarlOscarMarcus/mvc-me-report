@@ -24,7 +24,10 @@
         <div class="players-container">
             {% for p in players %}
                 <div class="player-card {% if loop.index0 == activePlayerIndex %}active{% endif %}">
-                    <h3>Spelare {{ loop.index }}</h3>
+                    <h3> Hand {{ loop.index }} </h3>
+                    {% if p.player.isSplit() %}
+                        (Split hand)
+                    {% endif %}
                     <div class="cards">
                         {% for card in p.player.getHand() %}
                             {{ card.getDisplay }}&nbsp;
@@ -55,12 +58,19 @@
                             <form method="post" action="{{ path('blackjack_stay', {'playerIndex': loop.index0}) }}" style="display:inline;">
                                 <button type="submit">Stand</button>
                             </form>
-                            {% if p.player.getHand()|length == 2 %}
-                                <form method="post" action="{{ path('blackjack_double_down') }}">
-                                    <button type="submit">Double Down</button>
+
+                            {# Double Down button here, if you have it #}
+                            <form method="post" action="{{ path('blackjack_double_down') }}">
+                                <button type="submit">Double Down</button>
+                            </form>
+
+                            {# Split button: only show if exactly 2 cards and both cards have same rank, and max player count not exceeded #}
+                            {% set hand = p.player.getHand() %}
+                            {% if hand|length == 2 and hand[0].getRawValue() == hand[1].getRawValue()%}
+                                <form method="post" action="{{ path('blackjack_split', {'playerIndex': loop.index0}) }}" style="display:inline;">
+                                    <button type="submit">Split</button>
                                 </form>
                             {% endif %}
-
                         </div>
                     {% endif %}
                 </div>

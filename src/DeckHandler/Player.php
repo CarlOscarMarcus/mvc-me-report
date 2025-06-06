@@ -9,11 +9,19 @@ class Player
     private bool $isBust = false;
     private bool $hasBlackjack = false;
     private bool $hasDoubledDown = false;
+    private bool $isSplit = false;
 
     public function addCard(Card $card): void
     {
         $this->hand[] = $card;
         $this->updateStatus();
+    }
+
+    public function removeCard(int $index): void
+    {
+        if (isset($this->hand[$index])) {
+            array_splice($this->hand, $index, 1);
+        }
     }
 
     public function stay(): void
@@ -28,6 +36,7 @@ class Player
         $this->isBust = false;
         $this->hasBlackjack = false;
         $this->hasDoubledDown = false;
+        $this->isSplit = false;
     }
 
     public function getHand(): array
@@ -64,6 +73,16 @@ class Player
         return [$low, $high];
     }
 
+
+    public function markAsSplit(): void {
+        $this->isSplit = true;
+    }
+
+    public function isSplit(): bool {
+        return $this->isSplit;
+    }
+
+
     public function doubleDown(): void
     {
         $this->hasDoubledDown = true;
@@ -97,6 +116,7 @@ class Player
             'isBust' => $this->isBust,
             'hasBlackjack' => $this->hasBlackjack,
             'hasDoubledDown' => $this->hasDoubledDown,
+            'isSplit' => $this->isSplit,
         ];
     }
 
@@ -108,6 +128,7 @@ class Player
         $player->isBust = $data['isBust'] ?? false;
         $player->hasBlackjack = $data['hasBlackjack'] ?? false;
         $player->hasDoubledDown = $data['hasDoubledDown'] ?? false;
+        $player->isSplit = $data['isSplit'] ?? false;
         return $player;
     }
 }

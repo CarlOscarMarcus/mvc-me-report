@@ -126,22 +126,29 @@ class BlackjackController extends AbstractController
     #[Route('/reset', name: 'blackjack_reset', methods: ['POST'])]
     public function reset(SessionInterface $session): RedirectResponse
     {
+        // Create and shuffle a new deck
         $deck = new Deck();
         $deck->shuffle();
 
+        // Create a new player and deal 2 cards
         $player = new Player();
         $player->addCard($deck->draw());
         $player->addCard($deck->draw());
 
-        $dealer = $this->initialiseDealer($deck);
+        // Initialize the dealer and deal 2 cards
+        $dealer = new Player();
+        $dealer->addCard($deck->draw());
+        $dealer->addCard($deck->draw());
 
+        // Save everything in session
         $session->set('deck', $deck->toArray());
-        $this->savePlayer($session, $player);
-        $this->saveDealer($session, $dealer);
+        $this->savePlayer($session, [$player]);  // single player array
+        $this->saveDeale($session, $dealer);
 
-        $session->set('activePlayerTurn', true);
+        // Set active player index to 0 (only one player)
+        $session->set('activePlayerIndex', 0);
 
-        return $this->redirectToRoute('blackjack');
+        return $this->redirectToRoute('blackjack_index');
     }
 
     /* ---------- PRIVATE HELPERS ---------- */
