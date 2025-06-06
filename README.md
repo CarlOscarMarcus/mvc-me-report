@@ -13,7 +13,7 @@ Projects include a library database application, a blackjack game featuring a ba
 To clone this repository, copy the repository URL and run:
 
 ```bash
-git clone <repository-url>
+git clone git@github.com:CarlOscarMarcus/mvc-me-report.git
 ```
 After cloning, install dependencies and start a local development server by running:
 ```bash
