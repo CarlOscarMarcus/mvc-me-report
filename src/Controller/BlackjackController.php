@@ -75,7 +75,7 @@ class BlackjackController extends AbstractController
         ]);
     }
 
-    #[Route('/hit', name: 'blackjack_hit', methods: ['POST'])]
+    #[Route('game/hit', name: 'blackjack_hit', methods: ['POST'])]
     public function hit(SessionInterface $session): Response
     {
         $player = $this->getPlayer($session);
@@ -103,7 +103,7 @@ class BlackjackController extends AbstractController
         return $this->redirectToRoute('blackjack');
     }
 
-    #[Route('/stay', name: 'blackjack_stay', methods: ['POST'])]
+    #[Route('game/stay', name: 'blackjack_stay', methods: ['POST'])]
     public function stay(SessionInterface $session): Response
     {
         $player = $this->getPlayer($session);
@@ -123,32 +123,25 @@ class BlackjackController extends AbstractController
         return $this->redirectToRoute('blackjack');
     }
 
-    #[Route('/reset', name: 'blackjack_reset', methods: ['POST'])]
+    #[Route('game/reset', name: 'blackjack_reset', methods: ['POST'])]
     public function reset(SessionInterface $session): RedirectResponse
     {
-        // Create and shuffle a new deck
         $deck = new Deck();
         $deck->shuffle();
 
-        // Create a new player and deal 2 cards
         $player = new Player();
         $player->addCard($deck->draw());
         $player->addCard($deck->draw());
 
-        // Initialize the dealer and deal 2 cards
-        $dealer = new Player();
-        $dealer->addCard($deck->draw());
-        $dealer->addCard($deck->draw());
+        $dealer = $this->initialiseDealer($deck);
 
-        // Save everything in session
         $session->set('deck', $deck->toArray());
-        $this->savePlayer($session, [$player]);  // single player array
-        $this->saveDeale($session, $dealer);
+        $this->savePlayer($session, $player);
+        $this->saveDealer($session, $dealer);
 
-        // Set active player index to 0 (only one player)
-        $session->set('activePlayerIndex', 0);
+        $session->set('activePlayerTurn', true);
 
-        return $this->redirectToRoute('blackjack_index');
+        return $this->redirectToRoute('blackjack');
     }
 
     /* ---------- PRIVATE HELPERS ---------- */

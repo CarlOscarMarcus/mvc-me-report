@@ -25,7 +25,7 @@ class ProjController extends AbstractController
         return $this->render('proj/about.html.twig');
     }
 
-    #[Route('/proj/game', name: 'blackjack_proj')]
+    #[Route('/proj/game', name: 'proj_blackjack')]
     public function blackjackIndex(SessionInterface $session): Response
     {
         $balance = $this->getBalance($session);
@@ -87,7 +87,7 @@ class ProjController extends AbstractController
         ]);
     }
 
-    #[Route('/hit', name: 'blackjack_hit', methods: ['POST'])]
+    #[Route('/hit', name: 'proj_hit', methods: ['POST'])]
     public function hit(SessionInterface $session): Response
     {
         $players = $this->getPlayers($session);
@@ -95,7 +95,7 @@ class ProjController extends AbstractController
         $activeIndex = $session->get('activePlayerIndex', 0);
 
         if (!isset($players[$activeIndex])) {
-            return $this->redirectToRoute('blackjack_proj');
+            return $this->redirectToRoute('proj_blackjack');
         }
 
         $player = $players[$activeIndex];
@@ -132,17 +132,17 @@ class ProjController extends AbstractController
         $this->savePlayers($session, $players);
         $this->saveDeck($session, $deck);
 
-        return $this->redirectToRoute('blackjack_proj');
+        return $this->redirectToRoute('proj_blackjack');
     }
 
-    #[Route('/stay', name: 'blackjack_stay', methods: ['POST'])]
+    #[Route('/stay', name: 'proj_stay', methods: ['POST'])]
     public function stay(SessionInterface $session): Response
     {
         $players = $this->getPlayers($session);
         $activeIndex = $session->get('activePlayerIndex', 0);
 
         if (!isset($players[$activeIndex])) {
-            return $this->redirectToRoute('blackjack_proj');
+            return $this->redirectToRoute('proj_blackjack');
         }
 
         $players[$activeIndex]->stay();
@@ -159,10 +159,10 @@ class ProjController extends AbstractController
 
         $this->savePlayers($session, $players);
 
-        return $this->redirectToRoute('blackjack_proj');
+        return $this->redirectToRoute('proj_blackjack');
     }
 
-    #[Route('/reset', name: 'blackjack_reset', methods: ['POST'])]
+    #[Route('proj/reset', name: 'proj_reset', methods: ['POST'])]
     public function reset(SessionInterface $session): RedirectResponse
     {
         $deck = new Deck();
@@ -185,16 +185,16 @@ class ProjController extends AbstractController
         $this->saveDealer($session, $dealer);
         $session->set('activePlayerIndex', 0);
 
-        return $this->redirectToRoute('blackjack_proj');
+        return $this->redirectToRoute('proj_blackjack');
     }
 
-    #[Route('/add-player', name: 'blackjack_add_player', methods: ['POST'])]
+    #[Route('/add-player', name: 'proj_add_player', methods: ['POST'])]
     public function addPlayer(SessionInterface $session): RedirectResponse
     {
         $activePlayerIndex = $session->get('activePlayerIndex');
 
         if ($activePlayerIndex !== null) {
-            return $this->redirectToRoute('blackjack_proj');
+            return $this->redirectToRoute('proj_blackjack');
         }
 
         $players = $this->getPlayers($session);
@@ -202,16 +202,16 @@ class ProjController extends AbstractController
             $players[] = new Player();
             $this->savePlayers($session, $players);
         }
-        return $this->redirectToRoute('blackjack_proj');
+        return $this->redirectToRoute('proj_blackjack');
     }
 
-    #[Route('/remove-player', name: 'blackjack_remove_player', methods: ['POST'])]
+    #[Route('/remove-player', name: 'proj_remove_player', methods: ['POST'])]
     public function removePlayer(SessionInterface $session): RedirectResponse
     {
         $activePlayerIndex = $session->get('activePlayerIndex');
 
         if ($activePlayerIndex !== null) {
-            return $this->redirectToRoute('blackjack_proj');
+            return $this->redirectToRoute('proj_blackjack');
         }
 
         $players = $this->getPlayers($session);
@@ -219,10 +219,10 @@ class ProjController extends AbstractController
             array_pop($players);
             $this->savePlayers($session, $players);
         }
-        return $this->redirectToRoute('blackjack_proj');
+        return $this->redirectToRoute('proj_blackjack');
     }
 
-    #[Route('/double-down', name: 'blackjack_double_down', methods: ['POST'])]
+    #[Route('/double-down', name: 'proj_double_down', methods: ['POST'])]
     public function doubleDown(SessionInterface $session): RedirectResponse
     {
         $players = $this->getPlayers($session);
@@ -230,7 +230,7 @@ class ProjController extends AbstractController
         $activeIndex = $session->get('activePlayerIndex', 0);
 
         if (!isset($players[$activeIndex])) {
-            return $this->redirectToRoute('blackjack_proj');
+            return $this->redirectToRoute('proj_blackjack');
         }
 
         $player = $players[$activeIndex];
@@ -255,7 +255,7 @@ class ProjController extends AbstractController
         $this->savePlayers($session, $players);
         $this->saveDeck($session, $deck);
 
-        return $this->redirectToRoute('blackjack_proj');
+        return $this->redirectToRoute('proj_blackjack');
     }
 
     // Helper methods
