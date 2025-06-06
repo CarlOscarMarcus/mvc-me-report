@@ -23,4 +23,25 @@ class LibraryEntityTest extends TestCase
         $this->assertSame('test.jpg', $library->getImage());
         $this->assertSame('1', $library->getURL());
     }
+
+    public function testToArray()
+    {
+        $library = new Library();
+        $library->setTitle('Test Title');
+        $library->setAuthor('John Doe');
+        $library->setISBN('1234567890');
+        $library->setImage('image.jpg');
+
+        // ID will be null because it’s not persisted in test
+        $expectedArray = [
+            'Test Title',
+            'John Doe',
+            '1234567890',
+            'image.jpg',
+            null,
+        ];
+
+        $this->assertSame($expectedArray, $library->toArray());
+    }
+
 }

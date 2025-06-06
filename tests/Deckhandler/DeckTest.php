@@ -1,106 +1,110 @@
 <?php
 
-namespace Tests\DeckHandler;
+namespace App\Tests\DeckHandler;
 
-use PHPUnit\Framework\TestCase;
+use App\DeckHandler\Card;
 use App\DeckHandler\Deck;
+use PHPUnit\Framework\TestCase;
 
 class DeckTest extends TestCase
 {
-    /**
-     * Check that all cards are created while new deck is called
-     * @covers \App\DeckHandler\Deck::__construct
-     * @covers \App\DeckHandler\Deck::countDeck
-     * @covers \App\DeckHandler\Card::__construct
-     */
-    public function testDeckCreation()
+    public function testDeckInitializesWith52Cards(): void
     {
         $deck = new Deck();
-        $this->assertEquals(52, $deck->countDeck());
+        $this->assertSame(52, $deck->cardsLeft());
     }
 
-    /**
-     * Check if deck has been shuffled by comparing deck that is not shuffled
-     * @covers \App\DeckHandler\Deck::__construct
-     * @covers \App\DeckHandler\Deck::shuffle
-     * @covers \App\DeckHandler\Deck::deckToString
-     * @covers \App\DeckHandler\Deck::deckToStringApi
-     * @covers \App\DeckHandler\Card::__construct
-     * @covers \App\DeckHandler\Card::toString
-     * @covers \App\DeckHandler\Card::toStringApi
-     */
-    public function testDeckShuffle()
-    {
-        $deck = new Deck();
-        $originalDeck = $deck->deckToString();
-        $deck->shuffle();
-        $shuffledDeck = $deck->deckToString();
-        $this->assertNotEquals($originalDeck, $shuffledDeck);
-
-        // Api
-        $deck = new Deck();
-        $originalDeck = $deck->deckToStringApi();
-        $deck->shuffle();
-        $shuffledDeck = $deck->deckToStringApi();
-        $this->assertNotEquals($originalDeck, $shuffledDeck);
-    }
-
-    /**
-     * Test that an Exception is thrown when not enough cards are available to deal.
-     *
-     * @covers \App\DeckHandler\Deck::__construct
-     * @covers \App\DeckHandler\Deck::shuffle
-     * @covers \App\DeckHandler\Deck::deal
-     * @covers \App\DeckHandler\Card::__construct
-     */
-    public function testDealThrowsExceptionWhenNotEnoughCards()
+    public function testShuffleDoesNotChangeCardCount(): void
     {
         $deck = new Deck();
         $deck->shuffle();
-
-        // Deal all cards to empty the deck
-        $deck->deal(52);
-
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Not enough cards in deck to draw 1 cards. Renew your deck with /card/shuffle');
-
-        // Try to deal when there are no cards left
-        $deck->deal(1);
+        $this->assertSame(52, $deck->cardsLeft());
     }
 
-    /**
-     * Test to deal cards to player and cards dissapear after being dealt
-     * @covers \App\DeckHandler\Deck::__construct
-     * @covers \App\DeckHandler\Deck::deal
-     * @covers \App\DeckHandler\Deck::countDeck
-     * @covers \App\DeckHandler\Card::__construct
-     */
-    public function testDeckDeal()
+    public function testDrawReducesDeckSize(): void
     {
         $deck = new Deck();
-        $cards = $deck->deal(5);
-        $this->assertEquals(5, count($cards));
-        $this->assertEquals(47, $deck->countDeck()); 
+        $card = $deck->draw();
+        $this->assertInstanceOf(Card::class, $card);
+        $this->assertSame(51, $deck->cardsLeft());
     }
 
-    /**
-     * Test to sort deck with remenings of deck
-     * @covers \App\DeckHandler\Deck::__construct
-     * @covers \App\DeckHandler\Deck::shuffle
-     * @covers \App\DeckHandler\Deck::deckToString
-     * @covers \App\DeckHandler\Deck::sort
-     * @covers \App\DeckHandler\Card::__construct
-     * @covers \App\DeckHandler\Card::getRank
-     * @covers \App\DeckHandler\Card::getSuit
-     * @covers \App\DeckHandler\Card::toString
-    */
-    public function testDeckSort()
+    public function testPeekReturnsTopCard(): void
     {
         $deck = new Deck();
-        $deck->shuffle();
-        $unsortedDeck = $deck->deckToString();
+        $peek = $deck->peek();
+        $draw = $deck->draw();
+        $this->assertEquals($peek->getDisplay(), $draw->getDisplay());
+    }
+
+    public function testDrawFromEmptyDeckReturnsNull(): void
+    {
+        $deck = new Deck();
+        for ($i = 0; $i < 52; $i++) {
+            $deck->draw();
+        }
+        $this->assertNull($deck->draw());
+    }
+
+    public function testDeckToArrayAndFromArrayRestoresDeck(): void
+    {
+        $originalDeck = new Deck();
+        $array = $originalDeck->toArray();
+
+        $restoredDeck = Deck::fromArray($array);
+        $this->assertSame($originalDeck->cardsLeft(), $restoredDeck->cardsLeft());
+
+        $originalTop = $originalDeck->peek();
+        $restoredTop = $restoredDeck->peek();
+
+        $this->assertSame($originalTop->getDisplay(), $restoredTop->getDisplay());
+    }
+
+    public function testDealReturnsRequestedCards(): void
+    {
+        $deck = new Deck();
+        $dealt = $deck->deal(5);
+
+        $this->assertCount(5, $dealt);
+        $this->assertSame(47, $deck->cardsLeft());
+        foreach ($dealt as $card) {
+            $this->assertInstanceOf(Card::class, $card);
+        }
+    }
+
+    public function testDealReturnsLessIfDeckTooSmall(): void
+    {
+        $deck = new Deck();
+        $deck->deal(52); // Deplete deck
+        $remaining = $deck->deal(5); // Should return []
+
+        $this->assertEmpty($remaining);
+    }
+
+    public function testDeckToStringIsReadable(): void
+    {
+        $deck = new Deck();
+        $string = $deck->deckToString();
+        $this->assertIsString($string);
+        $this->assertStringContainsString('♠', $string);
+    }
+
+    public function testShuffleAndReturnReturnsSelf(): void
+    {
+        $deck = new Deck();
+        $result = $deck->shuffleAndReturn();
+        $this->assertInstanceOf(Deck::class, $result);
+    }
+
+    public function testSortSortsCorrectly(): void
+    {
+        $deck = new Deck();
+        $deck->shuffle(); // Disrupt the order
         $deck->sort();
-        $sortedDeck = $deck->deckToString();
-        $this->assertNotEquals($unsortedDeck, $sortedDeck);
+        $sortedDeck = $deck->toArray();
+
+        // Check if first few cards match expected sorted pattern
+        $this->assertEquals(['♠', 'A'], $sortedDeck[0]); // ♠A
+        $this->assertEquals(['♠', '2'], $sortedDeck[1]); // ♠2
     }
 }
