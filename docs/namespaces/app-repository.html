@@ -158,7 +158,7 @@
                     code.className = 'language-' + language;
                     pre.textContent = '';
                     pre.setAttribute('data-line', line)
-                    code.textContent = 'Loadingâ¦';
+                    code.textContent = 'Loading…';
                     pre.appendChild(code);
 
                     var xhr = new XMLHttpRequest();
@@ -177,16 +177,16 @@
                         }
 
                         if (xhr.status === 404) {
-                            code.textContent = 'â Error: File could not be found';
+                            code.textContent = '✖ Error: File could not be found';
                             return;
                         }
 
                         if (xhr.status >= 400) {
-                            code.textContent = 'â Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
                             return;
                         }
 
-                        code.textContent = 'â Error: An unknown error occurred';
+                        code.textContent = '✖ Error: An unknown error occurred';
                     };
 
                     xhr.send(null);
