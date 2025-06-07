@@ -165,7 +165,42 @@
         </div>
         <div class="row" id="kmom07/10">
             <h1> Kmom 07/10 </h1>
-            <p> </p>
+            <div>
+                <h3> Krav  </h3>
+                <ol>
+                    <li>
+                        Att börja med så skapade jag en ladningssida för /proj där jag har de följande länkarna som ligger under routen /proj som i detta fall är /about och /game.
+                        Jag gjorde också en ny base template för /proj routerna enligt kravet. Jag gjorde det genom att skapa en ny fil som liknar base.html.twig. 
+                        Som heter basegame.html.twig som tar hand om återupprepande styling element som i detta fallet var en navbar, footern och ändrad style schema.
+                    </li>
+                    <li>
+                        Krav två så valde jag att vidareutveckla mitt blackjack spel från /game routen. Där jag skrev om mina klasses från början och implementerade fler funktioner som underlättade utvecklningen.
+                        Grunden jag hade var bara blackjack med 1 hand mot banked och man kunde bara använda sig av hit och stand. 
+                        Den vidareutvecklade /proj har flera funktioner som möjligheten att spela flera händer samtidigt som jag har bestämt att vara mellan 1 till 3 händer. 
+                        Jag har också lagt till att man kan lägga in olika värden på sina händer så de olika händerna kan vara värda olika mycket. 
+                        Sedan implementerade jag också möjligheten att köra double down och split baserat på de vanliga reglerna. 
+                    </li>
+                    <li>
+                        Till det sista kravet jag implementerade var test täckning som jag avslutade på 100% kod täckning med undantaget att inte testa de olika kontrollerna.
+                        Som använder sig av funktionalitet som är baserat på mina olika klasser. Jag jobbade också att jag fick 10/10 poäng på report enligt scrutinizer och att jag har inga issues.
+                        Jag har också lagt till kommentarer som hjälper till för phpdoc att generera en bra kartläggning över mina olika filer. Satsade främst på min ProjController.
+                    </li>
+                </ol>
+            </div>
+            <div>
+                Det gick bra att slutföra projektet allmänt men jag hade flera problem som tog lite längre tid och vissa saker som jag fick lämna som inte var riktigt optimerat.
+                När det kommer till att hantera alla de olika varablerna som jag använde mig utav för proj gjorde det svårt att hänga med vad som händer och krävde flera support funktioner.
+                Som hjälpte till att hantera de olika varablerna. Detta ledde till att min kod blev väldigt komplext. Om jag skulle haft mer tid på mig att slutföra projektet då skulle jag lägga ner mer
+                tid på att dela upp funktionaliteten för att göra den mindre komplex både enligt phpmetrics men även visuellt för mig själv. Märkte om jag lämnade min kod för några timmar
+                så var jag redan vilse i koden. Jag tycker att projektet har varit rimligt och roligt att göra just att man fick valmöjligheter på vad man kunde göra. 
+                Men också att man behövde inte använda sig av externa material för att kunna slutföra denna kursen.
+            </div>
+            <div>
+                Denna kursen har varit lärningrik och tycker att det har varit en bra kurs att läsa för att kunna förstå hur man programmerar objektorienterat och hur kraftfull klasser kan vara.
+                Jag skulle säga att kurs materialet har varit bra och har täckt det som behövs för att klara av kursen. Handledningen har varit bra och det har funnits många möjligheter att få
+                hjälp även om det finns många resurser idag som kan hjälpa en. För att kunna förbättra denna kursen skulle jag säga att kanske använda sig att något modernare ramverk t.ex. React, Angular etc.
+                Annars har jag inte så mycket att säga skulle rekomendera denna kursen till vänner som vill lära sig mer om ramverk och om OOP. Jag ger betyget 7/10. 
+            </div>
         </div>
     </div>
 {% endblock %}
