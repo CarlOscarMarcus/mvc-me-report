@@ -21,7 +21,6 @@ class ProjController extends AbstractController
     /**
      * Shows the index page.
      *
-     * @Route('/proj', name: 'proj_index')
      *
      * @return Response
      */
@@ -34,7 +33,6 @@ class ProjController extends AbstractController
      /**
      * Shows the about page.
      *
-     * @Route('/proj/about', name: 'proj_about')
      *
      * @return Response
      */
@@ -47,7 +45,6 @@ class ProjController extends AbstractController
     /**
      * This is the main route that host the game.
      *
-     * @Route('/proj/game', name: 'proj_blackjack')
      *
      * @return Response
      */
@@ -131,7 +128,6 @@ class ProjController extends AbstractController
     /**
      * Allows the diffrent hand to draw a card
      *
-     * @Route('/proj/hit', name: 'proj_hit', methods: ['POST'])
      *
      * @return Response
      */
@@ -191,7 +187,6 @@ class ProjController extends AbstractController
     /**
      * Allows to split the hand if condition is meet
      *
-     * @Route('/proj/split/{playerIndex}', name: 'proj_split', methods: ['POST'])
      *
      * @return Response
      */
@@ -248,7 +243,6 @@ class ProjController extends AbstractController
      * Allows the player to stand.
      * Auto stand exists in case of bust or blackjack
      *
-     * @Route('/proj/split/{playerIndex}', name: 'proj_split', methods: ['POST'])
      *
      * @return Response
      */
@@ -286,7 +280,6 @@ class ProjController extends AbstractController
     /**
      * Reset current hand and start a new game.
      *
-     * @Route('proj/reset', name: 'proj_reset', methods: ['POST'])
      *
      * @return Response
      */
@@ -311,7 +304,6 @@ class ProjController extends AbstractController
     /**
      * Indicator then the game starts
      *
-     * @Route('proj/start-game', name: 'proj_start_game', methods: ['POST'])
      *
      * @return Response
      */
@@ -366,7 +358,6 @@ class ProjController extends AbstractController
     /**
      * Allow the user to add a hand to current game LIMIT of 3
      *
-     * @Route('/proj/add-player', name: 'proj_add_player', methods: ['POST'])
      *
      * @return Response
      */
@@ -389,7 +380,6 @@ class ProjController extends AbstractController
     /**
      * Allow the user to remove a hand Minimum 1 hand.
      *
-     * @Route('/proj/add-player', name: 'proj_add_player', methods: ['POST'])
      *
      * @return Response
      */
@@ -414,7 +404,6 @@ class ProjController extends AbstractController
      * Allow the user to double down.
      * This function autodraw and autostand the hand.
      *
-     * @Route('/proj/double-down', name: 'proj_double_down', methods: ['POST'])
      *
      * @return Response
      */
@@ -473,7 +462,6 @@ class ProjController extends AbstractController
     /**
      * Allow the user to refill its balance and gets the player in debt
      *
-     * @Route('/loan', name: 'proj_loan', methods: ['POST'])
      *
      * @return Response
      */
@@ -509,7 +497,6 @@ class ProjController extends AbstractController
     /**
      * Allow the user to change the wager on current hand
      *
-     * @Route('/update-wager/{playerIndex}', name: 'blackjack_update_wager', methods: ['POST'])
      *
      * @return Response
      */
