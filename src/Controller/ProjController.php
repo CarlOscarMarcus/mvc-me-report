@@ -13,20 +13,44 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Controller for handling project-related routes.
+ */
 class ProjController extends AbstractController
 {
+    /**
+     * Shows the index page.
+     *
+     * @Route('/proj', name: 'proj_index')
+     *
+     * @return Response
+     */
     #[Route('/proj', name: 'proj_index')]
     public function projIndex(): Response
     {
         return $this->render('proj/index.html.twig');
     }
 
+     /**
+     * Shows the about page.
+     *
+     * @Route('/proj/about', name: 'proj_about')
+     *
+     * @return Response
+     */
     #[Route('/proj/about', name: 'proj_about')]
     public function projAbout(): Response
     {
         return $this->render('proj/about.html.twig');
     }
 
+    /**
+     * This is the main route that host the game.
+     *
+     * @Route('/proj/game', name: 'proj_blackjack')
+     *
+     * @return Response
+     */
     #[Route('/proj/game', name: 'proj_blackjack')]
     public function blackjackIndex(SessionInterface $session): Response
     {
@@ -104,7 +128,13 @@ class ProjController extends AbstractController
             'gameStarted' => $gameStarted,
         ]);
     }
-
+    /**
+     * Allows the diffrent hand to draw a card
+     *
+     * @Route('/proj/hit', name: 'proj_hit', methods: ['POST'])
+     *
+     * @return Response
+     */
     #[Route('/proj/hit', name: 'proj_hit', methods: ['POST'])]
     public function hit(SessionInterface $session): Response
     {
@@ -158,6 +188,13 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
+    /**
+     * Allows to split the hand if condition is meet
+     *
+     * @Route('/proj/split/{playerIndex}', name: 'proj_split', methods: ['POST'])
+     *
+     * @return Response
+     */
     #[Route('/proj/split/{playerIndex}', name: 'proj_split', methods: ['POST'])]
     public function split(SessionInterface $session, int $playerIndex): RedirectResponse
     {
@@ -207,6 +244,14 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
+    /**
+     * Allows the player to stand.
+     * Auto stand exists in case of bust or blackjack
+     *
+     * @Route('/proj/split/{playerIndex}', name: 'proj_split', methods: ['POST'])
+     *
+     * @return Response
+     */
     #[Route('/proj/stay', name: 'proj_stay', methods: ['POST'])]
     public function stay(SessionInterface $session): Response
     {
@@ -238,7 +283,13 @@ class ProjController extends AbstractController
 
         return $this->redirectToRoute('proj_blackjack');
     }
-
+    /**
+     * Reset current hand and start a new game.
+     *
+     * @Route('proj/reset', name: 'proj_reset', methods: ['POST'])
+     *
+     * @return Response
+     */
     #[Route('proj/reset', name: 'proj_reset', methods: ['POST'])]
     public function reset(SessionInterface $session): RedirectResponse
     {
@@ -257,6 +308,13 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
+    /**
+     * Indicator then the game starts
+     *
+     * @Route('proj/start-game', name: 'proj_start_game', methods: ['POST'])
+     *
+     * @return Response
+     */
     #[Route('proj/start-game', name: 'proj_start_game', methods: ['POST'])]
     public function startGame(SessionInterface $session): RedirectResponse
     {
@@ -305,7 +363,13 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
-
+    /**
+     * Allow the user to add a hand to current game LIMIT of 3
+     *
+     * @Route('/proj/add-player', name: 'proj_add_player', methods: ['POST'])
+     *
+     * @return Response
+     */
     #[Route('/proj/add-player', name: 'proj_add_player', methods: ['POST'])]
     public function addPlayer(SessionInterface $session): RedirectResponse
     {
@@ -322,7 +386,13 @@ class ProjController extends AbstractController
         }
         return $this->redirectToRoute('proj_blackjack');
     }
-
+    /**
+     * Allow the user to remove a hand Minimum 1 hand.
+     *
+     * @Route('/proj/add-player', name: 'proj_add_player', methods: ['POST'])
+     *
+     * @return Response
+     */
     #[Route('/proj/remove-player', name: 'proj_remove_player', methods: ['POST'])]
     public function removePlayer(SessionInterface $session): RedirectResponse
     {
@@ -340,6 +410,14 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
+    /**
+     * Allow the user to double down.
+     * This function autodraw and autostand the hand.
+     *
+     * @Route('/proj/double-down', name: 'proj_double_down', methods: ['POST'])
+     *
+     * @return Response
+     */
     #[Route('/proj/double-down', name: 'proj_double_down', methods: ['POST'])]
     public function doubleDown(SessionInterface $session): RedirectResponse
     {
@@ -392,6 +470,13 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
+    /**
+     * Allow the user to refill its balance and gets the player in debt
+     *
+     * @Route('/loan', name: 'proj_loan', methods: ['POST'])
+     *
+     * @return Response
+     */
     #[Route('/loan', name: 'proj_loan', methods: ['POST'])]
     public function loan(SessionInterface $session, Request $request): RedirectResponse
     {
@@ -421,6 +506,13 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
+    /**
+     * Allow the user to change the wager on current hand
+     *
+     * @Route('/update-wager/{playerIndex}', name: 'blackjack_update_wager', methods: ['POST'])
+     *
+     * @return Response
+     */
     #[Route('/update-wager/{playerIndex}', name: 'blackjack_update_wager', methods: ['POST'])]
     public function updateWager(int $playerIndex, Request $request, SessionInterface $session): RedirectResponse
     {
@@ -451,8 +543,6 @@ class ProjController extends AbstractController
 
         return $this->redirectToRoute('proj_blackjack');
     }
-
-    // Helper methods
 
     private function getPlayers(SessionInterface $session): array
     {

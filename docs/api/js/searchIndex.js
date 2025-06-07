@@ -131,10 +131,10 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-CardControllerApi.html"
         },                {
-            "fqsen": "\\App\\Controller\\CardControllerApi\u003A\u003AjsonQoute\u0028\u0029",
-            "name": "jsonQoute",
+            "fqsen": "\\App\\Controller\\CardControllerApi\u003A\u003AjsonQuote\u0028\u0029",
+            "name": "jsonQuote",
             "summary": "",
-            "url": "classes/App-Controller-CardControllerApi.html#method_jsonQoute"
+            "url": "classes/App-Controller-CardControllerApi.html#method_jsonQuote"
         },                {
             "fqsen": "\\App\\Controller\\CardControllerApi\u003A\u003AapiDeck\u0028\u0029",
             "name": "apiDeck",
@@ -151,10 +151,10 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-CardControllerApi.html#method_apiDeckDraw"
         },                {
-            "fqsen": "\\App\\Controller\\CardControllerApi\u003A\u003AapiDeckDrawCostum\u0028\u0029",
-            "name": "apiDeckDrawCostum",
+            "fqsen": "\\App\\Controller\\CardControllerApi\u003A\u003AapiDeckDrawCustom\u0028\u0029",
+            "name": "apiDeckDrawCustom",
             "summary": "",
-            "url": "classes/App-Controller-CardControllerApi.html#method_apiDeckDrawCostum"
+            "url": "classes/App-Controller-CardControllerApi.html#method_apiDeckDrawCustom"
         },                {
             "fqsen": "\\App\\Controller\\CardControllerApi\u003A\u003AcardDrawPlayers\u0028\u0029",
             "name": "cardDrawPlayers",
@@ -168,12 +168,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Controller\\CardControllerApi\u003A\u003AgetDeck\u0028\u0029",
             "name": "getDeck",
-            "summary": "",
+            "summary": "Session\u0020helper\u003A\u0020get\u0020Deck\u0020from\u0020session\u0020or\u0020new\u0020shuffled\u0020deck",
             "url": "classes/App-Controller-CardControllerApi.html#method_getDeck"
         },                {
             "fqsen": "\\App\\Controller\\CardControllerApi\u003A\u003AsaveDeck\u0028\u0029",
             "name": "saveDeck",
-            "summary": "",
+            "summary": "Session\u0020helper\u003A\u0020save\u0020Deck\u0020array\u0020to\u0020session",
             "url": "classes/App-Controller-CardControllerApi.html#method_saveDeck"
         },                {
             "fqsen": "\\App\\Controller\\LibraryApiController",
@@ -263,78 +263,73 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Controller\\ProjController",
             "name": "ProjController",
-            "summary": "",
+            "summary": "Controller\u0020for\u0020handling\u0020project\u002Drelated\u0020routes.",
             "url": "classes/App-Controller-ProjController.html"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003AprojIndex\u0028\u0029",
             "name": "projIndex",
-            "summary": "",
+            "summary": "Shows\u0020the\u0020index\u0020page.",
             "url": "classes/App-Controller-ProjController.html#method_projIndex"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003AprojAbout\u0028\u0029",
             "name": "projAbout",
-            "summary": "",
+            "summary": "Shows\u0020the\u0020about\u0020page.",
             "url": "classes/App-Controller-ProjController.html#method_projAbout"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003AblackjackIndex\u0028\u0029",
             "name": "blackjackIndex",
-            "summary": "",
+            "summary": "This\u0020is\u0020the\u0020main\u0020route\u0020that\u0020host\u0020the\u0020game.",
             "url": "classes/App-Controller-ProjController.html#method_blackjackIndex"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003Ahit\u0028\u0029",
             "name": "hit",
-            "summary": "",
+            "summary": "Allows\u0020the\u0020diffrent\u0020hand\u0020to\u0020draw\u0020a\u0020card",
             "url": "classes/App-Controller-ProjController.html#method_hit"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003Asplit\u0028\u0029",
             "name": "split",
-            "summary": "",
+            "summary": "Allows\u0020to\u0020split\u0020the\u0020hand\u0020if\u0020condition\u0020is\u0020meet",
             "url": "classes/App-Controller-ProjController.html#method_split"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003Astay\u0028\u0029",
             "name": "stay",
-            "summary": "",
+            "summary": "Allows\u0020the\u0020player\u0020to\u0020stand.",
             "url": "classes/App-Controller-ProjController.html#method_stay"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003Areset\u0028\u0029",
             "name": "reset",
-            "summary": "",
+            "summary": "Reset\u0020current\u0020hand\u0020and\u0020start\u0020a\u0020new\u0020game.",
             "url": "classes/App-Controller-ProjController.html#method_reset"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003AstartGame\u0028\u0029",
             "name": "startGame",
-            "summary": "",
+            "summary": "Indicator\u0020then\u0020the\u0020game\u0020starts",
             "url": "classes/App-Controller-ProjController.html#method_startGame"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003AaddPlayer\u0028\u0029",
             "name": "addPlayer",
-            "summary": "",
+            "summary": "Allow\u0020the\u0020user\u0020to\u0020add\u0020a\u0020hand\u0020to\u0020current\u0020game\u0020LIMIT\u0020of\u00203",
             "url": "classes/App-Controller-ProjController.html#method_addPlayer"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003AremovePlayer\u0028\u0029",
             "name": "removePlayer",
-            "summary": "",
+            "summary": "Allow\u0020the\u0020user\u0020to\u0020remove\u0020a\u0020hand\u0020Minimum\u00201\u0020hand.",
             "url": "classes/App-Controller-ProjController.html#method_removePlayer"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003AdoubleDown\u0028\u0029",
             "name": "doubleDown",
-            "summary": "",
+            "summary": "Allow\u0020the\u0020user\u0020to\u0020double\u0020down.",
             "url": "classes/App-Controller-ProjController.html#method_doubleDown"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003Aloan\u0028\u0029",
             "name": "loan",
-            "summary": "",
+            "summary": "Allow\u0020the\u0020user\u0020to\u0020refill\u0020its\u0020balance\u0020and\u0020gets\u0020the\u0020player\u0020in\u0020debt",
             "url": "classes/App-Controller-ProjController.html#method_loan"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003AupdateWager\u0028\u0029",
             "name": "updateWager",
-            "summary": "",
+            "summary": "Allow\u0020the\u0020user\u0020to\u0020change\u0020the\u0020wager\u0020on\u0020current\u0020hand",
             "url": "classes/App-Controller-ProjController.html#method_updateWager"
-        },                {
-            "fqsen": "\\App\\Controller\\ProjController\u003A\u003ApayLoan\u0028\u0029",
-            "name": "payLoan",
-            "summary": "",
-            "url": "classes/App-Controller-ProjController.html#method_payLoan"
         },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003AgetPlayers\u0028\u0029",
             "name": "getPlayers",
@@ -376,11 +371,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-ProjController.html#method_saveBalance"
         },                {
-            "fqsen": "\\App\\Controller\\ProjController\u003A\u003AreduceDebt\u0028\u0029",
-            "name": "reduceDebt",
-            "summary": "",
-            "url": "classes/App-Controller-ProjController.html#method_reduceDebt"
-        },                {
             "fqsen": "\\App\\Controller\\ProjController\u003A\u003AfindNextActivePlayer\u0028\u0029",
             "name": "findNextActivePlayer",
             "summary": "",
@@ -390,11 +380,6 @@ Search.appendIndex(
             "name": "dealerPlay",
             "summary": "",
             "url": "classes/App-Controller-ProjController.html#method_dealerPlay"
-        },                {
-            "fqsen": "\\App\\Controller\\ProjController\u003A\u003AinitialiseDealer\u0028\u0029",
-            "name": "initialiseDealer",
-            "summary": "",
-            "url": "classes/App-Controller-ProjController.html#method_initialiseDealer"
         },                {
             "fqsen": "\\App\\Controller\\ReportController",
             "name": "ReportController",
