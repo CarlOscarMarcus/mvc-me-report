@@ -109,7 +109,7 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Deck
+    Balance
 
     
             <div class="phpdocumentor-element__package">
@@ -128,9 +128,9 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Balance.php"><a href="files/src-deckhandler-balance.html"><abbr title="src/DeckHandler/Balance.php">Balance.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5</span>
+    <span class="phpdocumentor-element-found-in__line">4</span>
 
     </aside>
 
@@ -145,7 +145,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/App-DeckHandler-Deck.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/App-DeckHandler-Balance.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -159,96 +159,70 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/App-DeckHandler-Deck.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/App-DeckHandler-Balance.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/App-DeckHandler-Deck.html#property_cards">$cards</a>
+    <a class="" href="classes/App-DeckHandler-Balance.html#property_balance">$balance</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: float            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a class="" href="classes/App-DeckHandler-Balance.html#property_debt">$debt</a>
+    <span>
+                        &nbsp;: float            </span>
 </dt>
 
     </dl>
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/App-DeckHandler-Deck.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/App-DeckHandler-Balance.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method___construct">__construct()</a>
+    <a class="" href="classes/App-DeckHandler-Balance.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_cardsLeft">cardsLeft()</a>
-    <span>
-                                &nbsp;: int    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_deal">deal()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_deckToString">deckToString()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Reformat deck cards to readable format.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_draw">draw()</a>
-    <span>
-                                &nbsp;: <a href="classes/App-DeckHandler-Card.html"><abbr title="\App\DeckHandler\Card">Card</abbr></a>|null    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_fromArray">fromArray()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_peek">peek()</a>
-    <span>
-                                &nbsp;: <a href="classes/App-DeckHandler-Card.html"><abbr title="\App\DeckHandler\Card">Card</abbr></a>|null    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_shuffle">shuffle()</a>
+    <a class="" href="classes/App-DeckHandler-Balance.html#method_adjustLoan">adjustLoan()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_shuffleAndReturn">shuffleAndReturn()</a>
+    <a class="" href="classes/App-DeckHandler-Balance.html#method_fromArray">fromArray()</a>
     <span>
                                 &nbsp;: self    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_sort">sort()</a>
+    <a class="" href="classes/App-DeckHandler-Balance.html#method_getBalance">getBalance()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: float    </span>
 </dt>
-<dd>Sort the current deck.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_toArray">toArray()</a>
+    <a class="" href="classes/App-DeckHandler-Balance.html#method_getDebt">getDebt()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: float    </span>
 </dt>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/App-DeckHandler-Deck.html#method_initializeDeck">initializeDeck()</a>
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/App-DeckHandler-Balance.html#method_setBalance">setBalance()</a>
     <span>
                                 &nbsp;: void    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/App-DeckHandler-Balance.html#method_toArray">toArray()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 
     </dl>
@@ -261,7 +235,7 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/App-DeckHandler-Deck.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/App-DeckHandler-Balance.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -271,15 +245,51 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_cards">
-        $cards
-        <a href="classes/App-DeckHandler-Deck.html#property_cards" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_balance">
+        $balance
+        <a href="classes/App-DeckHandler-Balance.html#property_balance" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Balance.php"><a href="files/src-deckhandler-balance.html"><abbr title="src/DeckHandler/Balance.php">Balance.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">6</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">float</span>
+    <span class="phpdocumentor-signature__name">$balance</span>
+    </code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_debt">
+        $debt
+        <a href="classes/App-DeckHandler-Balance.html#property_debt" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Balance.php"><a href="files/src-deckhandler-balance.html"><abbr title="src/DeckHandler/Balance.php">Balance.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">7</span>
 
@@ -289,9 +299,9 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$cards</span>
-     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+        <span class="phpdocumentor-signature__type">float</span>
+    <span class="phpdocumentor-signature__name">$debt</span>
+    </code>
 
     
     
@@ -305,7 +315,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/App-DeckHandler-Deck.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/App-DeckHandler-Balance.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -316,11 +326,11 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/App-DeckHandler-Deck.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-DeckHandler-Balance.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Balance.php"><a href="files/src-deckhandler-balance.html"><abbr title="src/DeckHandler/Balance.php">Balance.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">9</span>
 
@@ -329,79 +339,7 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_cardsLeft">
-        cardsLeft()
-        <a href="classes/App-DeckHandler-Deck.html#method_cardsLeft" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">45</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">cardsLeft</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_deal">
-        deal()
-        <a href="classes/App-DeckHandler-Deck.html#method_deal" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">116</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">deal</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$count</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$initialBalance</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">10</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$debt</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -410,8 +348,59 @@
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$count</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                <span class="phpdocumentor-signature__argument__name">$initialBalance</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">10</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$debt</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_adjustLoan">
+        adjustLoan()
+        <a href="classes/App-DeckHandler-Balance.html#method_adjustLoan" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Balance.php"><a href="files/src-deckhandler-balance.html"><abbr title="src/DeckHandler/Balance.php">Balance.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">30</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">adjustLoan</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$amount</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$amount</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -422,92 +411,7 @@
 
     
 
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_deckToString">
-        deckToString()
-        <a href="classes/App-DeckHandler-Deck.html#method_deckToString" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">106</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Reformat deck cards to readable format.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">deckToString</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
     
-    
-    
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>$cardStrings</p>
-</section>
-
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_draw">
-        draw()
-        <a href="classes/App-DeckHandler-Deck.html#method_draw" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">40</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">draw</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-DeckHandler-Card.html"><abbr title="\App\DeckHandler\Card">Card</abbr></a>|null</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="classes/App-DeckHandler-Card.html"><abbr title="\App\DeckHandler\Card">Card</abbr></a>|null</span>
-            </section>
-
 </article>
                     <article
         class="phpdocumentor-element
@@ -517,13 +421,13 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_fromArray">
         fromArray()
-        <a href="classes/App-DeckHandler-Deck.html#method_fromArray" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-DeckHandler-Balance.html#method_fromArray" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Balance.php"><a href="files/src-deckhandler-balance.html"><abbr title="src/DeckHandler/Balance.php">Balance.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
@@ -563,22 +467,22 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_peek">
-        peek()
-        <a href="classes/App-DeckHandler-Deck.html#method_peek" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getBalance">
+        getBalance()
+        <a href="classes/App-DeckHandler-Balance.html#method_getBalance" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Balance.php"><a href="files/src-deckhandler-balance.html"><abbr title="src/DeckHandler/Balance.php">Balance.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">15</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">peek</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/App-DeckHandler-Card.html"><abbr title="\App\DeckHandler\Card">Card</abbr></a>|null</span></code>
+                    <span class="phpdocumentor-signature__name">getBalance</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -591,7 +495,7 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="classes/App-DeckHandler-Card.html"><abbr title="\App\DeckHandler\Card">Card</abbr></a>|null</span>
+        <span class="phpdocumentor-signature__response_type">float</span>
             </section>
 
 </article>
@@ -601,56 +505,22 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_shuffle">
-        shuffle()
-        <a href="classes/App-DeckHandler-Deck.html#method_shuffle" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getDebt">
+        getDebt()
+        <a href="classes/App-DeckHandler-Balance.html#method_getDebt" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Balance.php"><a href="files/src-deckhandler-balance.html"><abbr title="src/DeckHandler/Balance.php">Balance.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">shuffle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_shuffleAndReturn">
-        shuffleAndReturn()
-        <a href="classes/App-DeckHandler-Deck.html#method_shuffleAndReturn" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">34</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">shuffleAndReturn</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                    <span class="phpdocumentor-signature__name">getDebt</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -663,7 +533,7 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">self</span>
+        <span class="phpdocumentor-signature__response_type">float</span>
             </section>
 
 </article>
@@ -673,29 +543,38 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_sort">
-        sort()
-        <a href="classes/App-DeckHandler-Deck.html#method_sort" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_setBalance">
+        setBalance()
+        <a href="classes/App-DeckHandler-Balance.html#method_setBalance" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Balance.php"><a href="files/src-deckhandler-balance.html"><abbr title="src/DeckHandler/Balance.php">Balance.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Sort the current deck.</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">sort</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">setBalance</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$balance</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$balance</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
     
 
     
@@ -710,13 +589,13 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_toArray">
         toArray()
-        <a href="classes/App-DeckHandler-Deck.html#method_toArray" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-DeckHandler-Balance.html#method_toArray" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Balance.php"><a href="files/src-deckhandler-balance.html"><abbr title="src/DeckHandler/Balance.php">Balance.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
@@ -740,47 +619,13 @@
             </section>
 
 </article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_initializeDeck">
-        initializeDeck()
-        <a href="classes/App-DeckHandler-Deck.html#method_initializeDeck" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DeckHandler/Deck.php"><a href="files/src-deckhandler-deck.html"><abbr title="src/DeckHandler/Deck.php">Deck.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">14</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">initializeDeck</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
-    
-</article>
             </section>
 
         <div class="phpdocumentor-modal" id="source-view">
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/DeckHandler/Deck.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/DeckHandler/Balance.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -879,33 +724,29 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/App-DeckHandler-Deck.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/App-DeckHandler-Deck.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/App-DeckHandler-Balance.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/App-DeckHandler-Balance.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="classes/App-DeckHandler-Deck.html#property_cards">$cards</a></li>
+                                                    <li class=""><a href="classes/App-DeckHandler-Balance.html#property_balance">$balance</a></li>
+                                                    <li class=""><a href="classes/App-DeckHandler-Balance.html#property_debt">$debt</a></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method___construct">__construct()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_cardsLeft">cardsLeft()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_deal">deal()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_deckToString">deckToString()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_draw">draw()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_fromArray">fromArray()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_peek">peek()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_shuffle">shuffle()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_shuffleAndReturn">shuffleAndReturn()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_sort">sort()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_toArray">toArray()</a></li>
-                                            <li class=""><a href="classes/App-DeckHandler-Deck.html#method_initializeDeck">initializeDeck()</a></li>
+                                            <li class=""><a href="classes/App-DeckHandler-Balance.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/App-DeckHandler-Balance.html#method_adjustLoan">adjustLoan()</a></li>
+                                            <li class=""><a href="classes/App-DeckHandler-Balance.html#method_fromArray">fromArray()</a></li>
+                                            <li class=""><a href="classes/App-DeckHandler-Balance.html#method_getBalance">getBalance()</a></li>
+                                            <li class=""><a href="classes/App-DeckHandler-Balance.html#method_getDebt">getDebt()</a></li>
+                                            <li class=""><a href="classes/App-DeckHandler-Balance.html#method_setBalance">setBalance()</a></li>
+                                            <li class=""><a href="classes/App-DeckHandler-Balance.html#method_toArray">toArray()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -925,7 +766,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/App-DeckHandler-Deck.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/App-DeckHandler-Balance.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

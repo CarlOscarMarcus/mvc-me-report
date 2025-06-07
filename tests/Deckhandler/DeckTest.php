@@ -85,7 +85,6 @@ class DeckTest extends TestCase
     {
         $deck = new Deck();
         $string = $deck->deckToString();
-        $this->assertIsString($string);
         $this->assertStringContainsString('♠', $string);
     }
 

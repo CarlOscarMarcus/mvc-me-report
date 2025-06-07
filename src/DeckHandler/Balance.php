@@ -4,7 +4,7 @@ namespace App\DeckHandler;
 class Balance
 {
     private float $balance;
-    private float $debt; // Total loaned amount
+    private float $debt;
 
     public function __construct(float $initialBalance = 10, float $debt = 0)
     {

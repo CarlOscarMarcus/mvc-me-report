@@ -125,7 +125,7 @@ class ProjController extends AbstractController
 
         if ($deck->cardsLeft() > 0 && !$player->hasStayed() && !$player->isBust() && !$player->hasBlackjack()) {
             $player->addCard($deck->draw());
-
+            /** @var \App\DeckHandler\Player $player */
             if ($player->isBust()) {
                 $nextIndex = $this->findNextActivePlayer($players, $activeIndex);
 
@@ -452,37 +452,6 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_blackjack');
     }
 
-
-    #[Route('/pay-loan', name: 'blackjack_pay_loan', methods: ['POST'])]
-    public function payLoan(SessionInterface $session, Request $request): RedirectResponse
-    {
-        $amount = (float) $request->request->get('amount', 0);
-        if ($amount <= 0) {
-            $this->addFlash('error', 'Invalid payment amount.');
-            return $this->redirectToRoute('proj_blackjack');
-        }
-
-        $balance = $this->getBalance($session);
-
-        if ($amount > $balance->getBalance()) {
-            $this->addFlash('error', 'Insufficient balance to pay back loan.');
-            return $this->redirectToRoute('proj_blackjack');
-        }
-
-        if ($amount > $balance->getDebt()) {
-            $amount = $balance->getDebt(); // can't pay more than debt
-        }
-
-        // Deduct from balance and debt
-        $balance->setBalance($balance->getBalance() - $amount);
-        $balance->debt -= $amount;
-
-        $this->saveBalance($session, $balance);
-
-        $this->addFlash('success', sprintf('Loan payment successful: %.2f coins.', $amount));
-        return $this->redirectToRoute('proj_blackjack');
-    }
-
     // Helper methods
 
     private function getPlayers(SessionInterface $session): array
@@ -519,23 +488,18 @@ class ProjController extends AbstractController
         $session->set('deck', $deck->toArray());
     }
 
-    private function getBalance(SessionInterface $session): Balance
+    private function getBalance(SessionInterface $session): ?Balance
     {
-        $data = $session->get('balance');
-        return $data ? Balance::fromArray($data) : new Balance();
+        $balance = $session->get('balance');
+        if ($balance instanceof Balance) {
+            return $balance;
+        }
+        return null;
     }
 
     private function saveBalance(SessionInterface $session, Balance $balance): void
     {
         $session->set('balance', $balance->toArray());
-    }
-
-    public function reduceDebt(float $amount): void
-    {
-        $this->debt -= $amount;
-        if ($this->debt < 0) {
-            $this->debt = 0;
-        }
     }
 
     private function findNextActivePlayer(array $players, int $currentIndex): ?int
@@ -571,9 +535,4 @@ class ProjController extends AbstractController
         $this->saveDeck($session, $deck);
     }
 
-    private function initialiseDealer(Deck $deck): Player
-    {
-        $dealer = new Player();
-        return $dealer;
-    }
 }
