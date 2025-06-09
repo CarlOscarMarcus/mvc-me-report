@@ -34,9 +34,6 @@ class ProjController extends AbstractController
     public function blackjackIndex(SessionInterface $session): Response
     {
         $balance = $this->getBalance($session);
-        if (!$balance) {
-            $balance = new Balance();
-        }
         $deck = $this->getDeck($session);
         $players = $this->getPlayers($session);
 
@@ -493,10 +490,8 @@ class ProjController extends AbstractController
 
     private function getBalance(SessionInterface $session): ?Balance
     {
-        $balance = Balance::fromArray($session->get('balance'));
-        if ($balance instanceof Balance) {
-            return $balance;
-        }
+        $balance = $session->get('balance');
+        return $balance ? Balance::fromArray($balance) : new Balance();
         return null;
     }
 
